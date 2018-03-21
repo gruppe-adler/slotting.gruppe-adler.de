@@ -1,0 +1,65 @@
+* {
+  box-sizing: border-box
+}
+
+.slot-container {
+  display: inline;
+}
+
+.avatar {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  background-color: #d9d9d9;
+  box-shadow: inset 0 0 2px 0 rgba(0,0,0,0.2);
+  cursor: pointer;
+  line-height: 24px;
+  font-size: 14px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  background-position: center center !important;
+
+  &:hover {
+    background-color: #f9f9f9;
+    color: #333;
+  }
+
+  &.fireteam {
+    background-color: white;
+  }
+
+  .locked {
+    color: #999;
+  }
+}
+
+.slot-descr {
+  cursor: pointer;
+  color: #777;
+  display: block;
+  text-align: center;
+  background-color: rgba(0,0,0,0);
+  border-radius: 3px;
+  margin-top: 2px;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: #d9d9d9;
+    color: #333;
+  }
+
+  &.fireteam {
+    &:hover {
+      background-color: rgba(0,0,0,0.2);
+    }
+  }
+}
+
+.lock-icon {
+  width: 0.875em !important;
+  opacity: 0.4;
+}

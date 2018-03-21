@@ -1,0 +1,35 @@
+<div class="badge-container" >
+  <ng-container *ngIf="data">
+    <div class="title-bar">
+      <img src="https://assets-cdn.github.com/favicon.ico">
+      <span *ngIf="data.name">{{organization}} ({{data.name}})</span>
+    </div>
+    <div class="main-content">
+      <img [src]="data.avatar_url">
+      <div>
+        <span class="name">{{data.name}}</span>
+        <br/>
+        <span>{{organization}}</span>
+      </div>
+    </div>
+    <div class="footer">
+      <div>
+        <span octicon="link" class="octicon" [width]="'20px'"></span>
+        <a [href]="data.blog" >{{data.blog}}</a>
+      </div>
+      <div class="divider-top">
+        <span octicon="clock" class="octicon" [width]="'16px'"></span>
+        <span>{{'content.github-badge.joined-at' | translate:{date: (data.created_at | date)} }}</span>
+      </div>
+      <mat-divider></mat-divider>
+      <div class="divider-bottom">
+        <span octicon="repo" class="octicon" [width]="'16px'"></span>
+        <a [href]="'//github.com/' + data.login">{{'content.github-badge.public-repos' | translate:{repos: data.public_repos} }}</a>
+      </div>
+      <div>
+        <span octicon="gist" class="octicon" [width]="'16px'"></span>
+        <a [href]="'//gist.github.com/' + data.login">{{'content.github-badge.public-gists' | translate:{gists: data.public_gists} }}</a>
+      </div>
+    </div>
+  </ng-container>
+</div>

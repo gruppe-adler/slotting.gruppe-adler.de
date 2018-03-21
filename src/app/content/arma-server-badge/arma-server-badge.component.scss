@@ -1,0 +1,40 @@
+.container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+
+  border: 1px solid #d8d8d8 !important;
+  border-radius: 3px;
+}
+
+.title-bar {
+  background: #d0d5d9;
+
+  * {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  img {
+    height: 1.5em !important;
+    margin: 0.4em;
+  }
+
+  span {
+    display: inline-block;
+    font-weight: bold;
+  }
+}
+
+mat-icon {
+  color: initial;
+  margin-right: 1rem;
+}
+
+.line {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 0.2rem 0.6rem;
+}

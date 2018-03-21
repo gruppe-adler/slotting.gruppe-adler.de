@@ -1,0 +1,37 @@
+<div class="post">
+  <h2 [innerHtml]="post.title.rendered | safeHtml" class="entry-title"></h2>
+  <div class="post-metadata">
+    <span>
+      <mat-chip-list>
+        <span>
+          <mat-icon>access_time</mat-icon>
+        </span>
+        <mat-chip>{{post.date | date:'d. MMMM y'}}</mat-chip>
+      </mat-chip-list>
+    </span>
+    <span *ngIf="post?.authors && post.authors.length > 0 && authorsValid()">
+      <mat-chip-list>
+        <ng-container *ngFor="let author of post.authors">
+          <span>
+            <img *ngIf="author.picture && author.picture !== ''; else authorIcon" [src]="author.picture" class="author-picture">
+            <ng-template #authorIcon>
+              <mat-icon>person_outline</mat-icon>
+            </ng-template>
+          </span>
+        <mat-chip (click)="navigateToUser(author.name)" class="author-chip">
+          <span *ngIf="author?.name">{{author.name}}</span>
+        </mat-chip>
+        </ng-container>
+      </mat-chip-list>
+    </span>
+  </div>
+  <div class="post-container" [ngClass]="!expanded ? 'excerpt' : null">
+    <div class="content" [innerHtml]="post.content.rendered | safeHtml"></div>
+  </div>
+  <!--
+  <ng-container *ngIf="!expanded">
+    <button mat-raised-button (click)="expanded = true" class="read-on-button">Weiterlesen</button>
+  </ng-container>
+  -->
+  <mat-divider class="divider"></mat-divider>
+</div>

@@ -1,0 +1,23 @@
+.events-button {
+  width: 100%;
+  background: #6a6;
+  color: white;
+  font-size: 20px !important;
+  padding-bottom: 0.5rem;
+
+  mat-icon {
+    color: white;
+    height: 50px;
+    width: 50px;
+    font-size: 50px;
+    margin-top: 1rem;
+  }
+}
+
+.twitter-timeline-container {
+  margin-top: 3rem;
+}
+
+.load-more-button {
+  margin: 0.5rem 0 2rem;
+}

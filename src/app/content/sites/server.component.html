@@ -1,0 +1,13 @@
+<div class="content-container">
+  <div *ngIf="page?.content?.rendered" [innerHtml]="page.content.rendered | safeHtml"></div>
+</div>
+<div class="content-sidebar">
+  <h2>Teamspeak</h2>
+  <app-teamspeak-viewer [serverId]="1056417"></app-teamspeak-viewer>
+  <br/>
+  <h2>Server</h2>
+  <app-arma-server-badge [apiKey]="environment.api.arma3ServersNetKey"></app-arma-server-badge>
+  <br/>
+  <h2>GitHub</h2>
+  <app-github-badge organization="gruppe-adler"></app-github-badge>
+</div>

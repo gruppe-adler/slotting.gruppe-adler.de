@@ -1,0 +1,18 @@
+<div class="storage-notification-container" [@messageState]="messageSuppressed">
+  <div class="storage-notification-layer">
+    <div class="content-table">
+      <span class="storage-message">
+          {{'storage.message' | translate}}
+      </span>
+
+      <span class="storage-message-buttons">
+        <button class="left-button" mat-raised-button color="accent" (click)="onAcceptButtonClicked()">
+          {{'storage.accept-button' | translate}}
+        </button>
+        <button mat-raised-button color="accent" (click)="onDisagreeButtonClicked()">
+          {{'storage.deny-button' | translate}}
+        </button>
+      </span>
+    </div>
+  </div>
+</div>

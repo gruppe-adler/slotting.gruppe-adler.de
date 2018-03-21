@@ -1,0 +1,187 @@
+$baseForumPluginUrl: 'https://forum.gruppe-adler.de/plugins/nodebb-plugin-arma3-slotting/';
+$baseForumPluginCssUrl: $baseForumPluginUrl + 'css/';
+$firstSlotSize: 42px;
+$slotSize: 35px;
+
+* {
+  box-sizing: border-box
+}
+
+.platoon-container {
+  box-shadow: 0 0 5px 0 rgba(0,0,0,0.15);
+  margin: 20px 20px 5px 20px;
+  text-align: center;
+  background: white;
+  min-height: 80px;
+
+  .platoon-title-container {
+    border-top: 3px solid #D18D1F;
+
+    .platoon-title {
+      color: #D18D1F;
+      text-shadow: 0 1px 0 rgba(255,255,255,0.4);
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      display: inline-table;
+    }
+  }
+
+  .platoon-header {
+    text-align: center;
+  }
+}
+
+.company-container {
+  min-height: 80px;
+  border: 1px solid #d9d9d9;
+  text-align: center;
+  margin-top: 20px;
+
+  .company-title-container {
+    border-top: 3px solid #8f1167;
+
+    &.blufor {
+      border-top: 3px solid #004c9a;
+    }
+
+    &.opfor {
+      border-top: 3px solid #800000;
+    }
+
+    &.independent {
+      border-top: 3px solid #6a6;
+    }
+
+    .company-title {
+      color: #8f1167;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      display: inline-table;
+
+      &.blufor {
+        color: #004c9a;
+      }
+
+      &.opfor {
+        color: #800000;
+      }
+
+      &.independent {
+        color: #6a6;
+      }
+    }
+  }
+
+  .company-header {
+    text-align: center;
+  }
+}
+
+.squad-container {
+  min-height: 80px;
+  box-shadow: 0 0 1px 2px rgba(0,0,0,0.2);
+  margin: 5px;
+  text-align: center;
+  display: inline-block;
+  min-width: 230px;
+
+  .squad-title-container {
+    background-color: white;
+
+    .squad-title {
+      color: #333;
+      text-align: center;
+      font-weight: bold;
+      text-shadow: none;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      display: inline-table;
+    }
+  }
+
+  .squad-header {
+    text-align: center;
+    min-height: 80px;
+  }
+
+  .squad-body {
+    background-color: #d9d9d9;
+    width: 100%;
+    display: table;
+    text-align: center;
+  }
+}
+
+.fireteam-container {
+  display: inline-block;
+  padding: 7px 10px 7px 10px;
+}
+
+.title-container {
+  position: relative;
+  height: 45px;
+}
+
+.company-header, .platoon-header, .squad-header {
+  margin-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  .slot:first-child {
+    position: relative;
+    margin-top: 10px;
+    margin-right: 10px;
+    height: $firstSlotSize;
+    width: $firstSlotSize;
+  }
+}
+
+.company-title, .platoon-title, .squad-title {
+  color: rgba(0,0,0,0.5);
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  line-height: 48px;
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.slot {
+  height: $slotSize;
+  width: $slotSize;
+  display: inline-block;
+  margin-right: 5px;
+  margin-left: 5px;
+  position: relative;
+}
+
+/*
+  Symbols
+ */
+.natosymbol {
+  width: 30px;
+  height: 20px;
+  opacity: 0.6;
+  background-repeat: no-repeat !important;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background-size: 30px 20px !important;
+
+  $icons: air, armor, art, hq, inf, maint, mech_inf, med, mortar, motor_inf, plane, recon, service, support, uav;
+
+  @each $icon in $icons {
+    &.#{$icon} {
+      background: url('../../assets/slotting/icons/' + $icon + '.svg');
+    }
+  }
+}

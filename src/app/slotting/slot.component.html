@@ -1,0 +1,13 @@
+<div class="slot-container">
+  <ng-container *ngIf="slot">
+    <div class="avatar" [matTooltip]="slot.user ? slot.user.username : slotTooltip" matTooltipPosition="above" [ngStyle]="{'background': background}" [ngClass]="isFireteam ? 'fireteam' : null" (click)="slotUser()">
+      <span *ngIf="slot.user && slot.user['icon:text'] && !slot.user.picture">
+        {{slot.user['icon:text']}}
+      </span>
+      <img src="../../assets/slotting/lock.svg" class="lock-icon" *ngIf="slotLocked"/>
+    </div>
+    <div class="slot-descr" [matTooltip]="slot.description" (click)="slotUser()" [ngClass]="isFireteam ? 'fireteam' : null">
+      {{slot.shortcode}}
+    </div>
+  </ng-container>
+</div>

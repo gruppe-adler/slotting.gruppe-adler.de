@@ -1,0 +1,25 @@
+<div class="container" *ngIf="data">
+  <div class="title-bar">
+    <img src="../../../assets/arma3.png" />
+    <span>{{data.hostname}}</span>
+  </div>
+  <div class="line">
+    <mat-icon>link</mat-icon>
+    <span>{{data.address}}:{{data.port}}</span>
+  </div>
+  <div class="line">
+    <mat-icon>person</mat-icon>
+    <span>{{data.players}}/{{data.maxplayers}}</span>
+  </div>
+  <div class="line">
+    <mat-icon>wifi</mat-icon>
+    <span>{{data.uptime}}%</span>
+  </div>
+  <div class="line">
+    <mat-icon>lock</mat-icon>
+    <span *ngIf="data.password === '1'; else noPassword">{{'main.yes' | translate}}</span>
+    <ng-template #noPassword>
+      <span>{{'main.no' | translate}}</span>
+    </ng-template>
+  </div>
+</div>

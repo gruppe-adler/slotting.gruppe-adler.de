@@ -1,0 +1,42 @@
+.content-container ::ng-deep {
+  .btn-neutral-inline, .btn-neutral-inline:visited {
+    width: 19.8%;
+    border-radius: 2px;
+    background-color: #fff;
+    padding: 10px;
+    margin: 5px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.3);
+    float: left;
+    text-align: center;
+    display: inline-block;
+    font-size: 30px;
+    color: #707070;
+  }
+}
+
+.sidebar-items {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  a {
+    text-align: center;
+    margin-bottom: 3rem;
+
+    .twitter-img {
+      max-width: 30% !important;
+    }
+
+    .arma-unit-img {
+      max-width: 50% !important;
+    }
+
+    .steam-img {
+      max-width: 60% !important;
+    }
+
+    .github-img {
+      max-width: 40% !important;
+    }
+  }
+}

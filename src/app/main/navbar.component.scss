@@ -1,0 +1,153 @@
+@import "../../assets/defines";
+
+header {
+  background: #000;
+  line-height: 1.5;
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 9000;
+  height: $navbarDesktopHeight;
+
+  @media (max-width: $navbarMaxWidthForMobileView - 1px) {
+    height: $navbarMobileHeight;
+  }
+}
+
+.mobile-picture {
+  display: none;
+  position: absolute;
+  left: 1rem;
+  top: 0.4rem;
+  max-height: $navbarMobileHeight - 0.8rem !important;
+  cursor: pointer;
+
+  @media (max-width: $navbarMaxWidthForMobileView - 1px) {
+    display: initial;
+    z-index: 9999;
+  }
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: flex-end;
+  height: 100%;
+  width: 100%;
+  background: #000;
+
+  @media (max-width: $navbarMaxWidthForMobileView - 1px) {
+    display: initial;
+    z-index: 8000;
+  }
+}
+
+.navbar-list {
+  margin: 0;
+  list-style-type: none;
+  padding-right: 50px;
+
+
+  @media (max-width: $navbarMaxWidthForMobileView - 1px) {
+    margin-top: $navbarMobileHeight;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+    background: #000;
+    z-index: 7000;
+  }
+
+  @media (min-width: $navbarMaxWidthForMobileView) {
+    transform: translateY(0%) !important;
+  }
+}
+
+.navbar-entry {
+  font-family: Oswald, sans-serif;
+  font-size: 20px;
+  float: left;
+  margin: 0;
+  line-height: 32px;
+  height: 100%;
+  transition: background 0.2s ease;
+  cursor: pointer;
+
+  &.active {
+    background: #d18d1f !important;
+  }
+
+  &:hover {
+    background: #404040;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  @media (max-width: $navbarMaxWidthForMobileView - 1px) {
+    float: none;
+
+    a {
+      img {
+        margin-left: 0;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        width: 4% !important;
+      }
+    }
+  }
+}
+
+.navbar-link {
+  color: white;
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 0 12px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+
+  img {
+    margin: 0 10px;
+  }
+}
+
+.mobile-expand-container {
+  height: 100%;
+  background: black;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+
+  @media (min-width: $navbarMaxWidthForMobileView) {
+    display: none;
+  }
+}
+
+.mobile-expand-button {
+  height: 100%;
+  margin-right: 2rem;
+  width: $navbarMobileHeight;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  &.expanded {
+    background: #d18d1f !important;
+  }
+
+  mat-icon {
+    vertical-align: initial;
+    color: white;
+  }
+
+  @media (min-width: $navbarMaxWidthForMobileView) {
+    display: none;
+  }
+}

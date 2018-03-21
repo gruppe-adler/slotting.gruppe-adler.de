@@ -1,0 +1,15 @@
+<div class="events-container">
+  <h1 class="header">{{'events.main.heading' | translate}}</h1>
+  <p class="introduction-text" [innerHtml]="'events.main.introduction-text' | translate">
+  </p>
+
+  <mat-card class="admin-attention-card" *ngIf="sharedService.shareData.adminUuid">
+    <mat-card-header>
+      <mat-card-title>{{'events.main.admin-notice.heading' | translate}}</mat-card-title>
+      <mat-card-subtitle [innerHtml]="'events.main.admin-notice.body' | translate:{link: publicUserUrl}">
+      </mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+  <h2>{{topic.title}}</h2>
+  <app-event-node [context]="sharedService.match | async"></app-event-node>
+</div>
