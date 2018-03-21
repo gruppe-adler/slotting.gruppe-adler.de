@@ -18,12 +18,10 @@ import { BackgroundComponent } from './main/background.component';
 import { NotFoundComponent } from './main/not-found.component';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
+import { TranslateHttpLoader } from './translate-http-loader';
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/');
+  return new TranslateHttpLoader(http);
 }
 
 @NgModule({
@@ -56,7 +54,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     ]),
     FormsModule,
     HttpClientModule,
-    ServiceWorkerModule.register('./ngsw-worker.js', {enabled: environment.production}),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

@@ -1,0 +1,67 @@
+{
+  "content": {
+    "github-badge": {
+      "joined-at": "Beigetreten am {{date}}",
+      "public-gists": "{{gists}} öffentliche Gists",
+      "public-repos": "{{repos}} öffentliche Repos"
+    }
+  },
+  "events": {
+    "main": {
+      "admin-notice": {
+        "body": "Diese Adminversion erlaubt Dir das Bearbeiten von Slots, die Deinem Clan zugewiesen wurden. Dieser Link ist für Führungspersonen gedacht.\nSei vorsichtig, wem Du diesen Link weitergibst. Falls dieser Link doch mal abhanden gekommen ist, kontaktiere uns bitte!<br/>\nFür den normalen Nutzer ist <a href=\"{{link}}\">dieser Link</a> vorgesehen.",
+        "heading": "Achtung, Du siehst die Adminversion!"
+      },
+      "heading": "Joint-Ops Slottingtool",
+      "introduction-text": "Mit diesem Tool kannst Du Dich bei der kommenden Joint-Ops slotten. Du benötigst keinen Account. Klicke einfach auf einen Slot, der nicht durch ein Schloss gekennzeichnet ist, um deine Anmeldung zu machen.<br/>\nKlicke erneut, falls du dich ausslotten möchtest. Wir freuen uns auf Dich!"
+    },
+    "name-dialog": {
+      "body": "Bitte gib hier den Namen an, der in der Slotliste erscheinen soll.\nBitte verwende keine Clantags. Wir klären das für Dich.",
+      "button-abort": "Abbrechen",
+      "button-confirm": "Slotten",
+      "heading": "User slotten",
+      "name-error": "Bitte gib einen Namen ein",
+      "name-placeholder": "Name"
+    },
+    "notification": {
+      "error": {
+        "body": "Unbekannter Fehler beim Slotten",
+        "heading": "Fehler"
+      },
+      "no-unslot": {
+        "body": "Du kannst keine User entslotten",
+        "heading": "Nicht erlaubt"
+      },
+      "not-shared": {
+        "body": "Dieser Slot ist für Dich nicht freigegeben",
+        "heading": "Nicht freigegeben"
+      },
+      "slotted": {
+        "body": "Du hast dich erfolgreich eingeslottet",
+        "heading": "Eingeslottet"
+      },
+      "unslotted-error": {
+        "body": "Unbekannter Fehler beim Ausslotten",
+        "heading": "Fehler"
+      },
+      "unslotted-self": {
+        "body": "Du hast dich erfolgreich ausgeslottet",
+        "heading": "Ausgeslottet"
+      },
+      "unslotted": {
+        "body": "Du hast den Nutzer erfolgreich ausgeslottet",
+        "heading": "Ausgeslottet"
+      }
+    }
+  },
+  "main": {
+    "imprint": "Impressum",
+    "no": "Nein",
+    "yes": "Ja"
+  },
+  "storage": {
+    "accept-button": "Find ich gut",
+    "deny-button": "Lieber nicht",
+    "message": "Wir speichern ein paar Daten in deinem Browser zwischen. Was denkst du dazu?"
+  }
+}

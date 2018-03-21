@@ -1,0 +1,67 @@
+{
+  "content": {
+    "github-badge": {
+      "joined-at": "Joined at {{date}}",
+      "public-gists": "{{gists}} public gists",
+      "public-repos": "{{repos}} public repos"
+    }
+  },
+  "events": {
+    "main": {
+      "admin-notice": {
+        "body": "This admin version allows you to edit slots assigned to your clan. This link is intended to be only available for leading personalities. Please be patient who you are sharing with this link. In case it gets lost somewhere, please contact us!<br/>\nThe normal user should receive <a href=\"{{link}}\">this link</a>.",
+        "heading": "Attention, this is the admin version!"
+      },
+      "heading": "Joint Ops Slottingtool",
+      "introduction-text": "You can use this tool to slot yourself in the upcoming joint ops. You don't need an account. Just click on a slot that isn't marked by a lock to mark your attendance.<br/>\nClick again if you don't want to attend any more. We look forward to see you!"
+    },
+    "name-dialog": {
+      "body": "Please insert a valid name that should be visible in the slot list.\nPlease exclude any clan tags. We will take care of them.",
+      "button-abort": "Abort",
+      "button-confirm": "Slot user",
+      "heading": "Slot user",
+      "name-error": "Please provide a name",
+      "name-placeholder": "Name"
+    },
+    "notification": {
+      "error": {
+        "body": "Unknown error when slotting",
+        "heading": "Error"
+      },
+      "no-unslot": {
+        "body": "You can't unslot other users",
+        "heading": "Not allowed"
+      },
+      "not-shared": {
+        "body": "This slot is not shared for you",
+        "heading": "Not shared"
+      },
+      "slotted": {
+        "body": "You successfully slotted in",
+        "heading": "Slotted"
+      },
+      "unslotted-error": {
+        "body": "Unknown error when unslotting",
+        "heading": "Error"
+      },
+      "unslotted-self": {
+        "body": "You successfully unslotted yourself",
+        "heading": "Unslotted"
+      },
+      "unslotted": {
+        "body": "You successfully unslotted the user",
+        "heading": "Unslotted"
+      }
+    }
+  },
+  "main": {
+    "imprint": "Imprint",
+    "no": "No",
+    "yes": "Yes"
+  },
+  "storage": {
+    "accept-button": "I'm fine",
+    "deny-button": "Better not",
+    "message": "To ensure the best possible experience this site saves data in your browser. What do you think about this?"
+  }
+}

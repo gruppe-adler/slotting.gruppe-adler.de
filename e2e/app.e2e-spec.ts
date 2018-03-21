@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('gruppe-adler.de App', () => {
+describe('slotting.gruppe-adler.de App', () => {
   let page: AppPage;
 
   beforeEach(() => {
