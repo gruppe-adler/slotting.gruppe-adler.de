@@ -46,7 +46,8 @@ export function HttpLoaderFactory(http: HttpClient) {
       },
       {
         path: '**',
-        redirectTo: '/404'
+        // redirectTo: '/404'
+        component: NotFoundComponent
       }
     ]),
     FormsModule,

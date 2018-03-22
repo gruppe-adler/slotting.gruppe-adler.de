@@ -28,6 +28,7 @@
   padding-left: 0;
   font-size: 14px;
   margin: 0;
+  min-width: 160px;
 
   .dropdown-header, li>a {
     display: block;
@@ -68,5 +69,6 @@
     line-height: 20px;
     cursor: pointer;
     text-align: center;
+    margin-right: 5px;
   }
 }

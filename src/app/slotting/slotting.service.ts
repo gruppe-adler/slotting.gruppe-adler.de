@@ -98,4 +98,40 @@ export class SlottingService implements OnDestroy {
   public ngOnDestroy(): void {
     this.socket.close();
   }
+
+  public async slotUser(slotid: string, uid: number): Promise<boolean> {
+    try {
+      await this.http.put(environment.api.forumUrl + '/arma3-slotting/' + this.tid + '/match/' + this.matchid + '/slot/' + slotid + '/user', {uid}).toPromise();
+      return true;
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
+  }
+
+  public async unslotUser(slotid: string): Promise<boolean> {
+    try {
+      await this.http.delete(environment.api.forumUrl + '/arma3-slotting/' + this.tid + '/match/' + this.matchid + '/slot/' + slotid + '/user').toPromise();
+      return true;
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
+  }
+
+  public showNodebbAlert(title: string, message: string, type: string = 'success', timeout: number = 2000): void {
+    if (!window.parent['app'] || !window.parent['app'].alert) {
+      alert(title + ' ' + message);
+      return;
+    }
+
+    window.parent['app'].alert({
+      title: title,
+      message: message,
+      location: 'left-bottom',
+      timeout: timeout,
+      type: type,
+      image: ''
+    });
+  }
 }

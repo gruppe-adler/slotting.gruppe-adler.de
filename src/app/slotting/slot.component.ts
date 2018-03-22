@@ -4,6 +4,7 @@ import { SharedService } from './shared/shared.service';
 import { MatDialog } from '@angular/material';
 import { NameDialogComponent } from './shared/name-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
+import { SlottingService } from './slotting.service';
 
 @Component({
   templateUrl: './slot.component.html',
@@ -21,7 +22,8 @@ export class SlotComponent implements OnInit {
   constructor(private notificationsService: NotificationsService,
               public sharedService: SharedService,
               private dialog: MatDialog,
-              private translateService: TranslateService) {
+              private translateService: TranslateService,
+              private slottingService: SlottingService) {
   }
 
   public ngOnInit(): void {
@@ -89,7 +91,11 @@ export class SlotComponent implements OnInit {
     if (this.sharedService.shareData) {
       await this.slotUserShared();
     } else {
-      await this.slotUserInternal();
+      if (this.slot.user) {
+        await this.deleteUser();
+      } else {
+        await this.slotUserInternal();
+      }
     }
   }
 
@@ -171,7 +177,18 @@ export class SlotComponent implements OnInit {
    * @returns {Promise<void>}
    */
   private async slotUserInternal(): Promise<void> {
+    console.log('slot');
+    if (this.reservation !== '' || this.slot['reserved-for']) {
+      return;
+    }
 
+    this.slottingService.slotUser(this.slot.uuid, -1).then(result => {
+      if (result) {
+        this.slottingService.showNodebbAlert('Eingeslottet', '');
+      } else {
+        this.slottingService.showNodebbAlert('Fehler', '');
+      }
+    });
   }
 
   /**
@@ -216,6 +233,13 @@ export class SlotComponent implements OnInit {
    * @returns {Promise<void>}
    */
   private async deleteUserInternal(): Promise<void> {
-
+    console.log('unslot');
+    this.slottingService.unslotUser(this.slot.uuid).then(result => {
+      if (result) {
+        this.slottingService.showNodebbAlert('Ausgeslottet', '');
+      } else {
+        // this.slottingService.showNodebbAlert('Fehler', '');
+      }
+    });
   }
 }
