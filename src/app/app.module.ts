@@ -5,20 +5,16 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
 import { RouterModule } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { ContentModule } from './content/content.module';
 import { NavbarComponent } from './main/navbar.component';
 import { FooterComponent } from './main/footer.component';
 import { NgProgressModule } from '@ngx-progressbar/core';
 import { NgProgressHttpModule } from '@ngx-progressbar/http';
-import { ContentService } from './content/content.service';
-import { StorageModule } from './storage/storage.module';
-import { AnalyticsService } from './analytics.service';
-import { WindowRef } from './window-ref';
 import { BackgroundComponent } from './main/background.component';
 import { NotFoundComponent } from './main/not-found.component';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from './translate-http-loader';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -34,6 +30,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot([
       {
         path: 'events',
@@ -61,18 +58,12 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    ContentModule,
     SimpleNotificationsModule.forRoot(),
     MaterialModule,
     NgProgressModule.forRoot(),
-    StorageModule,
     NgProgressHttpModule
   ],
-  providers: [
-    ContentService,
-    AnalyticsService,
-    WindowRef
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

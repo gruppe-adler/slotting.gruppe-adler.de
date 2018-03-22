@@ -8,7 +8,7 @@ export class SharedResolver implements Resolve<any> {
 
   async resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<any> {
     if (!(route.queryParams.tid && route.queryParams.matchid && route.queryParams.uuid && route.queryParams.reservation)) {
-      this.router.navigate(['/']);
+      this.router.navigate(['/404']);
       return;
     }
 
@@ -23,7 +23,7 @@ export class SharedResolver implements Resolve<any> {
       }
     }
 
-    this.router.navigate(['/']);
+    this.router.navigate(['/404']);
     return null;
   }
 }

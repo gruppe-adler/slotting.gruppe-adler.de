@@ -1,11 +1,4 @@
 {
-  "content": {
-    "github-badge": {
-      "joined-at": "Joined at {{date}}",
-      "public-gists": "{{gists}} public gists",
-      "public-repos": "{{repos}} public repos"
-    }
-  },
   "events": {
     "main": {
       "admin-notice": {
@@ -53,15 +46,5 @@
         "heading": "Unslotted"
       }
     }
-  },
-  "main": {
-    "imprint": "Imprint",
-    "no": "No",
-    "yes": "Yes"
-  },
-  "storage": {
-    "accept-button": "I'm fine",
-    "deny-button": "Better not",
-    "message": "To ensure the best possible experience this site saves data in your browser. What do you think about this?"
   }
 }

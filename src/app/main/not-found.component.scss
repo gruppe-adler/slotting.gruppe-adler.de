@@ -1,7 +1,7 @@
 .container {
   position: absolute;
   top: 0;
-  bottom: 4rem;
+  bottom: 0;
   right: 0;
   left: 0;
 
@@ -9,13 +9,8 @@
   justify-content: center;
   align-items: center;
 
-  height: 80vh;
+  height: 100vh;
   background: white;
-  padding: 2rem;
-
-  @media (min-width: 1200px) {
-    transform: translateY(-30rem);
-  }
 }
 
 .error-picture {

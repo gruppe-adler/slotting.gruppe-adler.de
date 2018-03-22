@@ -1,11 +1,4 @@
 {
-  "content": {
-    "github-badge": {
-      "joined-at": "Beigetreten am {{date}}",
-      "public-gists": "{{gists}} öffentliche Gists",
-      "public-repos": "{{repos}} öffentliche Repos"
-    }
-  },
   "events": {
     "main": {
       "admin-notice": {
@@ -53,15 +46,5 @@
         "heading": "Ausgeslottet"
       }
     }
-  },
-  "main": {
-    "imprint": "Impressum",
-    "no": "Nein",
-    "yes": "Ja"
-  },
-  "storage": {
-    "accept-button": "Find ich gut",
-    "deny-button": "Lieber nicht",
-    "message": "Wir speichern ein paar Daten in deinem Browser zwischen. Was denkst du dazu?"
   }
 }

@@ -4,8 +4,8 @@ import { MaterialModule } from '../material.module';
 import { RouterModule } from '@angular/router';
 import { SlottingService } from './slotting.service';
 import { SlottingComponent } from './slotting.component';
-import { SharedService } from './shared/shared.service';
 import { NodeModule } from './node.module';
+import { SlottingResolver } from './slotting.resolver';
 
 @NgModule({
   declarations: [
@@ -19,15 +19,16 @@ import { NodeModule } from './node.module';
       {
         path: '',
         pathMatch: 'full',
-        component: SlottingComponent/*,
+        component: SlottingComponent,
         resolve: {
-          data: SharedResolver
-        }*/
+          data: SlottingResolver
+        }
       }
     ])
   ],
   providers: [
-    SlottingService
+    SlottingService,
+    SlottingResolver
   ]
 })
 export class SlottingModule {

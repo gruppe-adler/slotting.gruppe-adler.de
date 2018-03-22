@@ -1,18 +1,17 @@
 @import "assets/defines";
 
 ::selection {
-  background: #d18d1f; /* WebKit/Blink Browsers */
+  background: #d18d1f;
   color: white;
 }
 ::-moz-selection {
-  background: #d18d1f; /* Gecko Browsers */
+  background: #d18d1f;
   color: white;
 }
 
 body {
   position: relative;
   margin: 0;
-  padding-bottom: 4rem;
   font-family: 'Source Sans Pro', sans-serif;
 }
 

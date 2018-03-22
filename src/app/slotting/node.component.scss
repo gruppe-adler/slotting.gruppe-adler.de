@@ -149,6 +149,8 @@ $slotSize: 35px;
   position: absolute;
   left: 0;
   top: 0;
+  cursor: default;
+  user-select: none;
 
   text-transform: uppercase;
   font-weight: bold;

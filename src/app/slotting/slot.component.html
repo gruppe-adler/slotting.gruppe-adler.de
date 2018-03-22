@@ -4,7 +4,11 @@
       <span *ngIf="slot.user && slot.user['icon:text'] && !slot.user.picture">
         {{slot.user['icon:text']}}
       </span>
-      <img src="../../assets/slotting/lock.svg" class="lock-icon" *ngIf="slotLocked"/>
+      <ng-container *ngIf="slotLocked">
+        <mat-icon class="lock-icon">lock</mat-icon>
+        <!--<img src="../../assets/slotting/lock.svg" class="lock-icon" *ngIf="slotLocked"/>-->
+        <!--<i class="fa fa-lock"></i>-->
+      </ng-container>
     </div>
     <div class="slot-descr" [matTooltip]="slot.description" (click)="slotUser()" [ngClass]="isFireteam ? 'fireteam' : null">
       {{slot.shortcode}}

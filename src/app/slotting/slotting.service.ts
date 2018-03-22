@@ -1,13 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import * as io from 'socket.io-client';
 
 @Injectable()
-export class SlottingService {
+export class SlottingService implements OnDestroy {
   public match: any;
   public rawMatch: any;
   public slots = [];
+  public slottedCount = 0;
   public socket: any;
   public tid: number;
   public matchid: string;
@@ -25,6 +26,7 @@ export class SlottingService {
         `${environment.api.forumUrl}/arma3-slotting/${tid}/match/${matchid}?withusers=1`).toPromise();
       this.rawMatch = { ...match };
       this.parseMatch(match);
+      this.refreshSlottedCount();
       console.log(match);
       this.match = match;
       return this.match;
@@ -52,6 +54,8 @@ export class SlottingService {
           // Parse out slots
           if (currentFilter === 'slot') {
             this.slots.push(current);
+            if (current.user) {
+            }
           }
           this.parseMatchRecursive(current);
         });
@@ -59,6 +63,15 @@ export class SlottingService {
     });
 
     return match;
+  }
+
+  private refreshSlottedCount(): void {
+    this.slottedCount = 0;
+    this.slots.forEach(slot => {
+      if (slot.user) {
+        this.slottedCount++;
+      }
+    });
   }
 
   private initWebsocket(): void {
@@ -72,5 +85,17 @@ export class SlottingService {
         this.getMatch(this.tid, this.matchid);
       }
     });
+
+    this.socket.on('event:user-slotted', () => {
+      this.refreshSlottedCount();
+    });
+
+    this.socket.on('event:user-unslotted', () => {
+      this.refreshSlottedCount();
+    });
+  }
+
+  public ngOnDestroy(): void {
+    this.socket.close();
   }
 }

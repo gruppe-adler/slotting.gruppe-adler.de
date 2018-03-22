@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ContentService } from '../content/content.service';
 
 @Component({
   templateUrl: './footer.component.html',
@@ -8,6 +7,4 @@ import { ContentService } from '../content/content.service';
 })
 export class FooterComponent {
   public year = new Date().getFullYear();
-
-  constructor(public contentService: ContentService) {}
 }

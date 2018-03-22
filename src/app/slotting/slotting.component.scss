@@ -1,3 +1,72 @@
-.slotting-container {
-  grid-column: 1 / span 3;
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.icon-clear-button {
+  background: transparent;
+  border: none;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  color: #777;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.slotted-count-label {
+  text-transform: uppercase;
+  color: #777;
+}
+
+.dropdown-menu {
+  list-style: none;
+  padding-left: 0;
+  font-size: 14px;
+  margin: 0;
+
+  .dropdown-header, li>a {
+    display: block;
+    padding: 3px 20px;
+    line-height: 1.42857143;
+    white-space: nowrap;
+  }
+
+  .dropdown-header {
+    font-size: 12px;
+    color: #777;
+    display: block;
+    padding: 3px 20px;
+    line-height: 1.42857143;
+    white-space: nowrap;
+  }
+
+  li>a:focus, li>a:hover {
+    text-decoration: none;
+    color: #262626;
+    background-color: #f5f5f5;
+  }
+
+  .inline {
+    display: inline-block;
+  }
+
+  a {
+    color: #262626;
+  }
+
+  li {
+    margin: 0;
+  }
+
+  .menu-icon {
+    height: 20px;
+    line-height: 20px;
+    cursor: pointer;
+    text-align: center;
+  }
 }
