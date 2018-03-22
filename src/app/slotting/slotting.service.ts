@@ -99,7 +99,9 @@ export class SlottingService implements OnDestroy {
     this.socket.close();
   }
 
-  public async slotUser(slotid: string, uid: number): Promise<boolean> {
+  public async slotUser(slotid: string): Promise<boolean> {
+    const uid = await this.getOwnUserId();
+    console.log(uid);
     try {
       await this.http.put(environment.api.forumUrl + '/arma3-slotting/' + this.tid + '/match/' + this.matchid + '/slot/' + slotid + '/user', {uid}).toPromise();
       return true;
@@ -119,9 +121,25 @@ export class SlottingService implements OnDestroy {
     }
   }
 
+  private async getOwnUserId(): Promise<string> {
+    if (window.parent && window.parent['app'] && window.parent['app'].user) {
+      return window.parent['app'].user.uid;
+    }
+
+    try {
+      const result = await this.http.get(environment.api.forumUrl + '/me').toPromise();
+      if (result['uid']) {
+        return result['uid'];
+      }
+      return '';
+    } catch (e) {
+      console.log(e);
+      return '';
+    }
+  }
+
   public showNodebbAlert(title: string, message: string, type: string = 'success', timeout: number = 2000): void {
     if (!window.parent['app'] || !window.parent['app'].alert) {
-      alert(title + ' ' + message);
       return;
     }
 

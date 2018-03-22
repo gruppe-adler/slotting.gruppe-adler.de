@@ -182,7 +182,7 @@ export class SlotComponent implements OnInit {
       return;
     }
 
-    this.slottingService.slotUser(this.slot.uuid, -1).then(result => {
+    this.slottingService.slotUser(this.slot.uuid).then(result => {
       if (result) {
         this.slottingService.showNodebbAlert('Eingeslottet', '');
       } else {
