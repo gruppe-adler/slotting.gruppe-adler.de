@@ -12,6 +12,10 @@ export class SlottingResolver implements Resolve<any> {
       return;
     }
 
+    if (this.slottingService.match) {
+      return this.slottingService.match;
+    }
+
     if (await this.slottingService.getMatch(route.queryParams.tid, route.queryParams.matchid)) {
       return this.slottingService.match;
     }

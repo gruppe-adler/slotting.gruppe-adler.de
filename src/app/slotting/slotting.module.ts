@@ -6,13 +6,17 @@ import { SlottingService } from './slotting.service';
 import { SlottingComponent } from './slotting.component';
 import { NodeModule } from './node.module';
 import { SlottingResolver } from './slotting.resolver';
+import { EditComponent } from './edit/edit.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    SlottingComponent
+    SlottingComponent,
+    EditComponent
   ],
   imports: [
     CommonModule,
+    FormsModule,
     MaterialModule,
     NodeModule,
     RouterModule.forChild([
@@ -20,6 +24,13 @@ import { SlottingResolver } from './slotting.resolver';
         path: '',
         pathMatch: 'full',
         component: SlottingComponent,
+        resolve: {
+          data: SlottingResolver
+        }
+      },
+      {
+        path: 'edit',
+        component: EditComponent,
         resolve: {
           data: SlottingResolver
         }

@@ -11,7 +11,10 @@
   <ul class="dropdown-menu" role="menu">
     <li role="presentation" class="dropdown-header">Slotliste</li>
     <li role="presentation">
-      <a role="menuitem" tabindex="-1" href="/arma3-slotting/1979/match/ba6a41d7-89a6-4d13-8d1b-95e69bb64fc0/edit" class="match-control-edit">
+      <a role="menuitem" tabindex="-1"
+         [routerLink]="['edit']"
+         [queryParams]="{tid: route.snapshot.queryParams['tid'], matchid: route.snapshot.queryParams['matchid']}"
+         class="match-control-edit">
         <span class="menu-icon"><i class="fa fa-pencil"></i></span> Edit
       </a>
     </li>

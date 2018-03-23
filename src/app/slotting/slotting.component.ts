@@ -7,7 +7,7 @@ import { SlottingService } from './slotting.service';
   styleUrls: ['./slotting.component.scss']
 })
 export class SlottingComponent {
-  constructor(private route: ActivatedRoute, public slottingService: SlottingService) {
+  constructor(public route: ActivatedRoute, public slottingService: SlottingService) {
     if (!route.snapshot.queryParams.tid || !route.snapshot.queryParams.matchid) {
       return;
     }

@@ -2,6 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import * as io from 'socket.io-client';
+import * as xml from 'js2xmlparser';
 
 @Injectable()
 export class SlottingService implements OnDestroy {
@@ -87,11 +88,15 @@ export class SlottingService implements OnDestroy {
     });
 
     this.socket.on('event:user-slotted', () => {
-      this.refreshSlottedCount();
+      setTimeout(() => {
+        this.refreshSlottedCount();
+      }, 400);
     });
 
     this.socket.on('event:user-unslotted', () => {
-      this.refreshSlottedCount();
+      setTimeout(() => {
+        this.refreshSlottedCount();
+      }, 400);
     });
   }
 
@@ -151,5 +156,76 @@ export class SlottingService implements OnDestroy {
       type: type,
       image: ''
     });
+  }
+
+  public getMatchXml(): string {
+    console.log('test');
+    console.log(this.match);
+    const match = this.parseMatchForXml({... this.match});
+    const xmlMatch = xml.parse('match', match, {format: {doubleQuotes: true}});
+    return xmlMatch.replace(/<\?xml.+\?>\n/, '');
+  }
+
+  private parseMatchForXml(rawMatch: any): any {
+    function recurse(match: any): any {
+      ['company', 'platoon', 'squad', 'fireteam', 'slot'].forEach(currentFilter => {
+
+        if (match[currentFilter] && match[currentFilter].length > 0) {
+          match[currentFilter].forEach(current => {
+            // Delete current user and slotted player count
+            if (current.user) {
+              console.log('delete', current.user);
+              delete current.user;
+            }
+            delete current.slottedPlayerCount;
+
+            // Take all keys and apply them as attributes
+            const attributes = current['@'] || {};
+            Object.keys(current).forEach(key => {
+              if (['company', 'platoon', 'squad', 'fireteam', 'slot'].indexOf(key) === -1) {
+                attributes[key] = current[key];
+                delete current[key];
+              }
+              console.log(key);
+            });
+            current['@'] = attributes;
+
+            recurse(current);
+          });
+        }
+      });
+
+      return match;
+    }
+
+    rawMatch['@'] = {uuid: rawMatch.uuid};
+    delete rawMatch.uuid;
+    delete rawMatch.slottedPlayerCount;
+    return recurse(rawMatch);
+  }
+
+  public async updateMatch(content: string): Promise<boolean> {
+    console.log(content);
+    while (content.startsWith(' ')) {
+      content = content.substr(1, content.length - 1);
+    }
+
+    if (!content.startsWith('<match')) {
+      content = '<match>' + content + '</match>';
+    }
+
+    try {
+      const result = await this.http.put(environment.api.forumUrl + '/arma3-slotting/' + this.tid + '/match/' + this.matchid, content, {
+        headers: {
+          Accept: 'application/json; charset=utf-8',
+          'Content-Type': 'application/xml',
+        }
+      }).toPromise();
+      console.log(result);
+      return true;
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
   }
 }

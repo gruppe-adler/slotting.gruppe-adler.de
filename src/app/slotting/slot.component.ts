@@ -233,6 +233,10 @@ export class SlotComponent implements OnInit {
    * @returns {Promise<void>}
    */
   private async deleteUserInternal(): Promise<void> {
+    if (this.slot['reserved-for'] || this.reservation !== '') {
+      return;
+    }
+
     console.log('unslot');
     this.slottingService.unslotUser(this.slot.uuid).then(result => {
       if (result) {

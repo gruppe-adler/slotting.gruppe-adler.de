@@ -1,0 +1,14 @@
+<div class="buttons-container">
+  <a class="nodebb btn btn-default" (click)="abort()">
+    <i class="fa fa-close"></i> Abbrechen
+  </a>
+  <a class="nodebb btn btn-primary" (click)="save()">
+    <i class="fa fa-check"></i> Änderungen speichern
+  </a>
+</div>
+<div class="edit-container">
+  <mat-form-field>
+    <textarea matInput matTextareaAutosize placeholder="Slotliste" [(ngModel)]="xml">
+    </textarea>
+  </mat-form-field>
+</div>
