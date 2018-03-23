@@ -2,7 +2,7 @@
   <small class="slotted-count-label">
     Slotliste (Geslottet: {{slottingService.slottedCount}})
   </small>
-  <button class="icon-clear-button" [matMenuTriggerFor]="contextMenu">
+  <button class="icon-clear-button" [matMenuTriggerFor]="contextMenu" *ngIf="canAdministrate">
     <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
   </button>
 </div>
@@ -24,7 +24,7 @@
       </a>
     </li>
     <li role="presentation">
-      <a role="menuitem" tabindex="-1" href="#" class="match-control-delete">
+      <a role="menuitem" tabindex="-1" class="match-control-delete" (click)="deleteMatch()">
         <div class="inline menu-icon"><i class="fa fa-trash-o"></i></div>
         <span>Delete</span>
       </a>

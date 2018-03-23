@@ -161,7 +161,7 @@ export class SlottingService implements OnDestroy {
   public getMatchXml(): string {
     console.log('test');
     console.log(this.match);
-    const match = this.parseMatchForXml({... this.match});
+    const match = this.parseMatchForXml(JSON.parse(JSON.stringify(this.match)));
     const xmlMatch = xml.parse('match', match, {format: {doubleQuotes: true}});
     return xmlMatch.replace(/<\?xml.+\?>\n/, '');
   }
@@ -227,5 +227,31 @@ export class SlottingService implements OnDestroy {
       console.log(e);
       return false;
     }
+  }
+
+  public async getPermissions(tid = this.tid, matchid = this.matchid): Promise<any> {
+    try {
+      return await this.http.get(environment.api.forumUrl + '/arma3-slotting/' + this.tid + '/has-permissions').toPromise();
+    } catch (e) {
+      return null;
+    }
+  }
+
+  public bootbox(message: string): void {
+    if (!window.parent['bootbox']) {
+      alert(message);
+      return;
+    }
+
+    window.parent['bootbox'].alert(message);
+  }
+
+  public bootboxConfirm(message: string, callback): void {
+    if (!window.parent['bootbox']) {
+      callback(confirm(message));
+      return;
+    }
+
+    window.parent['bootbox'].confirm(message, callback);
   }
 }

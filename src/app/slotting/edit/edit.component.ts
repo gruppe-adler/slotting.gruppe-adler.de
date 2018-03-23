@@ -16,6 +16,7 @@ export class EditComponent implements OnInit {
 
   ngOnInit() {
     this.xml = this.slottingService.getMatchXml();
+    this.slottingService.getPermissions().then(data => console.log(data));
   }
 
   public abort(): void {
@@ -30,9 +31,9 @@ export class EditComponent implements OnInit {
   public async save(): Promise<void> {
     const result = await this.slottingService.updateMatch(this.xml);
     if (result) {
-
+      this.abort();
     } else {
-
+      this.slottingService.bootbox('Das ging schief.');
     }
   }
 }

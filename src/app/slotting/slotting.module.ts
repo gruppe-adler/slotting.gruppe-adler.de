@@ -8,6 +8,7 @@ import { NodeModule } from './node.module';
 import { SlottingResolver } from './slotting.resolver';
 import { EditComponent } from './edit/edit.component';
 import { FormsModule } from '@angular/forms';
+import { CanEditGuard } from './can-edit.guard';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { FormsModule } from '@angular/forms';
       {
         path: 'edit',
         component: EditComponent,
+        canActivate: [CanEditGuard],
         resolve: {
           data: SlottingResolver
         }
@@ -39,7 +41,8 @@ import { FormsModule } from '@angular/forms';
   ],
   providers: [
     SlottingService,
-    SlottingResolver
+    SlottingResolver,
+    CanEditGuard
   ]
 })
 export class SlottingModule {
