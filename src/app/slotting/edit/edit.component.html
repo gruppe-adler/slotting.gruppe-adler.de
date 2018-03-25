@@ -1,14 +1,27 @@
-<div class="buttons-container">
-  <a class="nodebb btn btn-default" (click)="abort()">
-    <i class="fa fa-close"></i> Abbrechen
-  </a>
-  <a class="nodebb btn btn-primary" (click)="save()">
-    <i class="fa fa-check"></i> Änderungen speichern
-  </a>
+<div class="topbar-container">
+  <label class="switch">
+    <input type="checkbox" id="input_arma3-slotting-show-group-color" (change)="toggleSourcediting()">
+    <div class="slider round"></div>
+    <div class="switch_label">Source editing</div>
+  </label>
+  <div class="buttons-container">
+    <a class="nodebb btn btn-default" (click)="abort()">
+      <i class="fa fa-close"></i> Abbrechen
+    </a>
+    <a class="nodebb btn btn-primary" (click)="save()">
+      <i class="fa fa-check"></i> Änderungen speichern
+    </a>
+  </div>
 </div>
-<div class="edit-container">
-  <mat-form-field>
+
+<div *ngIf="!showSourcecode; else sourceCode">
+
+</div>
+<ng-template #sourceCode>
+  <div class="edit-container">
+    <mat-form-field>
     <textarea matInput matTextareaAutosize placeholder="Slotliste" [(ngModel)]="xml">
     </textarea>
-  </mat-form-field>
-</div>
+    </mat-form-field>
+  </div>
+</ng-template>

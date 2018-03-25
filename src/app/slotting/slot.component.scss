@@ -49,29 +49,31 @@
   margin-top: 2px;
   white-space: nowrap;
 
-  &.Führung {
-    background-color: #8F1167;
-    color: white;
-  }
+  &.group-color {
+    &.Führung {
+      background-color: #8F1167;
+      color: white;
+    }
 
-  &.Adler {
-    background-color: #D18D1F;
-    color: white;
-  }
+    &.Adler {
+      background-color: #D18D1F;
+      color: white;
+    }
 
-  &.Anwärter {
-    background-color: #6CAACC;
-    color: white;
-  }
+    &.Anwärter {
+      background-color: #6CAACC;
+      color: white;
+    }
 
-  &.Stammspieler {
-    background-color: #66AA66;
-    color: white;
-  }
+    &.Stammspieler {
+      background-color: #66AA66;
+      color: white;
+    }
 
-  &.Gastspieler {
-    background-color: #66AA66;
-    color: white;
+    &.Gastspieler {
+      background-color: #66AA66;
+      color: white;
+    }
   }
 
   &.fireteam {

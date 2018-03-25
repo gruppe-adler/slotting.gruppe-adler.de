@@ -6,14 +6,11 @@ import { SlottingService } from './slotting.service';
 import { SlottingComponent } from './slotting.component';
 import { NodeModule } from './node.module';
 import { SlottingResolver } from './slotting.resolver';
-import { EditComponent } from './edit/edit.component';
 import { FormsModule } from '@angular/forms';
-import { CanEditGuard } from './can-edit.guard';
 
 @NgModule({
   declarations: [
-    SlottingComponent,
-    EditComponent
+    SlottingComponent
   ],
   imports: [
     CommonModule,
@@ -31,18 +28,13 @@ import { CanEditGuard } from './can-edit.guard';
       },
       {
         path: 'edit',
-        component: EditComponent,
-        canActivate: [CanEditGuard],
-        resolve: {
-          data: SlottingResolver
-        }
+        loadChildren: './edit/edit.module#EditModule'
       }
     ])
   ],
   providers: [
     SlottingService,
-    SlottingResolver,
-    CanEditGuard
+    SlottingResolver
   ]
 })
 export class SlottingModule {

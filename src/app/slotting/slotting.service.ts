@@ -2,7 +2,6 @@ import { EventEmitter, Injectable, OnDestroy } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import * as io from 'socket.io-client';
-import * as xml from 'js2xmlparser';
 
 @Injectable()
 export class SlottingService implements OnDestroy {
@@ -14,6 +13,9 @@ export class SlottingService implements OnDestroy {
   public tid: number;
   public matchid: string;
   public showGroupsChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  private slottingInProgress = false;
+  private unslottingInProgress = false;
 
   constructor(private http: HttpClient) {
     this.initWebsocket();
@@ -110,28 +112,40 @@ export class SlottingService implements OnDestroy {
   }
 
   public async slotUser(slotid: string): Promise<boolean> {
+    if (this.slottingInProgress) {
+      return false;
+    }
+    this.slottingInProgress = true;
     const uid = await this.getOwnUserId();
     console.log(uid);
     try {
       await this.http.put(environment.api.forumUrl + '/arma3-slotting/' + this.tid + '/match/' + this.matchid + '/slot/' + slotid + '/user', {uid}, {withCredentials: true}).toPromise();
+      this.slottingInProgress = false;
       return true;
     } catch (e) {
       console.log(e);
+      this.slottingInProgress = false;
       return false;
     }
   }
 
   public async unslotUser(slotid: string): Promise<boolean> {
+    if (this.unslottingInProgress) {
+      return false;
+    }
+    this.unslottingInProgress = true;
     try {
       await this.http.delete(environment.api.forumUrl + '/arma3-slotting/' + this.tid + '/match/' + this.matchid + '/slot/' + slotid + '/user', {withCredentials: true}).toPromise();
+      this.unslottingInProgress = false;
       return true;
     } catch (e) {
       console.log(e);
+      this.unslottingInProgress = false;
       return false;
     }
   }
 
-  private async getOwnUserId(): Promise<string> {
+  public async getOwnUserId(): Promise<string> {
     if (window.parent && window.parent['app'] && window.parent['app'].user) {
       return window.parent['app'].user.uid;
     }
@@ -161,48 +175,6 @@ export class SlottingService implements OnDestroy {
       type: type,
       image: ''
     });
-  }
-
-  public getMatchXml(): string {
-    const match = this.parseMatchForXml(JSON.parse(JSON.stringify(this.match)));
-    const xmlMatch = xml.parse('match', match, {format: {doubleQuotes: true}});
-    return xmlMatch.replace(/<\?xml.+\?>\n/, '');
-  }
-
-  private parseMatchForXml(rawMatch: any): any {
-    function recurse(match: any): any {
-      ['company', 'platoon', 'squad', 'fireteam', 'slot'].forEach(currentFilter => {
-
-        if (match[currentFilter] && match[currentFilter].length > 0) {
-          match[currentFilter].forEach(current => {
-            // Delete current user and slotted player count
-            if (current.user) {
-              delete current.user;
-            }
-            delete current.slottedPlayerCount;
-
-            // Take all keys and apply them as attributes
-            const attributes = current['@'] || {};
-            Object.keys(current).forEach(key => {
-              if (['company', 'platoon', 'squad', 'fireteam', 'slot'].indexOf(key) === -1) {
-                attributes[key] = current[key];
-                delete current[key];
-              }
-            });
-            current['@'] = attributes;
-
-            recurse(current);
-          });
-        }
-      });
-
-      return match;
-    }
-
-    rawMatch['@'] = {uuid: rawMatch.uuid};
-    delete rawMatch.uuid;
-    delete rawMatch.slottedPlayerCount;
-    return recurse(rawMatch);
   }
 
   public async updateMatch(content: string): Promise<boolean> {

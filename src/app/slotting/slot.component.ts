@@ -6,7 +6,6 @@ import { NameDialogComponent } from './shared/name-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
 import { SlottingService } from './slotting.service';
 import { environment } from '../../environments/environment';
-import { browser } from 'protractor';
 
 @Component({
   templateUrl: './slot.component.html',
@@ -99,7 +98,7 @@ export class SlotComponent implements OnInit {
     if (this.sharedService.shareData) {
       await this.slotUserShared();
     } else {
-      if (this.slot.user) {
+      if (this.slot.user && this.slot.user.uid.toString() === await this.slottingService.getOwnUserId()) {
         await this.deleteUser();
       } else {
         await this.slotUserInternal();
@@ -187,6 +186,20 @@ export class SlotComponent implements OnInit {
   private async slotUserInternal(): Promise<void> {
     console.log('slot');
     if (this.reservation !== '' || this.slot['reserved-for']) {
+      return;
+    }
+
+    if (this.slot.user) {
+      const oldUsername = this.slot.user.username;
+      this.slottingService.bootboxConfirm(oldUsername + ' vom Slot kicken?', result => {
+        this.slottingService.slotUser(this.slot.uuid).then(slotResult => {
+          if (slotResult) {
+            this.slottingService.showNodebbAlert('Eingeslottet', oldUsername + 'vom Slot gekickt und eingeslottet');
+          } else {
+            this.slottingService.showNodebbAlert('Fehler', '');
+          }
+        });
+      });
       return;
     }
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router/src/router_state';
-import { SlottingService } from './slotting.service';
+import { SlottingService } from '../slotting.service';
 
 @Injectable()
 export class CanEditGuard implements CanActivate {
