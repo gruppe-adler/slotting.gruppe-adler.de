@@ -10,7 +10,7 @@
         <!--<i class="fa fa-lock"></i>-->
       </ng-container>
     </div>
-    <div class="slot-descr" [matTooltip]="slot.description" (click)="slotUser()" [ngClass]="isFireteam ? 'fireteam' : null">
+    <div class="slot-descr" [class.fireteam]="isFireteam" [ngClass]="showGroupColors && slot.user && slot.user.groupTitle ? slot.user.groupTitle : ''" [matTooltip]="slot.description" (click)="slotUser()">
       {{slot.shortcode}}
     </div>
   </ng-container>

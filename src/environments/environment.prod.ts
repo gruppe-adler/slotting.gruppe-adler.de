@@ -6,9 +6,7 @@ export const environment = {
     forumSocketUrl: 'https://forum.gruppe-adler.de/slotting',
     forumUrl: 'https://forum.gruppe-adler.de/api'
   },
-  analytics: {
-    analyticsId: '',
-    analyticsStorageKey: 'gruppe-adler.de-ga',
-    analyticsOptOutKey: 'gruppe-adler.de-ga-disable'
+  storageKeys: {
+    showGroupColor: 'grad-slotting-showGroupColor'
   }
 };

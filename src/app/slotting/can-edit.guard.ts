@@ -13,8 +13,10 @@ export class CanEditGuard implements CanActivate {
       return false;
     }
 
-    const permissionGranted = await this.slottingService.getPermissions(route.queryParams.tid, route.queryParams.matchid);
+    const permissionGranted = await this.slottingService.getPermissions(route.queryParams.tid);
     if (!permissionGranted || !permissionGranted.result) {
+      console.log(permissionGranted);
+      console.log(route.queryParams);
       this.router.navigate(['/slotting', {queryParams:
         {
           tid: route.queryParams.tid,

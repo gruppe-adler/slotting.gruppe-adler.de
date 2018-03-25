@@ -5,6 +5,8 @@ import { MatDialog } from '@angular/material';
 import { NameDialogComponent } from './shared/name-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
 import { SlottingService } from './slotting.service';
+import { environment } from '../../environments/environment';
+import { browser } from 'protractor';
 
 @Component({
   templateUrl: './slot.component.html',
@@ -18,6 +20,7 @@ export class SlotComponent implements OnInit {
   public background: string;
   public slotTooltip: string;
   public slotLocked = false;
+  public showGroupColors = false;
 
   constructor(private notificationsService: NotificationsService,
               public sharedService: SharedService,
@@ -52,6 +55,11 @@ export class SlotComponent implements OnInit {
       }
     } else if (this.reservation) {
       this.slotTooltip = this.reservation;
+    }
+
+    if (!this.sharedService.shareData) {
+      this.showGroupColors = localStorage.getItem(environment.storageKeys.showGroupColor) === 'true';
+      this.slottingService.showGroupsChanged.subscribe(value => this.showGroupColors = value);
     }
   }
 

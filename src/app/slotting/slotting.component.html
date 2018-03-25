@@ -1,3 +1,9 @@
+<label class="switch" *ngIf="showGroupColorSwitch">
+  <input type="checkbox" id="input_arma3-slotting-show-group-color" (click)="slottingService.toggleShowGroups()" [checked]="groupColorSwitch">
+  <div class="slider round"></div>
+  <div class="switch_label">Gruppenfarbe zeigen</div>
+</label>
+
 <div class="top-bar">
   <small class="slotted-count-label">
     Slotliste (Geslottet: {{slottingService.slottedCount}})

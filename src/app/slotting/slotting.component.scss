@@ -2,6 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-left: 8px;
 }
 
 .icon-clear-button {
@@ -71,5 +72,136 @@
     cursor: pointer;
     text-align: center;
     margin-right: 5px;
+  }
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  top: 9px;
+  background-color: rgb(255, 255, 255);
+  padding-top: 10px;
+  padding-right: 16px;
+  padding-bottom: 10px;
+  padding-left: 16px;
+
+  &:hover {
+    background-color: rgb(230, 230, 230);
+    cursor: pointer;
+  }
+
+  dt, kbd kbd, label {
+    font-weight: 700;
+  }
+  label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+  }
+
+  button, input, optgroup, select, textarea {
+    color: inherit;
+    font-style: inherit;
+    font-variant-ligatures: inherit;
+    font-variant-caps: inherit;
+    font-variant-numeric: inherit;
+    font-variant-east-asian: inherit;
+    font-weight: inherit;
+    font-stretch: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    font-family: inherit;
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+  }
+
+  input[type="checkbox"], input[type="radio"] {
+    box-sizing: border-box;
+    padding-top: 0px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    margin-top: 4px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    line-height: normal;
+  }
+  button, input, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+  }
+
+  input {
+    display: none;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color: rgb(204, 204, 204);
+    transition-duration: 0.1s;
+    transition-timing-function: ease-in;
+    transition-delay: initial;
+    transition-property: initial;
+  }
+  .slider::before {
+    position: absolute;
+    content: "";
+    height: 13px;
+    width: 13px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition-duration: 0.1s;
+    transition-timing-function: ease-in;
+    transition-delay: initial;
+    transition-property: initial;
+  }
+  input:hover + .slider {
+    background-color: rgb(102, 102, 102);
+  }
+  input:checked + .slider {
+    background-color: rgb(102, 170, 102);
+  }
+  input:checked:hover + .slider {
+    background-color: rgb(51, 119, 51);
+  }
+  input:focus + .slider {
+    box-shadow: rgb(102, 170, 102) 0px 0px 1px;
+  }
+  input:checked + .slider::before {
+    transform: translateX(13px);
+  }
+  .slider.round {
+    border-top-left-radius: 17px;
+    border-top-right-radius: 17px;
+    border-bottom-right-radius: 17px;
+    border-bottom-left-radius: 17px;
+    width: 30px;
+    height: 17px;
+    margin-top: 7px;
+    margin-right: 7px;
+    margin-bottom: 7px;
+    margin-left: 7px;
+    top: 3px;
+  }
+  .slider.round::before {
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+  }
+  .switch_label {
+    padding-left: 30px;
+    margin-top: -1px;
+    user-select: none;
   }
 }
