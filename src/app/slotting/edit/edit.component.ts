@@ -11,6 +11,7 @@ import { EditService } from './edit.service';
 export class EditComponent implements OnInit {
   public xml = '';
   public showSourcecode = false;
+  public matchChanged = false;
 
   constructor(public router: Router,
               private route: ActivatedRoute,
@@ -19,6 +20,7 @@ export class EditComponent implements OnInit {
 
   ngOnInit() {
     this.slottingService.getPermissions().then(data => console.log(data));
+    this.slottingService.matchChanged.subscribe(() => this.matchChanged = true);
   }
 
   public abort(): void {
@@ -31,6 +33,18 @@ export class EditComponent implements OnInit {
   }
 
   public async save(): Promise<void> {
+    if (this.matchChanged) {
+      this.slottingService.bootboxConfirm('Die Slotliste hat sich während der Bearbeitung verändert. Möchtest du die Änderungen überschreiben?', result => {
+        if (result) {
+          this.saveInternal();
+        }
+      });
+      return;
+    }
+    this.saveInternal();
+  }
+
+  private async saveInternal(): Promise<void> {
     const result = await this.slottingService.updateMatch(this.xml);
     if (result) {
       this.abort();
