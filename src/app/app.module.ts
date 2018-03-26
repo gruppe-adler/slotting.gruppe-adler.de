@@ -15,7 +15,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from './translate-http-loader';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DragulaModule } from 'ng2-dragula';
+import { NgDragDropModule } from 'ng-drag-drop';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -53,7 +53,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ]),
     FormsModule,
     HttpClientModule,
-    DragulaModule,
+    NgDragDropModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

@@ -1,14 +1,11 @@
 <div class="slot-container">
   <ng-container *ngIf="slot">
-    <div class="avatar" [matTooltip]="slot.user ? slot.user.username : slotTooltip" matTooltipPosition="above" [ngStyle]="{'background': background}" [ngClass]="isFireteam ? 'fireteam' : null" (click)="slotUser()">
-      <span *ngIf="slot.user && slot.user['icon:text'] && !slot.user.picture">
-        {{slot.user['icon:text']}}
-      </span>
-      <ng-container *ngIf="slotLocked">
+    <div class="avatar" [class.fireteam]="isFireteam">
+      <ng-container *ngIf="reservation || slot['reserved-for']">
         <mat-icon class="lock-icon">lock</mat-icon>
       </ng-container>
     </div>
-    <div class="slot-descr" [class.fireteam]="isFireteam" [class.group-color]="showGroupColors" [ngClass]="slot.user && slot.user.groupTitle ? slot.user.groupTitle : ''" [matTooltip]="slot.description" (click)="slotUser()">
+    <div class="slot-descr" [class.fireteam]="isFireteam" [matTooltip]="slot.description">
       {{slot.shortcode}}
     </div>
   </ng-container>

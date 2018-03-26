@@ -21,8 +21,7 @@
       "serviceWorker": false,
       "styles": [
         "styles.scss",
-        "assets/theme.scss",
-        "../node_modules/dragula/dist/dragula.css"
+        "assets/theme.scss"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",

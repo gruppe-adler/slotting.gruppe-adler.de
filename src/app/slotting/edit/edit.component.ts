@@ -2,10 +2,8 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { SlottingService } from '../slotting.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EditService } from './edit.service';
-import { DragulaService } from 'ng2-dragula';
 
 @Component({
-  encapsulation: ViewEncapsulation.None,
   selector: 'app-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.scss']
@@ -15,38 +13,10 @@ export class EditComponent implements OnInit {
   public showSourcecode = false;
   public matchChanged = false;
 
-  public readonly templates = [
-    { type: 'platoon', id: 0, name: 'Platoon' },
-    { type: 'company', id: 1, name: 'Company' },
-    { type: 'squad', id: 2, name: 'Squad' },
-    { type: 'fireteam', id: 3, name: 'Fireteam' }
-  ];
-  public selectedItem: any;
-
   constructor(public router: Router,
               private route: ActivatedRoute,
-              private editService: EditService,
-              private slottingService: SlottingService,
-              private dragulaService: DragulaService) {
-    dragulaService.setOptions('items-bag', {
-      copy: true,
-      accepts: (el, target, source, sibling) => {
-        const targetType = target.id;
-        const elementType = source.id;
-        if (targetType === 'company-container') {
-          return true;
-        }
-        return false;
-      }
-    });
-
-    dragulaService.drop.subscribe((value) => {
-      console.log('drop:', value);
-    });
-
-    dragulaService.dropModel.subscribe((bagName, el, target, source) => {
-      console.log('drop:', bagName, el, target, source);
-    });
+              public editService: EditService,
+              private slottingService: SlottingService) {
   }
 
   ngOnInit() {

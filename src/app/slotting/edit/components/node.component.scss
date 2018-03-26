@@ -1,10 +1,18 @@
+
 .company-siblings, .platoon-siblings, .squad-siblings {
-  min-height: 50px;
-  padding-top: 30px;
+  min-height: 70px;
+  padding-top: 60px;
+  padding-right: 10px;
+  padding-bottom: 5px;
+  padding-left: 10px;
 }
 
-.drag-handle {
-  background: black;
-  width: 2rem;
-  height: 2rem;
+.platoon-title, .company-title, .squad-title, .title-container {
+  cursor: grab;
+}
+
+.drag-target {
+  border: #666666;
+  border-width: 1px;
+  border-style: dashed;
 }

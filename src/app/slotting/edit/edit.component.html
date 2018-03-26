@@ -15,13 +15,19 @@
 </div>
 
 <div class="editor-container" *ngIf="!showSourcecode; else sourceCode">
-  <div class="drop-container">
-    <app-edit-node *ngIf="editService.match" [context]="editService.match" style="transform: scale(0.5)"></app-edit-node>
+  <div class="drop-container" droppable [dropScope]="['company', 'platoon', 'squad']">
+    <app-edit-node *ngIf="editService.match" [context]="editService.match"></app-edit-node>
   </div>
-  <div class="items-container" [dragula]="'items-bag'">
+  <div class="items-container">
+    <app-edit-node [context]="{platoon: [{preset: true, callsign: 'Platoon'}]}"></app-edit-node>
+    <app-edit-node [context]="{company: [{preset: true, callsign: 'Comapny'}]}"></app-edit-node>
+    <app-edit-node [context]="{squad: [{preset: true, callsign: 'Squad'}]}"></app-edit-node>
+    <app-edit-node [context]="{fireteam: [{preset: true, callsign: 'Fireteam'}]}"></app-edit-node>
+    <!--
     <div [id]="template.type" class="drag-item" *ngFor="let template of templates">
       {{template.name}}
     </div>
+    -->
   </div>
 </div>
 <ng-template #sourceCode>

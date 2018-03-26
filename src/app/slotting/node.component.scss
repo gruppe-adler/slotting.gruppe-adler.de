@@ -9,7 +9,8 @@ $slotSize: 35px;
 
 .platoon-container {
   box-shadow: 0 0 5px 0 rgba(0,0,0,0.15);
-  margin: 20px 20px 5px 20px;
+  // margin: 20px 20px 5px 20px;
+  margin-bottom: 20px;
   text-align: center;
   background: white;
   min-height: 80px;
@@ -80,12 +81,12 @@ $slotSize: 35px;
 }
 
 .squad-container {
-  min-height: 80px;
+  min-height: 20px;
   box-shadow: 0 0 1px 2px rgba(0,0,0,0.2);
   margin: 5px;
   text-align: center;
   display: inline-block;
-  min-width: 230px;
+  min-width: 184px;
 
   .squad-title-container {
     background-color: white;
@@ -104,7 +105,7 @@ $slotSize: 35px;
 
   .squad-header {
     text-align: center;
-    min-height: 80px;
+    min-height: 20px;
   }
 
   .squad-siblings {

@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { SlottingService } from '../slotting.service';
 import { SlotComponent } from './components/slot.component';
 import { NodeComponent } from './components/node.component';
-import { DragulaModule } from 'ng2-dragula';
+import { NgDragDropModule } from 'ng-drag-drop';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,7 @@ import { DragulaModule } from 'ng2-dragula';
     CommonModule,
     MaterialModule,
     FormsModule,
-    DragulaModule,
+    NgDragDropModule.forRoot(),
     RouterModule.forChild([
       {
         path: '',
