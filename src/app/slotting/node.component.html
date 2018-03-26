@@ -30,7 +30,7 @@
   <div class="squad-header">
     <app-event-slot class="slot" *ngFor="let slot of squad.slot" [slot]="slot" [reservation]="reservation"></app-event-slot>
   </div>
-  <div class="squad-body">
+  <div class="squad-siblings">
     <app-event-node [context]="squad" [reservation]="reservation"></app-event-node>
   </div>
 </div>

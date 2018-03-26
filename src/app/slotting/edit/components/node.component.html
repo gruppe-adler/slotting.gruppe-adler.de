@@ -1,0 +1,62 @@
+<ng-container *ngIf="context.company">
+  <div *ngFor="let company of context.company" class="company-container">
+    <div class="company-title-container title-container" [ngClass]="company.side ? company.side : null">
+    <span class="natosymbol" [ngClass]="company.natosymbol" [matTooltip]="company.vehicletype ? company.vehicletyp : null">
+    </span>
+      <span class="company-title" [ngClass]="company.side ? company.side : null">{{company.callsign}}</span>
+    </div>
+    <div class="company-header">
+      <ng-container *ngIf="company.slot">
+        <app-edit-slot class="slot" *ngFor="let slot of company.slot" [slot]="slot" [reservation]="reservation"></app-edit-slot>
+      </ng-container>
+    </div>
+    <div class="company-siblings" id="company-container" *ngIf="company" [dragula]="'company-bag'" [dragulaOptions]="companyOptions">
+      <app-edit-node [context]="company" [reservation]="reservation"></app-edit-node>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="context.platoon">
+  <div *ngFor="let platoon of context.platoon" class="platoon-container">
+    <label class="drag-handle"></label>
+    <div class="platoon-title-container title-container">
+    <span class="natosymbol" [ngClass]="platoon.natosymbol" [matTooltip]="platoon.vehicletype ? platoon.vehicletyp : null">
+    </span>
+      <span class="platoon-title">{{platoon.callsign}}</span>
+    </div>
+    <div class="platoon-header">
+      <ng-container *ngIf="platoon.slot">
+        <app-edit-slot class="slot" *ngFor="let slot of platoon.slot" [slot]="slot" [reservation]="reservation"></app-edit-slot>
+      </ng-container>
+    </div>
+    <div class="platoon-siblings" *ngIf="platoon" [dragula]="'platoon-bag'">
+      <app-edit-node [context]="platoon" [reservation]="reservation"></app-edit-node>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="context.squad">
+  <div *ngFor="let squad of context.squad" class="squad-container">
+
+    <div class="squad-title-container title-container">
+      <span class="natosymbol" [ngClass]="squad.natosymbol" [matTooltip]="squad.vehicletype ? squad.vehicletyp : null"></span>
+      <span class="squad-title">{{squad.callsign}}</span>
+    </div>
+    <div class="squad-header">
+      <ng-container *ngIf="squad.slot">
+        <app-edit-slot class="slot" *ngFor="let slot of squad.slot" [slot]="slot" [reservation]="reservation"></app-edit-slot>
+      </ng-container>
+    </div>
+    <div class="squad-siblings" *ngIf="squad">
+      <app-edit-node [context]="squad" [reservation]="reservation"></app-edit-node>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="context.fireteam">
+  <div *ngFor="let fireteam of context.fireteam" class="fireteam-container">
+    <ng-container *ngIf="context.fireteam">
+      <app-edit-slot class="slot" *ngFor="let slot of fireteam.slot" [slot]="slot" [isFireteam]="true" [reservation]="reservation"></app-edit-slot>
+    </ng-container>
+  </div>
+</ng-container>

@@ -11,7 +11,7 @@ export class EditService {
   }
 
   public getMatchXml(): string {
-    const parsedMatch = this.parseMatchForXml(this.match);
+    const parsedMatch = this.parseMatchForXml(JSON.parse(JSON.stringify(this.match)));
     const builder = new xml.Builder({
       rootName: 'match',
       headless: true
@@ -58,8 +58,7 @@ export class EditService {
 
   public updateMatchFromXml(xmlMatch: string): void {
     xml.parseString(xmlMatch, (err, result) => {
-      const parsedMatch = this.parseMatchFromXml(result);
-      console.dir(parsedMatch);
+      this.match = this.parseMatchFromXml(result);
     });
   }
 

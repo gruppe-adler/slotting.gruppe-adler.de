@@ -1,8 +1,8 @@
 <div class="topbar-container">
   <label class="switch">
-    <input type="checkbox" id="input_arma3-slotting-show-group-color" (change)="toggleSourcediting()">
+    <input type="checkbox" id="input_arma3-slotting-show-group-color" (change)="toggleSourceediting()">
     <div class="slider round"></div>
-    <div class="switch_label">Source editing</div>
+    <div class="switch_label">XML Editor</div>
   </label>
   <div class="buttons-container">
     <a class="nodebb btn btn-default" (click)="abort()">
@@ -14,11 +14,18 @@
   </div>
 </div>
 
-<div *ngIf="!showSourcecode; else sourceCode">
-
+<div class="editor-container" *ngIf="!showSourcecode; else sourceCode">
+  <div class="drop-container">
+    <app-edit-node *ngIf="editService.match" [context]="editService.match" style="transform: scale(0.5)"></app-edit-node>
+  </div>
+  <div class="items-container" [dragula]="'items-bag'">
+    <div [id]="template.type" class="drag-item" *ngFor="let template of templates">
+      {{template.name}}
+    </div>
+  </div>
 </div>
 <ng-template #sourceCode>
-  <div class="edit-container">
+  <div class="source-edit-container">
     <mat-form-field>
     <textarea matInput matTextareaAutosize placeholder="Slotliste" [(ngModel)]="xml">
     </textarea>

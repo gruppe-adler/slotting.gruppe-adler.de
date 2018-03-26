@@ -10,7 +10,7 @@
   display: inline-block;
 }
 
-.edit-container {
+.source-edit-container {
   width: 100%;
 
   mat-form-field {
@@ -22,3 +22,37 @@
     }
   }
 }
+
+.editor-container {
+  display: grid;
+  grid-template-columns: auto 13rem;
+  grid-column-gap: 1rem;
+
+  .drop-container {
+    height: 100%;
+    min-height: 300px;
+  }
+
+  .items-container {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
+
+.drag-item {
+  width: 200px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  box-shadow: 0 0 5px 0 rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.2);
+  transition-duration: 0.4s;
+  transition-timing-function: ease-in-out;
+  transition-delay: initial;
+  transition-property: opacity;
+  cursor: grab;
+  user-select: none;
+}
+
