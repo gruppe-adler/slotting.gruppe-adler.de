@@ -12,11 +12,38 @@ export class EditService {
     };
   }
 
-  public slotTypeSelections= [
-    {
-      value: 'RF', viewValue: 'Rifleman'
-    }
-  ];
+  public get firstCompanySlot() {
+    return {
+      shortcode: 'CL',
+      description: 'Company Leader',
+      newSlot: true
+    };
+  }
+
+  public get firstPlatoonSlot() {
+    return {
+      shortcode: 'PTL',
+      description: 'Platoon Leader',
+      newSlot: true
+    };
+  }
+
+  public get firstSquadSlot() {
+    return {
+      shortcode: 'SQL',
+      description: 'Squad Leader',
+      newSlot: true
+    };
+  }
+
+  public get firstFireteamSlot() {
+    return {
+      shortcode: 'FTL',
+      description: 'Fireteam Leader',
+      newSlot: true
+    };
+  }
+
 
   public match: any;
   public matchDirty = false;

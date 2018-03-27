@@ -8,6 +8,7 @@ import { EditService } from '../edit.service';
 })
 export class SlotAddComponent implements OnInit {
   @Input() context: any;
+  @Input() type: string;
 
   constructor(private editService: EditService) {
   }
@@ -18,6 +19,29 @@ export class SlotAddComponent implements OnInit {
 
   public onClick(): void {
     this.context.slot = this.context.slot || [];
-    this.context.slot.push(this.editService.defaultSlot);
+
+    let slot = this.editService.defaultSlot;
+
+    if (this.context.slot.length === 0) {
+      switch (this.type) {
+        case 'company': {
+          slot = this.editService.firstCompanySlot;
+        } break;
+
+        case 'platoon': {
+          slot = this.editService.firstPlatoonSlot;
+        } break;
+
+        case 'squad': {
+          slot = this.editService.firstSquadSlot;
+        } break;
+
+        case 'fireteam': {
+          slot = this.editService.firstFireteamSlot;
+        } break;
+      }
+    }
+
+    this.context.slot.push(slot);
   }
 }

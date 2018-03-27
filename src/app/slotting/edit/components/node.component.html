@@ -9,7 +9,7 @@
       <ng-container *ngIf="company.slot">
         <app-edit-slot class="slot" *ngFor="let slot of company.slot" [slot]="slot" [reservation]="reservation" [context]="company"></app-edit-slot>
       </ng-container>
-      <app-edit-slot-add [context]="company" *ngIf="!company.preset"></app-edit-slot-add>
+      <app-edit-slot-add [context]="company" [type]="'company'" *ngIf="!company.preset"></app-edit-slot-add>
     </div>
     <div class="company-siblings"
          droppable (onDrop)="onDrop($event, company, 'company')"
@@ -34,7 +34,7 @@
       <ng-container *ngIf="platoon.slot">
         <app-edit-slot class="slot" *ngFor="let slot of platoon.slot" [slot]="slot" [reservation]="reservation" [context]="platoon"></app-edit-slot>
       </ng-container>
-      <app-edit-slot-add [context]="platoon" *ngIf="!platoon.preset"></app-edit-slot-add>
+      <app-edit-slot-add [context]="platoon" [type]="'platoon'" *ngIf="!platoon.preset"></app-edit-slot-add>
     </div>
     <div class="platoon-siblings"
          droppable (onDrop)="onDrop($event, platoon, 'platoon')"
@@ -58,7 +58,7 @@
       <ng-container *ngIf="squad.slot">
         <app-edit-slot class="slot" *ngFor="let slot of squad.slot" [slot]="slot" [reservation]="reservation" [context]="squad"></app-edit-slot>
       </ng-container>
-      <app-edit-slot-add [context]="squad" *ngIf="!squad.preset"></app-edit-slot-add>
+      <app-edit-slot-add [context]="squad" [type]="'squad'" *ngIf="!squad.preset"></app-edit-slot-add>
     </div>
     <div class="squad-siblings"
          droppable (onDrop)="onDrop($event, squad, 'squad')"
@@ -77,6 +77,6 @@
     <ng-container>
       <app-edit-slot class="slot" *ngFor="let slot of fireteam.slot" [slot]="slot" [isFireteam]="true" [reservation]="reservation" [context]="fireteam"></app-edit-slot>
     </ng-container>
-    <app-edit-slot-add [context]="fireteam" *ngIf="!fireteam.preset"></app-edit-slot-add>
+    <app-edit-slot-add [context]="fireteam" [type]="'fireteam'" *ngIf="!fireteam.preset"></app-edit-slot-add>
   </div>
 </ng-container>
