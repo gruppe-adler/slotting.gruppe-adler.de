@@ -42,8 +42,12 @@ h3 {
   font-size: 1.75rem;
 }
 
+mat-divider {
+  background: #333333;
+}
+
 mat-icon {
-  color: #d18d1f;
+  color: #666666;
   font-family: 'Material Icons', sans-serif !important;
 }
 
@@ -143,6 +147,14 @@ ul {
 
 .mat-input-container.app-input-no-underline .mat-input-underline {
   display: none;
+}
+
+.mat-input-container.app-input-white-underline .mat-input-underline {
+  background: white;
+}
+
+.mat-form-field-label {
+  color: white !important;
 }
 
 .switch {

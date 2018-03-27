@@ -12,6 +12,12 @@ export class EditService {
     };
   }
 
+  public slotTypeSelections= [
+    {
+      value: 'RF', viewValue: 'Rifleman'
+    }
+  ];
+
   public match: any;
   public matchDirty = false;
   private highligtedElement = null;
