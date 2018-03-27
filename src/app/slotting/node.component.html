@@ -7,7 +7,9 @@
   <div class="company-header">
     <app-event-slot class="slot" *ngFor="let slot of company.slot" [slot]="slot" [reservation]="reservation"></app-event-slot>
   </div>
-  <app-event-node [context]="company" [reservation]="reservation"></app-event-node>
+  <div class="company-siblings">
+    <app-event-node [context]="company" [reservation]="reservation"></app-event-node>
+  </div>
 </div>
 
 <div *ngFor="let platoon of context.platoon" class="platoon-container">
@@ -19,7 +21,9 @@
   <div class="platoon-header">
     <app-event-slot class="slot" *ngFor="let slot of platoon.slot" [slot]="slot" [reservation]="reservation"></app-event-slot>
   </div>
-  <app-event-node [context]="platoon" [reservation]="reservation"></app-event-node>
+  <div class="platoon-siblings">
+    <app-event-node [context]="platoon" [reservation]="reservation"></app-event-node>
+  </div>
 </div>
 
 <div *ngFor="let squad of context.squad" class="squad-container">

@@ -1,6 +1,6 @@
 <div class="slot-container">
   <ng-container *ngIf="slot">
-    <div class="avatar" [class.fireteam]="isFireteam" [class.selected]="toolbarExpanded" #avatar (click)="onClick()">
+    <div class="avatar" [class.fireteam]="isFireteam" [class.selected]="toolbarExpanded" #avatar (click)="onClick()" [@toolbarState]="toolbarExpanded">
       <ng-container *ngIf="reservation || slot['reserved-for']">
         <mat-icon class="lock-icon">lock</mat-icon>
       </ng-container>

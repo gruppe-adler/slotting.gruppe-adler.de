@@ -29,7 +29,6 @@ export class EditComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('edit component created');
     this.editService.init(this.slottingService.match);
     this.slottingService.matchChanged.subscribe(value => this.matchChangedExternal = value);
   }
@@ -106,6 +105,5 @@ export class EditComponent implements OnInit {
     this.editService.match[type] = this.editService.match[type] || [];
     this.editService.match[type].push(data);
     this.editService.matchDirty = true;
-    console.log(this.editService.match);
   }
 }

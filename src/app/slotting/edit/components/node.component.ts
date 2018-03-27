@@ -67,10 +67,8 @@ export class NodeComponent implements OnInit {
 
   public onDragEnter(event): void {
     this.editService.updateHighlightedContainer(event.target);
-    console.log('enter', event);
   }
   public onDragLeave(event): void {
     this.editService.removeHighlightedContainer(event.target);
-    console.log('leave', event);
   }
 }

@@ -17,6 +17,7 @@ export class SlotAddComponent implements OnInit {
   }
 
   public onClick(): void {
+    this.context.slot = this.context.slot || [];
     this.context.slot.push(this.editService.defaultSlot);
   }
 }

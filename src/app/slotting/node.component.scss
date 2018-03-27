@@ -119,6 +119,13 @@ $slotSize: 35px;
   }
 }
 
+.company-siblings, .platoon-siblings, .squad-siblings {
+  min-height: 70px;
+  padding-right: 10px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+}
+
 .fireteam-container {
   display: inline-block;
   padding: 7px 10px 7px 10px;

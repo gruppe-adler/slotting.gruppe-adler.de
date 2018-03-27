@@ -12,6 +12,7 @@ import { SlotComponent } from './components/slot.component';
 import { NodeComponent } from './components/node.component';
 import { NgDragDropModule } from 'ng-drag-drop';
 import { SlotAddComponent } from './components/slot-add.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
