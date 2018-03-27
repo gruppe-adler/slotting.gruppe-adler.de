@@ -15,12 +15,37 @@ export class NodeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onDrop(event, context): void {
+  onDrop(event, context, targetType): void {
     const origin = event.dragData.origin;
     let data = event.dragData.data;
     const type = event.dragData.type;
     const index = origin.indexOf(data);
-    console.log(data);
+
+    if (context.preset) {
+      return;
+    }
+
+    switch (targetType) {
+      case 'squad': {
+        if (type !== 'fireteam') {
+          return;
+        }
+      } break;
+
+      case 'platoon': {
+        if (type !== 'squad' && type !== 'platoon') {
+          return;
+        }
+      } break;
+
+      case 'company': {
+        if (type === 'fireteam') {
+          return;
+        } break;
+      }
+    }
+
+    console.log(event);
     if (data === context) {
       return;
     }

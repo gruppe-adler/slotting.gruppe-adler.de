@@ -10,7 +10,11 @@
         <app-edit-slot class="slot" *ngFor="let slot of company.slot" [slot]="slot" [reservation]="reservation"></app-edit-slot>
       </ng-container>
     </div>
-    <div class="company-siblings" droppable (onDrop)="onDrop($event, company)" [dropScope]="['company', 'platoon', 'squad']" [dragHintClass]="'drag-target'">
+    <div class="company-siblings"
+         droppable (onDrop)="onDrop($event, company, 'company')"
+         [dropEnabled]="!company.preset"
+         [dropScope]="['company', 'platoon', 'squad']"
+         [dragHintClass]="'drag-target'">
       <app-edit-node [context]="company" [reservation]="reservation"></app-edit-node>
     </div>
   </div>
@@ -28,7 +32,11 @@
         <app-edit-slot class="slot" *ngFor="let slot of platoon.slot" [slot]="slot" [reservation]="reservation"></app-edit-slot>
       </ng-container>
     </div>
-    <div class="platoon-siblings" droppable (onDrop)="onDrop($event, platoon)" [dropScope]="['platoon', 'squad']" [dragHintClass]="'drag-target'">
+    <div class="platoon-siblings"
+         droppable (onDrop)="onDrop($event, platoon, 'platoon')"
+         [dropEnabled]="!platoon.preset"
+         [dropScope]="['platoon', 'squad']"
+         [dragHintClass]="'drag-target'">
       <app-edit-node [context]="platoon" [reservation]="reservation"></app-edit-node>
     </div>
   </div>
@@ -45,7 +53,11 @@
         <app-edit-slot class="slot" *ngFor="let slot of squad.slot" [slot]="slot" [reservation]="reservation"></app-edit-slot>
       </ng-container>
     </div>
-    <div class="squad-siblings" droppable (onDrop)="onDrop($event, squad)" [dropScope]="'fireteam'" [dragHintClass]="'drag-target'">
+    <div class="squad-siblings"
+         droppable (onDrop)="onDrop($event, squad, 'squad')"
+         [dropEnabled]="!squad.preset"
+         [dropScope]="'fireteam'"
+         [dragHintClass]="'drag-target'">
       <app-edit-node [context]="squad" [reservation]="reservation"></app-edit-node>
     </div>
   </div>
