@@ -19,7 +19,8 @@
 }
 
 .drag-over {
-  background-color: black;
+  border-color: red;
+  border-width: 3px;
 }
 
 .squad-container, .platoon-container, .company-container, .fireteam-container {
