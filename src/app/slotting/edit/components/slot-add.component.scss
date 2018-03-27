@@ -1,0 +1,24 @@
+.slot-container {
+  height: 35px;
+  width: 35px;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.avatar {
+  border: #C4C4C4;
+  border-style: dashed;
+  border-width: 1px;
+  background-color: white;
+  box-shadow: none;
+}
+
+.slot-descr {
+  color: transparent;
+  user-select: none;
+
+  &:hover {
+    background-color: transparent;
+    color: transparent;
+  }
+}

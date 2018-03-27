@@ -1,8 +1,8 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   templateUrl: './slot.component.html',
-  styleUrls: ['../../slot.component.scss'],
+  styleUrls: ['../../slot.component.scss', './slot.component.scss'],
   selector: 'app-edit-slot'
 })
 export class SlotComponent implements OnInit {

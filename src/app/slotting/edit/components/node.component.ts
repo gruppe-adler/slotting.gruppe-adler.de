@@ -46,6 +46,8 @@ export class NodeComponent implements OnInit {
       }
     }
 
+    this.editService.removeHighlightedContainer(event.nativeEvent.target);
+
     console.log(event);
     if (data === context) {
       return;
@@ -61,5 +63,14 @@ export class NodeComponent implements OnInit {
     context[type].push(data);
     this.editService.matchDirty = true;
     console.log(context);
+  }
+
+  public onDragEnter(event): void {
+    this.editService.updateHighlightedContainer(event.target);
+    console.log('enter', event);
+  }
+  public onDragLeave(event): void {
+    this.editService.removeHighlightedContainer(event.target);
+    console.log('leave', event);
   }
 }

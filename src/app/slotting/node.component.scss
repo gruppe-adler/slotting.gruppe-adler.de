@@ -106,6 +106,7 @@ $slotSize: 35px;
   .squad-header {
     text-align: center;
     min-height: 20px;
+    background-color: white;
   }
 
   .squad-siblings {
@@ -128,7 +129,7 @@ $slotSize: 35px;
 }
 
 .company-header, .platoon-header, .squad-header {
-  margin-bottom: 10px;
+  padding-bottom: 10px;
   padding-left: 10px;
   padding-right: 10px;
 

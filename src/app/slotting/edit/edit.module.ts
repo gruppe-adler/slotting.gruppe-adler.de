@@ -11,11 +11,13 @@ import { SlottingService } from '../slotting.service';
 import { SlotComponent } from './components/slot.component';
 import { NodeComponent } from './components/node.component';
 import { NgDragDropModule } from 'ng-drag-drop';
+import { SlotAddComponent } from './components/slot-add.component';
 
 @NgModule({
   declarations: [
     EditComponent,
     SlotComponent,
+    SlotAddComponent,
     NodeComponent
   ],
   imports: [

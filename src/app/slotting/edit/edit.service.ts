@@ -6,6 +6,7 @@ import { SlottingService } from '../slotting.service';
 export class EditService {
   public match: any;
   public matchDirty = false;
+  private highligtedElement = null;
 
   constructor(private slottingService: SlottingService) {
     this.init(this.slottingService.match);
@@ -98,5 +99,23 @@ export class EditService {
     delete rawMatch['$'];
 
     return recurse(rawMatch);
+  }
+
+  public updateHighlightedContainer(nativeElement): void {
+    if (this.highligtedElement) {
+      this.highligtedElement.classList.remove('drag-over');
+    }
+    if (nativeElement === this.highligtedElement) {
+      return;
+    }
+    this.highligtedElement = nativeElement;
+    this.highligtedElement.classList.add('drag-over');
+  }
+
+  public removeHighlightedContainer(nativeElement): void {
+    if (this.highligtedElement === nativeElement) {
+      this.highligtedElement.classList.remove('drag-over');
+      this.highligtedElement = null;
+    }
   }
 }

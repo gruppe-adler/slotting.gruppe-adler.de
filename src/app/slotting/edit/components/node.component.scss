@@ -18,6 +18,10 @@
   padding-bottom: 60px;
 }
 
+.drag-over {
+  background-color: black;
+}
+
 .squad-container, .platoon-container, .company-container, .fireteam-container {
   animation: slide-up 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
 
