@@ -21,8 +21,12 @@
   padding-bottom: 60px;
 }
 
-.squad-container, .platoon-container, .company-container {
+.squad-container, .platoon-container, .company-container, .fireteam-container {
   animation: slide-up 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.fireteam-container {
+  background-color: #d9d9d9;
 }
 
 @keyframes slide-up {
