@@ -4,6 +4,14 @@ import { SlottingService } from '../slotting.service';
 
 @Injectable()
 export class EditService {
+  public get defaultSlot() {
+    return {
+      shortcode: 'R',
+      description: 'Rifleman',
+      newSlot: true
+    };
+  }
+
   public match: any;
   public matchDirty = false;
   private highligtedElement = null;

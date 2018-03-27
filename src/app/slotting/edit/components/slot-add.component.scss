@@ -1,8 +1,9 @@
 .slot-container {
   height: 35px;
   width: 35px;
-  display: inline-block;
   margin-bottom: 20px;
+  display: inline-block;
+  transition: opacity 0.2s ease;
 }
 
 .avatar {
@@ -11,6 +12,8 @@
   border-width: 1px;
   background-color: white;
   box-shadow: none;
+  color: #828282;
+  font-size: 17px;
 }
 
 .slot-descr {

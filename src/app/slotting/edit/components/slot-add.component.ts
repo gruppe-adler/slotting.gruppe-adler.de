@@ -1,4 +1,5 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { EditService } from '../edit.service';
 
 @Component({
   templateUrl: './slot-add.component.html',
@@ -8,10 +9,14 @@ import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 export class SlotAddComponent implements OnInit {
   @Input() context: any;
 
-  constructor() {
+  constructor(private editService: EditService) {
   }
 
   public ngOnInit(): void {
 
+  }
+
+  public onClick(): void {
+    this.context.slot.push(this.editService.defaultSlot);
   }
 }

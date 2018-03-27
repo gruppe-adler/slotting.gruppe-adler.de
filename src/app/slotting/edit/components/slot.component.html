@@ -1,9 +1,17 @@
-<div class="slot-container">
+<div class="slot-container" (click)="onClick()" >
   <ng-container *ngIf="slot">
-    <div class="avatar" [class.fireteam]="isFireteam">
+    <div class="avatar" [class.fireteam]="isFireteam" [class.selected]="toolbarExpanded" #avatar>
       <ng-container *ngIf="reservation || slot['reserved-for']">
         <mat-icon class="lock-icon">lock</mat-icon>
       </ng-container>
+    </div>
+    <div #toolbar class="toolbar" [class.expanded]="toolbarExpanded" [ngStyle]="{left: -(toolbar.clientWidth / 2 - avatar.clientWidth / 2) + 'px'}">
+      <div class="arrow">
+
+      </div>
+      <div class="tools">
+
+      </div>
     </div>
     <div class="slot-descr" [class.fireteam]="isFireteam" [matTooltip]="slot.description">
       {{slot.shortcode}}

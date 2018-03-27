@@ -7,6 +7,10 @@
   transition: padding-bottom 0.3s ease, border-color 0.3s ease, border-width 0.2s ease;
 }
 
+.squad-siblings {
+  padding-top: 9px;
+}
+
 .platoon-title, .company-title, .squad-title, .title-container {
   cursor: grab;
 }
@@ -47,3 +51,20 @@
     transform: translateY(0);
   }
 }
+
+/*
+app-edit-slot-add {
+  visibility: hidden;
+  transition: visibility 0s, opacity 0.5s ease;
+  opacity: 0;
+  height: 0;
+}
+
+.company-header:hover {
+  app-edit-slot-add {
+    visibility: visible;
+    opacity: 1;
+  }
+}*/
+
+
