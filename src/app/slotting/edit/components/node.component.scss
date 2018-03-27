@@ -4,6 +4,7 @@
   padding-right: 10px;
   padding-bottom: 5px;
   padding-left: 10px;
+  transition: padding-bottom 0.3s ease, border-color 0.3s ease, border-width 0.2s ease;
 }
 
 .platoon-title, .company-title, .squad-title, .title-container {
@@ -14,7 +15,6 @@
   border: #666666;
   border-width: 1px;
   border-style: dashed;
-  animation: expand-bottom 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
   padding-bottom: 60px;
 }
 
@@ -45,14 +45,5 @@
   100% {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes expand-bottom {
-  0% {
-    padding-bottom: inherit;
-    }
-  100% {
-    padding-bottom: 60px;
   }
 }
