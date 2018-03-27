@@ -157,6 +157,10 @@ ul {
   color: #666666 !important;
 }
 
+.mat-button:hover .mat-button-wrapper mat-icon {
+  color: #d18d1f !important;
+}
+
 .switch {
   display: inline-block;
   background-color: rgb(255, 255, 255);

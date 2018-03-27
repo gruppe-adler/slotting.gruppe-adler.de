@@ -34,6 +34,9 @@ export class SlotComponent implements OnInit, AfterViewInit {
   }
 
   public onClick(): void {
+    if (this.context.preset) {
+      return;
+    }
     this.toolbarOffset = this.elementRef.nativeElement.firstElementChild.firstElementChild.clientWidth;
     this.toolbarExpanded = !this.toolbarExpanded;
     this.cdr.detectChanges();
@@ -71,6 +74,7 @@ export class SlotComponent implements OnInit, AfterViewInit {
     const index = this.context.slot.indexOf(this.slot);
     if (index > -1) {
       const duplicate = JSON.parse(JSON.stringify(this.slot));
+      delete duplicate.uuid;
       this.context.slot.splice(index, 0, duplicate);
     }
   }
