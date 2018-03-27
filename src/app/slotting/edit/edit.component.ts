@@ -11,7 +11,16 @@ import { EditService } from './edit.service';
 export class EditComponent implements OnInit {
   public xml = '';
   public showSourcecode = false;
-  public matchChanged = false;
+  public matchChangedExternal = false;
+
+  public readonly fireteamPreset = {
+    preset: true,
+    slot: [
+      {shortcode: 'FTL', description: 'Fireteam Leader'},
+      {shortcode: 'R', description: 'Rifleman'},
+      {shortcode: 'R', description: 'Rifleman'},
+      {shortcode: 'R', description: 'Rifleman'}
+    ]};
 
   constructor(public router: Router,
               private route: ActivatedRoute,
@@ -20,21 +29,33 @@ export class EditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.editService.match = this.slottingService.match;
-    this.slottingService.matchChanged.subscribe(() => this.matchChanged = true);
+    console.log('edit component created');
+    this.editService.init(this.slottingService.match);
+    this.slottingService.matchChanged.subscribe(() => this.matchChangedExternal = true);
   }
 
   public abort(): void {
-    this.router.navigate(['/slotting'], {
-      queryParams: {
-        tid: this.route.snapshot.queryParams['tid'],
-        matchid: this.route.snapshot.queryParams['matchid']
-      }
-    });
+    const abort = () => {
+      this.router.navigate(['/slotting'], {
+        queryParams: {
+          tid: this.route.snapshot.queryParams['tid'],
+          matchid: this.route.snapshot.queryParams['matchid']
+        }
+      });
+    };
+    if (this.editService.matchDirty) {
+      this.slottingService.bootboxConfirm('Du hast noch ungespeicherte Änderungen. Möchtest du trotzdem abbrechen?', result => {
+        if (result) {
+          abort();
+        }
+      });
+    } else {
+      abort();
+    }
   }
 
   public async save(): Promise<void> {
-    if (this.matchChanged) {
+    if (this.matchChangedExternal) {
       this.slottingService.bootboxConfirm('Die Slotliste hat sich während der Bearbeitung verändert. Möchtest du die Änderungen überschreiben?', result => {
         if (result) {
           this.saveInternal();
@@ -46,6 +67,9 @@ export class EditComponent implements OnInit {
   }
 
   private async saveInternal(): Promise<void> {
+    if (!this.showSourcecode) {
+      this.xml = this.editService.getMatchXml();
+    }
     const result = await this.slottingService.updateMatch(this.xml);
     if (result) {
       this.abort();
@@ -61,5 +85,25 @@ export class EditComponent implements OnInit {
     } else {
       this.editService.updateMatchFromXml(this.xml);
     }
+  }
+
+  onRootDrop(event): void {
+    const origin = event.dragData.origin;
+    let data = event.dragData.data;
+    const type = event.dragData.type;
+    if (!data.preset) {
+      // remove data from origin
+      const index = origin.indexOf(data);
+      if (index > -1) {
+        origin.slice(index, 1);
+      }
+    } else {
+      data = JSON.parse(JSON.stringify(data));
+      delete data.preset;
+    }
+    this.editService.match[type] = this.editService.match[type] || [];
+    this.editService.match[type].push(data);
+    this.editService.matchDirty = true;
+    console.log(this.editService.match);
   }
 }

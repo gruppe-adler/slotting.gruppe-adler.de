@@ -15,14 +15,14 @@
 </div>
 
 <div class="editor-container" *ngIf="!showSourcecode; else sourceCode">
-  <div class="drop-container" droppable [dropScope]="['company', 'platoon', 'squad']">
+  <div class="drop-container" droppable [dropScope]="['company', 'platoon', 'squad']" [dragHintClass]="'drag-target'" (onDrop)="onRootDrop($event)">
     <app-edit-node *ngIf="editService.match" [context]="editService.match"></app-edit-node>
   </div>
   <div class="items-container">
-    <app-edit-node [context]="{platoon: [{preset: true, callsign: 'Platoon'}]}"></app-edit-node>
-    <app-edit-node [context]="{company: [{preset: true, callsign: 'Comapny'}]}"></app-edit-node>
-    <app-edit-node [context]="{squad: [{preset: true, callsign: 'Squad'}]}"></app-edit-node>
-    <app-edit-node [context]="{fireteam: [{preset: true, slot: [{shortcode: 'FTL'}, {shortcode: 'R'}, {shortcode: 'R'}, {shortcode: 'R'}]}]}"></app-edit-node>
+    <app-edit-node [context]="{company: [{preset: true, natosymbol: 'inf', callsign: 'Company'}]}"></app-edit-node>
+    <app-edit-node [context]="{platoon: [{preset: true, natosymbol: 'inf', callsign: 'Platoon'}]}"></app-edit-node>
+    <app-edit-node [context]="{squad: [{preset: true, natosymbol: 'inf', callsign: 'Squad'}]}"></app-edit-node>
+    <app-edit-node [context]="{fireteam: [fireteamPreset]}"></app-edit-node>
   </div>
 </div>
 <ng-template #sourceCode>

@@ -31,6 +31,14 @@
   .drop-container {
     height: 100%;
     min-height: 300px;
+
+    &.drag-target {
+      border: #666666;
+      border-width: 1px;
+      border-style: dashed;
+      animation: expand-bottom 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+      padding-bottom: 60px;
+    }
   }
 
   .items-container {
@@ -42,3 +50,12 @@
   }
 }
 
+
+@keyframes expand-bottom {
+  0% {
+    padding-bottom: inherit;
+  }
+  100% {
+    padding-bottom: 60px;
+  }
+}

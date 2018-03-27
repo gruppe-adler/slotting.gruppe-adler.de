@@ -5,9 +5,15 @@ import { SlottingService } from '../slotting.service';
 @Injectable()
 export class EditService {
   public match: any;
+  public matchDirty = false;
 
   constructor(private slottingService: SlottingService) {
-    this.match = JSON.parse(JSON.stringify(this.slottingService.match));
+    this.init(this.slottingService.match);
+  }
+
+  init(match: any): void {
+    this.match = JSON.parse(JSON.stringify(match));
+    this.matchDirty = false;
   }
 
   public getMatchXml(): string {

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { EditService } from '../edit.service';
 
 @Component({
   templateUrl: './node.component.html',
@@ -9,7 +10,7 @@ export class NodeComponent implements OnInit {
   @Input() context: any;
   @Input() reservation = '';
 
-  constructor() {
+  constructor(private editService: EditService) {
   }
 
   ngOnInit(): void {
@@ -58,6 +59,7 @@ export class NodeComponent implements OnInit {
     }
     context[type] = context[type] || [];
     context[type].push(data);
+    this.editService.matchDirty = true;
     console.log(context);
   }
 }
