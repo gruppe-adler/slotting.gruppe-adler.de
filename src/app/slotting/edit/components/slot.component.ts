@@ -86,4 +86,11 @@ export class SlotComponent implements OnInit, AfterViewInit {
       this.context.slot.splice(index, 1);
     }
   }
+
+  public onKey(event): void {
+    console.log(event);
+    if (event.keyCode === 13) {
+      this.toolbarExpanded = false;
+    }
+  }
 }

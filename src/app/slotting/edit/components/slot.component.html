@@ -5,7 +5,7 @@
         <mat-icon class="lock-icon">lock</mat-icon>
       </ng-container>
     </div>
-    <div #toolbar class="toolbar" *ngIf="toolbarExpanded" [class.expanded]="toolbarExpanded" [ngStyle]="{left: -(toolbar.clientWidth / 2 - avatar.clientWidth / 2) + 'px'}">
+    <div #toolbar class="toolbar" *ngIf="toolbarExpanded" [class.expanded]="toolbarExpanded" [ngStyle]="{left: -(toolbar.clientWidth / 2 - avatar.clientWidth / 2) + 'px'}" (keypress)="onKey($event)">
       <div class="arrow"></div>
       <div class="tools">
         <form>
@@ -17,11 +17,11 @@
           </mat-form-field>
           <mat-divider [vertical]="true"></mat-divider>
           <button mat-button (click)="duplicate()">
-            <mat-icon>content_copy</mat-icon>
+            <mat-icon class="copy-icon">content_copy</mat-icon>
           </button>
           <mat-divider [vertical]="true"></mat-divider>
           <button mat-button (click)="deleteSlot()">
-            <mat-icon>delete</mat-icon>
+            <mat-icon class="delete-icon">delete</mat-icon>
           </button>
         </form>
       </div>
