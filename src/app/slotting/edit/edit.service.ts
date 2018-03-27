@@ -52,6 +52,11 @@ export class EditService {
               delete current.user;
             }
             delete current.slottedPlayerCount;
+            // Apply default slot attributes to prevent problems
+            if (currentFilter === 'slot') {
+              current.description = current.description || 'Rifleman';
+              current.shortcode = current.shortcode || 'R';
+            }
 
             // Take all keys and apply them as attributes
             const attributes = current['$'] || {};

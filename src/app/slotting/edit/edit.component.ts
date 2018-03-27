@@ -31,7 +31,7 @@ export class EditComponent implements OnInit {
   ngOnInit() {
     console.log('edit component created');
     this.editService.init(this.slottingService.match);
-    this.slottingService.matchChanged.subscribe(() => this.matchChangedExternal = true);
+    this.slottingService.matchChanged.subscribe(value => this.matchChangedExternal = value);
   }
 
   public abort(): void {
@@ -70,6 +70,8 @@ export class EditComponent implements OnInit {
     if (!this.showSourcecode) {
       this.xml = this.editService.getMatchXml();
     }
+    this.editService.matchDirty = false;
+    console.log('edit dirty', this.editService.matchDirty);
     const result = await this.slottingService.updateMatch(this.xml);
     if (result) {
       this.abort();

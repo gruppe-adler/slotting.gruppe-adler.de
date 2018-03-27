@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, Input, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   templateUrl: './slot.component.html',
@@ -34,9 +34,16 @@ export class SlotComponent implements OnInit, AfterViewInit {
 
   public onClick(): void {
     this.toolbarOffset = this.elementRef.nativeElement.firstElementChild.firstElementChild.clientWidth;
-    console.log(this.toolbarOffset);
     this.toolbarExpanded = !this.toolbarExpanded;
     this.cdr.detectChanges();
+
+    const inputs = this.elementRef.nativeElement.getElementsByTagName('input');
+    if (inputs['description']) {
+      console.log(inputs['description']);
+      setTimeout(() => {
+        inputs['description'].select();
+      }, 100);
+    }
   }
 
   @HostListener('document:mouseup', ['$event'])

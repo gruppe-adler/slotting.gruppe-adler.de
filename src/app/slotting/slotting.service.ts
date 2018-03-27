@@ -13,7 +13,7 @@ export class SlottingService implements OnDestroy {
   public tid: number;
   public matchid: string;
   public showGroupsChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
-  public matchChanged: EventEmitter<void> = new EventEmitter();
+  public matchChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   private slottingInProgress = false;
   private unslottingInProgress = false;
@@ -92,7 +92,7 @@ export class SlottingService implements OnDestroy {
     this.socket.on('event:match-changed', data => {
       if (this.match && this.match.uuid === data.matchid) {
         this.getMatch(this.tid, this.matchid);
-        this.matchChanged.emit();
+        this.matchChanged.emit(true);
         console.log('match changed');
       }
     });

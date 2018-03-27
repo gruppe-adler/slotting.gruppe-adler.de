@@ -10,10 +10,10 @@
       <div class="tools">
         <form>
           <mat-form-field floatLabel="never" class="app-input-white-underline shortcode-input app-input-white-label">
-            <input matInput placeholder="" maxlength="3" [(ngModel)]="slot.shortcode" name="shortcode">
+            <input matInput placeholder="Code" maxlength="3" [(ngModel)]="slot.shortcode" name="shortcode">
           </mat-form-field>
           <mat-form-field floatLabel="never" class="app-input-white-underline description-input">
-            <input matInput placeholder="Beschreibung" [(ngModel)]="slot.description" name="description">
+            <input #description matInput placeholder="Beschreibung" [(ngModel)]="slot.description" name="description" (ngModelChange)="description.select()">
           </mat-form-field>
           <mat-divider [vertical]="true"></mat-divider>
           <button mat-button (click)="duplicate()">
