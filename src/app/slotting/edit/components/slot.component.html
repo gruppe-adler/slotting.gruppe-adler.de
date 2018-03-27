@@ -13,7 +13,7 @@
             <input matInput placeholder="Code" maxlength="3" [(ngModel)]="slot.shortcode" name="shortcode">
           </mat-form-field>
           <mat-form-field floatLabel="never" class="app-input-white-underline description-input">
-            <input #description matInput placeholder="Beschreibung" [(ngModel)]="slot.description" name="description" (ngModelChange)="description.select()">
+            <input #description matInput placeholder="Beschreibung" [(ngModel)]="slot.description" name="description">
           </mat-form-field>
           <mat-divider [vertical]="true"></mat-divider>
           <button mat-button (click)="duplicate()">

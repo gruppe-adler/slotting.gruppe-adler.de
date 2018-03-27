@@ -10,6 +10,7 @@ export class SlotComponent implements OnInit, AfterViewInit {
   @Input() context: any;
   @Input() isFireteam = false;
   @Input() reservation = '';
+  @ViewChild('toolbar') toolbar: ElementRef;
 
   public toolbarOffset = 0;
   public toolbarExpanded = false;
@@ -48,8 +49,21 @@ export class SlotComponent implements OnInit, AfterViewInit {
 
   @HostListener('document:mouseup', ['$event'])
   onKeyUp(ev: KeyboardEvent) {
-    if (ev['path'].indexOf(this.elementRef.nativeElement) === -1) {
-      this.toolbarExpanded = false;
+    if (ev['path']) {
+      if (ev['path'].indexOf(this.elementRef.nativeElement) === -1) {
+        this.toolbarExpanded = false;
+      }
+    } else if (ev['target'] && this.toolbar) {
+      const elements = this.toolbar.nativeElement.getElementsByTagName('*');
+      let found = false;
+      for (let i = 0; i < elements.length; i++) {
+        if (elements[i] === ev['target'] && elements[i] !== this.elementRef.nativeElement.firstElementChild.firstElementChild) {
+          found = true;
+        }
+      }
+      if (!found) {
+        this.toolbarExpanded = false;
+      }
     }
   }
 
