@@ -22,12 +22,7 @@
     <app-edit-node [context]="{platoon: [{preset: true, callsign: 'Platoon'}]}"></app-edit-node>
     <app-edit-node [context]="{company: [{preset: true, callsign: 'Comapny'}]}"></app-edit-node>
     <app-edit-node [context]="{squad: [{preset: true, callsign: 'Squad'}]}"></app-edit-node>
-    <app-edit-node [context]="{fireteam: [{preset: true, callsign: 'Fireteam', slot: [{shortcode: 'FTL'}, {shortcode: 'R'}, {shortcode: 'R'}, {shortcode: 'R'}]}]}"></app-edit-node>
-    <!--
-    <div [id]="template.type" class="drag-item" *ngFor="let template of templates">
-      {{template.name}}
-    </div>
-    -->
+    <app-edit-node [context]="{fireteam: [{preset: true, slot: [{shortcode: 'FTL'}, {shortcode: 'R'}, {shortcode: 'R'}, {shortcode: 'R'}]}]}"></app-edit-node>
   </div>
 </div>
 <ng-template #sourceCode>
