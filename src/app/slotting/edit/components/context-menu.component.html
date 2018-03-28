@@ -1,0 +1,27 @@
+<div #toolbar class="toolbar" *ngIf="toolbarExpanded" [class.expanded]="toolbarExpanded" (keypress)="onKey($event)" [ngStyle]="{left: 'calc(50% - ' + toolbar.clientWidth / 2 + 'px)'}">
+  <div class="arrow"></div>
+  <div class="tools">
+    <form>
+      <mat-form-field floatLabel="never" class="app-input-white-underline callsign-input">
+        <input #description matInput placeholder="Callsign" [(ngModel)]="element.callsign" name="callsign">
+      </mat-form-field>
+      <mat-divider [vertical]="true"></mat-divider>
+      <div class="flag-select">
+        <div class="natosymbol" [ngClass]="element.natosymbol"></div>
+        <ul class="selections">
+          <li *ngFor="let flag of editService.flagIcons" (click)="setFlag(flag)">
+            <div class="natosymbol" [ngClass]="flag"></div>
+          </li>
+        </ul>
+      </div>
+      <mat-divider [vertical]="true"></mat-divider>
+      <button mat-button (click)="duplicate()">
+        <mat-icon class="copy-icon">content_copy</mat-icon>
+      </button>
+      <mat-divider [vertical]="true"></mat-divider>
+      <button mat-button (click)="delete()">
+        <mat-icon class="delete-icon">delete</mat-icon>
+      </button>
+    </form>
+  </div>
+</div>

@@ -44,6 +44,10 @@ export class EditService {
     };
   }
 
+  public get flagIcons() {
+    return ['air', 'armor', 'art', 'hq', 'inf', 'maint', 'mech_inf', 'med', 'mortar', 'motor_inf', 'plane', 'recon', 'service', 'support', 'uav'];
+  }
+
   public get matchDirty() {
     return JSON.stringify(this.match) !== JSON.stringify(this.rawMatch);
   }

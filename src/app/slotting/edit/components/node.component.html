@@ -4,6 +4,7 @@
     <div class="company-title-container title-container" [ngClass]="company.side ? company.side : null">
       <span class="natosymbol" [ngClass]="company.natosymbol" [matTooltip]="company.vehicletype ? company.vehicletyp : null"></span>
       <span class="company-title" [ngClass]="company.side ? company.side : null">{{company.callsign}}</span>
+      <app-edit-context-menu [element]="company" [context]="context" [type]="'company'"></app-edit-context-menu>
     </div>
     <div class="company-header">
       <ng-container *ngIf="company.slot">
@@ -29,6 +30,7 @@
       <span class="natosymbol" [ngClass]="platoon.natosymbol" [matTooltip]="platoon.vehicletype ? platoon.vehicletyp : null">
       </span>
       <span class="platoon-title">{{platoon.callsign}}</span>
+      <app-edit-context-menu [element]="platoon" [context]="context" [type]="'platoon'"></app-edit-context-menu>
     </div>
     <div class="platoon-header">
       <ng-container *ngIf="platoon.slot">
@@ -53,6 +55,7 @@
     <div class="squad-title-container title-container">
       <span class="natosymbol" [ngClass]="squad.natosymbol" [matTooltip]="squad.vehicletype ? squad.vehicletyp : null"></span>
       <span class="squad-title">{{squad.callsign}}</span>
+      <app-edit-context-menu [element]="squad" [context]="context" [type]="'squad'"></app-edit-context-menu>
     </div>
     <div class="squad-header">
       <ng-container *ngIf="squad.slot">

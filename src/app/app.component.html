@@ -1,16 +1,1 @@
-<!--<ng-container *ngIf="!rawView; else raw">
-  <ng-progress [color]="'#d18d1f'" [spinner]="false"></ng-progress>
-  <app-storage-notification></app-storage-notification>
-  <app-navbar></app-navbar>
-  <app-background></app-background>
-  <simple-notifications [options]="{timeOut: 4000, maxStack: 4, showProgressBar: false}"></simple-notifications>
-
-  <main class="content">
-    <router-outlet></router-outlet>
-  </main>
-
-  <app-footer></app-footer>
-</ng-container>
-<ng-template #raw>-->
-  <router-outlet></router-outlet>
-<!--</ng-template>-->
+<router-outlet ></router-outlet>
