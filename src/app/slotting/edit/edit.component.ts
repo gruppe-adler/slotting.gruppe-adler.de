@@ -34,6 +34,7 @@ export class EditComponent implements OnInit {
   }
 
   public abort(): void {
+    console.log('abort');
     const abort = () => {
       this.router.navigate(['/slotting'], {
         queryParams: {
@@ -43,6 +44,8 @@ export class EditComponent implements OnInit {
       });
     };
     if (this.editService.matchDirty) {
+      console.log(this.editService.rawMatch);
+      console.log(this.editService.match);
       this.slottingService.bootboxConfirm('Du hast noch ungespeicherte Änderungen. Möchtest du trotzdem abbrechen?', result => {
         if (result) {
           abort();
@@ -54,6 +57,7 @@ export class EditComponent implements OnInit {
   }
 
   public async save(): Promise<void> {
+    console.log('save');
     if (this.matchChangedExternal) {
       this.slottingService.bootboxConfirm('Die Slotliste hat sich während der Bearbeitung verändert. Möchtest du die Änderungen überschreiben?', result => {
         if (result) {
@@ -69,9 +73,8 @@ export class EditComponent implements OnInit {
     if (!this.showSourcecode) {
       this.xml = this.editService.getMatchXml();
     }
-    this.editService.matchDirty = false;
     console.log('edit dirty', this.editService.matchDirty);
-    const result = await this.slottingService.updateMatch(this.xml);
+    const result = await this.editService.updateMatch(this.xml);
     if (result) {
       this.abort();
     } else {
@@ -104,6 +107,5 @@ export class EditComponent implements OnInit {
     }
     this.editService.match[type] = this.editService.match[type] || [];
     this.editService.match[type].push(data);
-    this.editService.matchDirty = true;
   }
 }

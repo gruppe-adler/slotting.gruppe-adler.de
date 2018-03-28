@@ -44,9 +44,13 @@ export class EditService {
     };
   }
 
+  public get matchDirty() {
+    return JSON.stringify(this.match) !== JSON.stringify(this.rawMatch);
+  }
 
+
+  public rawMatch: any;
   public match: any;
-  public matchDirty = false;
   private highligtedElement = null;
 
   constructor(private slottingService: SlottingService) {
@@ -54,8 +58,8 @@ export class EditService {
   }
 
   init(match: any): void {
+    this.rawMatch = JSON.parse(JSON.stringify(match));
     this.match = JSON.parse(JSON.stringify(match));
-    this.matchDirty = false;
   }
 
   public getMatchXml(): string {
@@ -163,5 +167,10 @@ export class EditService {
       this.highligtedElement.classList.remove('drag-over');
       this.highligtedElement = null;
     }
+  }
+
+  public async updateMatch(xmlMatch: string): Promise<boolean> {
+    this.rawMatch = this.match;
+    return await this.slottingService.updateMatch(xmlMatch);
   }
 }

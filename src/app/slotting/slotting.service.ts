@@ -198,7 +198,6 @@ export class SlottingService implements OnDestroy {
         },
         withCredentials: true
       }).toPromise();
-      console.log(result);
       return true;
     } catch (e) {
       console.log(e);

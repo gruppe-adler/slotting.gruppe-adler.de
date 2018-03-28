@@ -61,7 +61,6 @@ export class NodeComponent implements OnInit {
     }
     context[type] = context[type] || [];
     context[type].push(data);
-    this.editService.matchDirty = true;
     console.log(context);
   }
 
