@@ -7,20 +7,15 @@ export class SlottingResolver implements Resolve<any> {
   constructor(private router: Router, private slottingService: SlottingService) {}
 
   async resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<any> {
-    if (!(route.queryParams.tid && route.queryParams.matchid)) {
+    if (!route.queryParams.tid) {
       this.router.navigate(['/404']);
       return;
     }
 
-    if (this.slottingService.match) {
-      return this.slottingService.match;
+    if (!this.slottingService.matches || this.slottingService.matches.length === 0) {
+      return await this.slottingService.getMatches(route.queryParams.tid);
     }
 
-    if (await this.slottingService.getMatch(route.queryParams.tid, route.queryParams.matchid)) {
-      return this.slottingService.match;
-    }
-
-    this.router.navigate(['/404']);
-    return null;
+    return this.slottingService.matches;
   }
 }

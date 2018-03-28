@@ -7,10 +7,12 @@ import { SlottingComponent } from './slotting.component';
 import { NodeModule } from './node.module';
 import { SlottingResolver } from './slotting.resolver';
 import { FormsModule } from '@angular/forms';
+import { OverviewComponent } from './overview.component';
 
 @NgModule({
   declarations: [
-    SlottingComponent
+    SlottingComponent,
+    OverviewComponent
   ],
   imports: [
     CommonModule,
@@ -21,7 +23,7 @@ import { FormsModule } from '@angular/forms';
       {
         path: '',
         pathMatch: 'full',
-        component: SlottingComponent,
+        component: OverviewComponent,
         resolve: {
           data: SlottingResolver
         }

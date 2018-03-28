@@ -15,6 +15,7 @@ import { environment } from '../../environments/environment';
 export class SlotComponent implements OnInit {
   @Input() slot: any;
   @Input() isFireteam = false;
+  @Input() matchid = '';
   @Input() reservation = '';
   public background: string;
   public slotTooltip: string;
@@ -192,7 +193,7 @@ export class SlotComponent implements OnInit {
     if (this.slot.user) {
       const oldUsername = this.slot.user.username;
       this.slottingService.bootboxConfirm(oldUsername + ' vom Slot kicken?', result => {
-        this.slottingService.slotUser(this.slot.uuid).then(slotResult => {
+        this.slottingService.slotUser(this.matchid, this.slot.uuid).then(slotResult => {
           if (slotResult) {
             this.slottingService.showNodebbAlert('Eingeslottet', oldUsername + 'vom Slot gekickt und eingeslottet');
           } else {
@@ -203,7 +204,7 @@ export class SlotComponent implements OnInit {
       return;
     }
 
-    this.slottingService.slotUser(this.slot.uuid).then(result => {
+    this.slottingService.slotUser(this.matchid, this.slot.uuid).then(result => {
       if (result) {
         this.slottingService.showNodebbAlert('Eingeslottet', '');
       } else {
@@ -259,7 +260,7 @@ export class SlotComponent implements OnInit {
     }
 
     console.log('unslot');
-    this.slottingService.unslotUser(this.slot.uuid).then(result => {
+    this.slottingService.unslotUser(this.matchid, this.slot.uuid).then(result => {
       if (result) {
         this.slottingService.showNodebbAlert('Ausgeslottet', '');
       } else {

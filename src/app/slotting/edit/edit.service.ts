@@ -54,7 +54,6 @@ export class EditService {
   private highligtedElement = null;
 
   constructor(private slottingService: SlottingService) {
-    this.init(this.slottingService.match);
   }
 
   init(match: any): void {
@@ -171,6 +170,6 @@ export class EditService {
 
   public async updateMatch(xmlMatch: string): Promise<boolean> {
     this.rawMatch = this.match;
-    return await this.slottingService.updateMatch(xmlMatch);
+    return await this.slottingService.updateMatch(this.match.uuid, xmlMatch);
   }
 }

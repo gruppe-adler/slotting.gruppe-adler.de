@@ -1,5 +1,8 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import {
+  AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostBinding, HostListener, Input, OnInit,
+  ViewChild
+} from '@angular/core';
+import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 
 @Component({
   templateUrl: './slot.component.html',
@@ -7,15 +10,25 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
   selector: 'app-edit-slot',
   animations: [
     trigger('toolbarState', [
-      state('0', style({})),
-      state('1',   style({})),
       transition('1 => 0', [
         style({
-          backgroundColor: '#33dc35'
+          backgroundColor: 'white'
         }),
         animate('250ms ease-in', style({
           backgroundColor: '#d9d9d9'
         }))
+      ])
+    ]),
+    trigger('newSlotAnimation', [
+      transition('* => 1', [
+        style({
+          transform: 'scaleX(0)',
+          opacity: 0
+        }),
+        animate('500ms ease-in', keyframes([
+          style({transform: 'scaleX(1)', offset: 0.5}),
+          style({opacity: 1, offset: 1})
+        ]))
       ])
     ])
   ]
@@ -26,8 +39,8 @@ export class SlotComponent implements OnInit, AfterViewInit {
   @Input() isFireteam = false;
   @Input() reservation = '';
   @ViewChild('toolbar') toolbar: ElementRef;
+  @HostBinding('@newSlotAnimation') public newSlot = false;
 
-  public toolbarOffset = 0;
   public toolbarExpanded = false;
   public initialized = false;
 
@@ -35,13 +48,15 @@ export class SlotComponent implements OnInit, AfterViewInit {
   }
 
   public ngOnInit(): void {
-    this.slot.description = this.slot.description || '';
-    this.slot.shortcode = this.slot.shortcode || '';
+    if (this.slot.newSlot) {
+      this.newSlot = true;
+    }
+    this.checkNeededValues();
   }
 
   public ngAfterViewInit(): void {
     if (this.slot.newSlot) {
-      this.onClick();
+      setTimeout(() => this.onClick(), 250);
       delete this.slot.newSlot;
     }
     this.initialized = true;
@@ -52,7 +67,6 @@ export class SlotComponent implements OnInit, AfterViewInit {
     if (this.context.preset) {
       return;
     }
-    this.toolbarOffset = this.elementRef.nativeElement.firstElementChild.firstElementChild.clientWidth;
     this.toolbarExpanded = !this.toolbarExpanded;
     this.cdr.detectChanges();
     this.checkNeededValues();

@@ -5,13 +5,11 @@ import * as io from 'socket.io-client';
 
 @Injectable()
 export class SlottingService implements OnDestroy {
-  public match: any;
-  public rawMatch: any;
+  public matches: any[];
   public slots = [];
   public slottedCount = 0;
   public socket: any;
   public tid: number;
-  public matchid: string;
   public showGroupsChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
   public matchChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -30,17 +28,46 @@ export class SlottingService implements OnDestroy {
 
   public async getMatch(tid: number, matchid: string): Promise<any> {
     this.tid = tid;
-    this.matchid = matchid;
 
     try {
       const match = await this.http.get(
         `${environment.api.forumUrl}/arma3-slotting/${tid}/match/${matchid}?withusers=1`, {withCredentials: true}).toPromise();
-      this.rawMatch = { ...match };
       this.parseMatch(match);
       this.refreshSlottedCount();
       console.log(match);
-      this.match = match;
-      return this.match;
+      return match;
+    } catch (e) {
+      console.log(e);
+      return null;
+    }
+  }
+
+  public async findMatch(tid: number, matchid: string): Promise<any> {
+    if (!this.matches || this.matches.length === 0) {
+      console.log('loading matches');
+      await this.getMatches(tid);
+      this.matches.find(x => {
+        console.log('dwadwa', x);
+        return true;
+      });
+    }
+    console.log('blerb', this.matches);
+    return this.matches.find(x => x.uuid === matchid);
+  }
+
+  public async getMatches(tid: number): Promise<any[]> {
+    this.tid = tid;
+
+    try {
+      const matches = await this.http.get<any[]>(
+        `${environment.api.forumUrl}/arma3-slotting/${tid}`, {withCredentials: true}).toPromise();
+      this.matches = [];
+      for (let i = 0; i < matches.length; i++) {
+        let match = matches[i];
+        match = await this.getMatch(this.tid, match.uuid);
+        this.matches.push(match);
+      }
+      return this.matches;
     } catch (e) {
       console.log(e);
       return null;
@@ -89,9 +116,10 @@ export class SlottingService implements OnDestroy {
       console.log('connected');
     });
 
-    this.socket.on('event:match-changed', data => {
-      if (this.match && this.match.uuid === data.matchid) {
-        this.getMatch(this.tid, this.matchid);
+    this.socket.on('event:match-changed', async data => {
+      const index = this.matches.findIndex(x => x.uuid === data.matchid);
+      if (index > -1) {
+        this.matches[index] = await this.getMatch(this.tid, data.matchid);
         this.matchChanged.emit(true);
         console.log('match changed');
       }
@@ -114,7 +142,7 @@ export class SlottingService implements OnDestroy {
     this.socket.close();
   }
 
-  public async slotUser(slotid: string): Promise<boolean> {
+  public async slotUser(matchid: string, slotid: string): Promise<boolean> {
     if (this.slottingInProgress) {
       return false;
     }
@@ -122,7 +150,7 @@ export class SlottingService implements OnDestroy {
     const uid = await this.getOwnUserId();
     console.log(uid);
     try {
-      await this.http.put(environment.api.forumUrl + '/arma3-slotting/' + this.tid + '/match/' + this.matchid + '/slot/' + slotid + '/user', {uid}, {withCredentials: true}).toPromise();
+      await this.http.put(environment.api.forumUrl + '/arma3-slotting/' + this.tid + '/match/' + matchid + '/slot/' + slotid + '/user', {uid}, {withCredentials: true}).toPromise();
       this.slottingInProgress = false;
       return true;
     } catch (e) {
@@ -132,13 +160,13 @@ export class SlottingService implements OnDestroy {
     }
   }
 
-  public async unslotUser(slotid: string): Promise<boolean> {
+  public async unslotUser(matchid: string, slotid: string): Promise<boolean> {
     if (this.unslottingInProgress) {
       return false;
     }
     this.unslottingInProgress = true;
     try {
-      await this.http.delete(environment.api.forumUrl + '/arma3-slotting/' + this.tid + '/match/' + this.matchid + '/slot/' + slotid + '/user', {withCredentials: true}).toPromise();
+      await this.http.delete(environment.api.forumUrl + '/arma3-slotting/' + this.tid + '/match/' + matchid + '/slot/' + slotid + '/user', {withCredentials: true}).toPromise();
       this.unslottingInProgress = false;
       return true;
     } catch (e) {
@@ -180,7 +208,7 @@ export class SlottingService implements OnDestroy {
     });
   }
 
-  public async updateMatch(content: string): Promise<boolean> {
+  public async updateMatch(matchid: string, content: string): Promise<boolean> {
     console.log(content);
     while (content.startsWith(' ')) {
       content = content.substr(1, content.length - 1);
@@ -191,7 +219,7 @@ export class SlottingService implements OnDestroy {
     }
 
     try {
-      const result = await this.http.put(environment.api.forumUrl + '/arma3-slotting/' + this.tid + '/match/' + this.matchid, content, {
+      const result = await this.http.put(environment.api.forumUrl + '/arma3-slotting/' + this.tid + '/match/' + matchid, content, {
         headers: {
           Accept: 'application/json; charset=utf-8',
           'Content-Type': 'application/xml',
@@ -238,9 +266,9 @@ export class SlottingService implements OnDestroy {
     window.parent['bootbox'].confirm(message, callback);
   }
 
-  public async deleteMatch(): Promise<boolean> {
+  public async deleteMatch(matchid: string): Promise<boolean> {
     try {
-      await this.http.delete(environment.api.forumUrl + '/arma3-slotting/' + this.tid + '/match/' + this.matchid).toPromise();
+      await this.http.delete(environment.api.forumUrl + '/arma3-slotting/' + this.tid + '/match/' + matchid, {withCredentials: true}).toPromise();
       return true;
     } catch (e) {
       console.log(e);

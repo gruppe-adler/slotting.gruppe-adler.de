@@ -29,7 +29,9 @@ export class EditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.editService.init(this.slottingService.match);
+    this.slottingService.findMatch(this.route.snapshot.queryParams['tid'], this.route.snapshot.queryParams['matchid']).then(result => {
+      this.editService.init(result);
+    });
     this.slottingService.matchChanged.subscribe(value => this.matchChangedExternal = value);
   }
 
@@ -38,8 +40,7 @@ export class EditComponent implements OnInit {
     const abort = () => {
       this.router.navigate(['/slotting'], {
         queryParams: {
-          tid: this.route.snapshot.queryParams['tid'],
-          matchid: this.route.snapshot.queryParams['matchid']
+          tid: this.route.snapshot.queryParams['tid']
         }
       });
     };

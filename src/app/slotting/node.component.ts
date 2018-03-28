@@ -8,6 +8,7 @@ import { SharedService } from './shared/shared.service';
 })
 export class NodeComponent implements OnInit {
   @Input() context: any;
+  @Input() matchid = '';
   @Input() reservation = '';
 
   ngOnInit(): void {
