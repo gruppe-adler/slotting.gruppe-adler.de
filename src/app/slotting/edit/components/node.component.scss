@@ -8,7 +8,7 @@
 }
 
 .platoon-title, .company-title, .squad-title, .title-container {
-  cursor: grab;
+  cursor: pointer !important;
 }
 
 .drag-target {
