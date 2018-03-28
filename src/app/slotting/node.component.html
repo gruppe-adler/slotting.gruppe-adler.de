@@ -8,7 +8,7 @@
     <app-event-slot class="slot" *ngFor="let slot of company.slot" [slot]="slot" [reservation]="reservation" [matchid]="matchid"></app-event-slot>
   </div>
   <div class="company-siblings">
-    <app-event-node [context]="company" [reservation]="reservation"></app-event-node>
+    <app-event-node [context]="company" [reservation]="reservation" [matchid]="matchid"></app-event-node>
   </div>
 </div>
 
@@ -22,7 +22,7 @@
     <app-event-slot class="slot" *ngFor="let slot of platoon.slot" [slot]="slot" [reservation]="reservation" [matchid]="matchid"></app-event-slot>
   </div>
   <div class="platoon-siblings">
-    <app-event-node [context]="platoon" [reservation]="reservation"></app-event-node>
+    <app-event-node [context]="platoon" [reservation]="reservation" [matchid]="matchid"></app-event-node>
   </div>
 </div>
 
@@ -35,7 +35,7 @@
     <app-event-slot class="slot" *ngFor="let slot of squad.slot" [slot]="slot" [reservation]="reservation" [matchid]="matchid"></app-event-slot>
   </div>
   <div class="squad-siblings">
-    <app-event-node [context]="squad" [reservation]="reservation"></app-event-node>
+    <app-event-node [context]="squad" [reservation]="reservation" [matchid]="matchid"></app-event-node>
   </div>
 </div>
 
