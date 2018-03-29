@@ -86,8 +86,6 @@ export class SlotComponent implements OnInit, AfterViewInit {
         console.log('fix');
         element.style.left = -bounding.x + 5 + 'px';
       }
-
-      console.log(bounding);
     }
   }
 

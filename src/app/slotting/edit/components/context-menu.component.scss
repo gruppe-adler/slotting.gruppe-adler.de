@@ -10,7 +10,6 @@
   &.expanded {
     opacity: 1;
     visibility: visible;
-    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22) !important;
   }
 
   .arrow {
@@ -28,6 +27,9 @@
     height: 100%;
     border-radius: 4px;
     color: white;
+    position: relative;
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22) !important;
+
     form {
       display: flex;
 
@@ -38,7 +40,7 @@
       }
 
       .vehicle-input {
-        max-width: 125px;
+        max-width: 100px;
         margin-right: 20px;
         margin-left: 10px;
       }

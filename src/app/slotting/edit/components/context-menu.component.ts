@@ -56,6 +56,12 @@ export class ContextMenuComponent implements OnInit, AfterViewInit {
         inputs['callsign'].select();
       }, 100);
     }
+
+    const element = this.elementRef.nativeElement.getElementsByClassName('tools')[0];
+    const bounding = element.getBoundingClientRect();
+    if (bounding.x < 0) {
+      element.style.left = -bounding.x + 5 + 'px';
+    }
   }
 
   @HostListener('document:mouseup', ['$event'])
