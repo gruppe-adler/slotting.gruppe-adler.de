@@ -4,7 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { environment } from '../../environments/environment';
 
 @Component({
-  templateUrl: './overview.component.html'
+  templateUrl: './overview.component.html',
+  styleUrls: ['./overview-component.scss']
 })
 export class OverviewComponent implements OnInit {
   public groupColorSwitch = false;

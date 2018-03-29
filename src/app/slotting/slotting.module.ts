@@ -31,6 +31,10 @@ import { OverviewComponent } from './overview.component';
       {
         path: 'edit',
         loadChildren: './edit/edit.module#EditModule'
+      },
+      {
+        path: 'share',
+        loadChildren: './share/share.module#ShareModule'
       }
     ])
   ],

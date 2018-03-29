@@ -1,7 +1,13 @@
-<label class="switch">
+<label class="switch" *ngIf="slottingService.matches && slottingService.matches.length > 0">
   <input type="checkbox" (click)="slottingService.toggleShowGroups()" [checked]="groupColorSwitch">
   <div class="slider round"></div>
   <div class="switch_label">Gruppenfarbe zeigen</div>
 </label>
 
 <app-slotting *ngFor="let match of slottingService.matches" [match]="match"></app-slotting>
+
+<div>
+  <a class="nodebb btn btn-default slotlist-add-button">
+    <i class="fa fa-sitemap"></i> +
+  </a>
+</div>
