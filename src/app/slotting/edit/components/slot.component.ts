@@ -78,6 +78,17 @@ export class SlotComponent implements OnInit, AfterViewInit {
         inputs['description'].select();
       }, 100);
     }
+
+    if (this.toolbarExpanded) {
+      const element = this.elementRef.nativeElement.getElementsByClassName('tools')[0];
+      const bounding = element.getBoundingClientRect();
+      if (bounding.x < 0) {
+        console.log('fix');
+        element.style.left = -bounding.x + 5 + 'px';
+      }
+
+      console.log(bounding);
+    }
   }
 
   @HostListener('document:mouseup', ['$event'])
