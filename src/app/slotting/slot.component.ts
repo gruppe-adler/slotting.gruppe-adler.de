@@ -13,6 +13,8 @@ import { environment } from '../../environments/environment';
   selector: 'app-event-slot'
 })
 export class SlotComponent implements OnInit {
+  public static slottingInProgress = false;
+
   @Input() slot: any;
   @Input() isFireteam = false;
   @Input() matchid = '';
@@ -99,6 +101,9 @@ export class SlotComponent implements OnInit {
     if (this.sharedService.shareData) {
       await this.slotUserShared();
     } else {
+      if (SlotComponent.slottingInProgress) {
+        return;
+      }
       if (this.slot.user && this.slot.user.uid.toString() === await this.slottingService.getOwnUserId()) {
         await this.deleteUser();
       } else {
@@ -193,7 +198,13 @@ export class SlotComponent implements OnInit {
     if (this.slot.user) {
       const oldUsername = this.slot.user.username;
       this.slottingService.bootboxConfirm(oldUsername + ' vom Slot kicken?', result => {
+        if (!result) {
+          return;
+        }
+
+        SlotComponent.slottingInProgress = true;
         this.slottingService.slotUser(this.matchid, this.slot.uuid).then(slotResult => {
+          SlotComponent.slottingInProgress = false;
           if (slotResult) {
             this.slottingService.showNodebbAlert('Eingeslottet', oldUsername + 'vom Slot gekickt und eingeslottet');
           } else {
@@ -204,7 +215,9 @@ export class SlotComponent implements OnInit {
       return;
     }
 
+    SlotComponent.slottingInProgress = true;
     this.slottingService.slotUser(this.matchid, this.slot.uuid).then(result => {
+      SlotComponent.slottingInProgress = false;
       if (result) {
         this.slottingService.showNodebbAlert('Eingeslottet', '');
       } else {
@@ -259,8 +272,10 @@ export class SlotComponent implements OnInit {
       return;
     }
 
+    SlotComponent.slottingInProgress = true;
     console.log('unslot');
     this.slottingService.unslotUser(this.matchid, this.slot.uuid).then(result => {
+      SlotComponent.slottingInProgress = false;
       if (result) {
         this.slottingService.showNodebbAlert('Ausgeslottet', '');
       } else {

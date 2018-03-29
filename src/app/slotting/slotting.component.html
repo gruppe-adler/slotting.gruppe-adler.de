@@ -35,6 +35,12 @@
   </ul>
 </mat-menu>
 
-<div style="margin-bottom: 2rem">
+<div class="lists-container">
   <app-event-node *ngIf="match" [context]="match" [matchid]="match.uuid"></app-event-node>
+</div>
+
+<div>
+  <a class="nodebb btn btn-default slotlist-add-button">
+    <i class="fa fa-sitemap"></i> +
+  </a>
 </div>
