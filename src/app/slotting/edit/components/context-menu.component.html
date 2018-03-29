@@ -5,6 +5,9 @@
       <mat-form-field floatLabel="never" class="app-input-white-underline callsign-input">
         <input #description matInput placeholder="Callsign" [(ngModel)]="element.callsign" name="callsign">
       </mat-form-field>
+      <mat-form-field floatLabel="never" class="app-input-white-underline vehicle-input">
+        <input #description matInput placeholder="Vehicle" [(ngModel)]="element.vehicletype" name="vehicle">
+      </mat-form-field>
       <mat-divider [vertical]="true"></mat-divider>
       <div class="flag-select">
         <div class="natosymbol" [ngClass]="element.natosymbol"></div>

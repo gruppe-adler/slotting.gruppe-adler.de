@@ -1,6 +1,5 @@
 import {
-  AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, Input, OnInit,
-  ViewChild
+  AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, Input, OnInit
 } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { EditService } from '../edit.service';
@@ -33,6 +32,7 @@ export class ContextMenuComponent implements OnInit, AfterViewInit {
   }
 
   public ngOnInit(): void {
+    this.checkNeededValues();
     this.elementRef.nativeElement.parentElement.addEventListener('click', () => {
       this.onClick();
     });
@@ -104,5 +104,6 @@ export class ContextMenuComponent implements OnInit, AfterViewInit {
   }
 
   public checkNeededValues(): void {
+    this.element.vehicletype = this.element.vehicletype || '';
   }
 }

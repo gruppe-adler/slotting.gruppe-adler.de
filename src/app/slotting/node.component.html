@@ -1,6 +1,6 @@
 <div *ngFor="let company of context.company" class="company-container">
   <div class="company-title-container title-container" [ngClass]="company.side ? company.side : null">
-    <span class="natosymbol" [ngClass]="company.natosymbol" [matTooltip]="company.vehicletype ? company.vehicletyp : null">
+    <span class="natosymbol" [ngClass]="company.natosymbol" [matTooltip]="company.vehicletype">
     </span>
     <span class="company-title" [ngClass]="company.side ? company.side : null">{{company.callsign}}</span>
   </div>
@@ -14,7 +14,7 @@
 
 <div *ngFor="let platoon of context.platoon" class="platoon-container">
   <div class="platoon-title-container title-container">
-    <span class="natosymbol" [ngClass]="platoon.natosymbol" [matTooltip]="platoon.vehicletype ? platoon.vehicletyp : null">
+    <span class="natosymbol" [ngClass]="platoon.natosymbol" [matTooltip]="platoon.vehicletype">
     </span>
     <span class="platoon-title">{{platoon.callsign}}</span>
   </div>
@@ -28,7 +28,7 @@
 
 <div *ngFor="let squad of context.squad" class="squad-container">
   <div class="squad-title-container title-container">
-    <span class="natosymbol" [ngClass]="squad.natosymbol" [matTooltip]="squad.vehicletype ? squad.vehicletyp : null"></span>
+    <span class="natosymbol" [ngClass]="squad.natosymbol" [matTooltip]="squad.vehicletype"></span>
     <span class="squad-title">{{squad.callsign}}</span>
   </div>
   <div class="squad-header">
