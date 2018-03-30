@@ -10,7 +10,7 @@ import { SlottingService } from '../slotting.service';
 export class ShareComponent implements OnInit {
   public shareData: any;
 
-  constructor(private route: ActivatedRoute, private shareService: ShareService, private slottingService: SlottingService) {}
+  constructor(public route: ActivatedRoute, private shareService: ShareService, private slottingService: SlottingService) {}
 
   public ngOnInit(): void {
     this.shareData = this.route.snapshot.data.data;

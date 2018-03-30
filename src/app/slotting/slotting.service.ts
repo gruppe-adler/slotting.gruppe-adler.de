@@ -15,6 +15,7 @@ export class SlottingService implements OnDestroy {
 
   private slottingInProgress = false;
   private unslottingInProgress = false;
+  private bootboxConfirmCallback: Function;
 
   constructor(private http: HttpClient) {
     this.initWebsocket();
@@ -22,6 +23,33 @@ export class SlottingService implements OnDestroy {
     window.addEventListener('storage', event => {
       if (event.key === environment.storageKeys.showGroupColor) {
         this.showGroupsChanged.emit(event.newValue === 'true');
+      }
+    });
+
+    window.addEventListener('message', event => {
+      if (!event.data || !event.data.type) {
+        return;
+      }
+
+      console.log(event);
+
+      switch (event.data.type) {
+        case 'bootboxConfirmResult': {
+          if (this.bootboxConfirmCallback) {
+            this.bootboxConfirmCallback(event.data.data);
+          }
+        } break;
+
+        case 'bootboxConfirm': {
+          if (this.bootboxConfirmCallback) {
+            this.bootboxConfirmCallback(alert(event.data.data));
+            this.bootboxConfirmCallback = null;
+          }
+        } break;
+
+        case 'bootboxAlert': {
+          alert(event.data.data);
+        } break;
       }
     });
   }
@@ -177,9 +205,10 @@ export class SlottingService implements OnDestroy {
   }
 
   public async getOwnUserId(): Promise<string> {
+    /*
     if (window.parent && window.parent['app'] && window.parent['app'].user) {
       return window.parent['app'].user.uid;
-    }
+    }*/
 
     try {
       const result = await this.http.get(environment.api.forumUrl + '/me', {withCredentials: true}).toPromise();
@@ -194,18 +223,17 @@ export class SlottingService implements OnDestroy {
   }
 
   public showNodebbAlert(title: string, message: string, type: string = 'success', timeout: number = 2000): void {
-    if (!window.parent['app'] || !window.parent['app'].alert) {
-      return;
-    }
-
-    window.parent['app'].alert({
-      title: title,
-      message: message,
-      location: 'left-bottom',
-      timeout: timeout,
-      type: type,
-      image: ''
-    });
+    window.parent.postMessage({
+      type: 'alert',
+      data: {
+        title: title,
+        message: message,
+        location: 'left-bottom',
+        timeout: timeout,
+        type: type,
+        image: ''
+      }
+    }, '*');
   }
 
   public async updateMatch(matchid: string, content: string): Promise<boolean> {
@@ -254,16 +282,18 @@ export class SlottingService implements OnDestroy {
       return;
     }
 
-    window.parent['bootbox'].alert(message);
+    window.parent.postMessage({
+      type: 'bootboxAlert',
+      data: message
+    }, '*');
   }
 
-  public bootboxConfirm(message: string, callback): void {
-    if (!window.parent['bootbox']) {
-      callback(confirm(message));
-      return;
-    }
-
-    window.parent['bootbox'].confirm(message, callback);
+  public bootboxConfirm(message: string, callback: Function): void {
+    this.bootboxConfirmCallback = callback;
+    window.parent.postMessage({
+      type: 'bootboxConfirm',
+      data: message
+    }, '*');
   }
 
   public async deleteMatch(matchid: string): Promise<boolean> {
