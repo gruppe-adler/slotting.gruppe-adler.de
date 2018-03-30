@@ -42,7 +42,7 @@ export class SlottingService implements OnDestroy {
 
         case 'bootboxConfirm': {
           if (this.bootboxConfirmCallback) {
-            this.bootboxConfirmCallback(alert(event.data.data));
+            this.bootboxConfirmCallback(confirm(event.data.data));
             this.bootboxConfirmCallback = null;
           }
         } break;
@@ -277,11 +277,6 @@ export class SlottingService implements OnDestroy {
   }
 
   public bootbox(message: string): void {
-    if (!window.parent['bootbox']) {
-      alert(message);
-      return;
-    }
-
     window.parent.postMessage({
       type: 'bootboxAlert',
       data: message
