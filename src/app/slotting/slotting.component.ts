@@ -21,6 +21,8 @@ export class SlottingComponent implements OnInit {
     this.slottingService.getPermissions().then(result => {
       if (result.result) {
         this.canAdministrate = true;
+      } else if (environment.ignoreMissingPermissions) {
+        this.canAdministrate = true;
       }
     });
     console.log('match', this.match);

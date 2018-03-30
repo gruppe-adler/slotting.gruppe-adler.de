@@ -5,6 +5,7 @@
 
 export const environment = {
   production: false,
+  ignoreMissingPermissions: true,
   api: {
     baseUrl: 'https://www.gruppe-adler.de/wp-json/wp/v2',
     arma3ServersNetKey: 'za5G3UkrmyIiI3ZtId5pibgBl66Bu0fMF',
