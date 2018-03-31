@@ -50,6 +50,10 @@ export class SlottingService implements OnDestroy {
         case 'bootboxAlert': {
           alert(event.data.data);
         } break;
+
+        case 'windowScrollBy': {
+          window.scrollBy(event.data.data.x, event.data.data.y);
+        } break;
       }
     });
   }

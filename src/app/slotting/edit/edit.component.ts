@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { SlottingService } from '../slotting.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EditService } from './edit.service';
+import { NodeComponent } from './components/node.component';
 
 @Component({
   selector: 'app-edit',
@@ -13,6 +14,9 @@ export class EditComponent implements OnInit {
   public showSourcecode = false;
   public matchChangedExternal = false;
 
+  private dragClientY = 0;
+  private isScrolling = false;
+
   public readonly fireteamPreset = {
     preset: true,
     slot: [
@@ -20,7 +24,8 @@ export class EditComponent implements OnInit {
       {shortcode: 'R', description: 'Rifleman'},
       {shortcode: 'R', description: 'Rifleman'},
       {shortcode: 'R', description: 'Rifleman'}
-    ]};
+    ]
+  };
 
   constructor(public router: Router,
               private route: ActivatedRoute,
@@ -33,6 +38,48 @@ export class EditComponent implements OnInit {
       this.editService.init(result);
     });
     this.slottingService.matchChanged.subscribe(value => this.matchChangedExternal = value);
+
+    document.addEventListener('dragover', this.dragover);
+  }
+
+  dragover(e): void {
+    console.log('over');
+    this.dragClientY = e.screenY;
+    console.log(e, document.documentElement.clientHeight, window.outerHeight);
+
+    if (this.isScrolling) {
+      return;
+    }
+
+    const scroll = () => {
+      if (!NodeComponent.isDragging) {
+        this.isScrolling = false;
+        return;
+      }
+
+      if (this.dragClientY > window.outerHeight - 200) {
+        console.log('scroll down');
+        window.parent.postMessage({
+          type: 'windowScrollBy',
+          data: {
+            x: 0,
+            y: 5
+          }
+        }, '*');
+      } else if (this.dragClientY < 300) {
+        console.log('scroll up');
+        window.parent.postMessage({
+          type: 'windowScrollBy',
+          data: {
+            x: 0,
+            y: -5
+          }
+        }, '*');
+      }
+      setTimeout(scroll, 10);
+    };
+    this.isScrolling = true;
+    scroll();
   }
 
   public abort(): void {

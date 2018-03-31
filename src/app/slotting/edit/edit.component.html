@@ -1,9 +1,16 @@
 <div class="topbar-container">
-  <label class="switch">
-    <input type="checkbox" id="input_arma3-slotting-show-group-color" (change)="toggleSourceediting()">
-    <div class="slider round"></div>
-    <div class="switch_label">XML Editor</div>
-  </label>
+  <div>
+    <label class="switch">
+      <input type="checkbox" id="input_arma3-slotting-show-group-color" (change)="toggleSourceediting()">
+      <div class="slider round"><span class="point"></span></div>
+      <div class="switch_label">XML Editor</div>
+    </label>
+    <label class="switch">
+      <input type="checkbox" id="input_arma3-slotting-condensed">
+      <div class="slider round"><span class="point"></span></div>
+      <div class="switch_label">Condensed</div>
+    </label>
+  </div>
   <div class="buttons-container">
     <a class="nodebb btn btn-default" (click)="abort()">
       <i class="fa fa-close"></i> Abbrechen

@@ -7,6 +7,7 @@ import { EditService } from '../edit.service';
   selector: 'app-edit-node'
 })
 export class NodeComponent implements OnInit {
+  public static isDragging = false;
   @Input() context: any;
   @Input() reservation = '';
 
@@ -14,6 +15,14 @@ export class NodeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  dragStart() {
+    NodeComponent.isDragging = true;
+  }
+
+  dragEnd() {
+    NodeComponent.isDragging = false;
   }
 
   onDrop(event, context, targetType): void {

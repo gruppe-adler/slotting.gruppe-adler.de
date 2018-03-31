@@ -164,7 +164,7 @@ ul {
 .switch {
   display: inline-block;
   background-color: rgb(255, 255, 255);
-  padding: 10px 16px;
+  padding: 3px 8px;
 
   &:hover {
     background-color: rgb(230, 230, 230);
@@ -212,31 +212,43 @@ ul {
   }
 
   .slider {
-    position: absolute;
     cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
     background-color: rgb(204, 204, 204);
     transition-duration: 0.1s;
     transition-timing-function: ease-in;
     transition-delay: initial;
     transition-property: initial;
+    display: inline-block;
+    vertical-align: middle;
+
+    &.round {
+      border-radius: 17px;
+      width: 30px;
+      height: 17px;
+      margin: 7px;
+      top: 3px;
+
+      .point {
+        border-radius: 50%;
+      }
+    }
+
+    .point {
+      position: relative;
+      content: "";
+      height: 13px;
+      width: 13px;
+      background-color: white;
+      transition-duration: 0.1s;
+      transition-timing-function: ease-in;
+      transition-delay: initial;
+      transition-property: initial;
+      top: 2px;
+      left: 2px;
+      display: block;
+    }
   }
-  .slider::before {
-    position: absolute;
-    content: "";
-    height: 13px;
-    width: 13px;
-    left: 2px;
-    bottom: 2px;
-    background-color: white;
-    transition-duration: 0.1s;
-    transition-timing-function: ease-in;
-    transition-delay: initial;
-    transition-property: initial;
-  }
+
   input:hover + .slider {
     background-color: rgb(102, 102, 102);
   }
@@ -249,22 +261,13 @@ ul {
   input:focus + .slider {
     box-shadow: rgb(102, 170, 102) 0 0 1px;
   }
-  input:checked + .slider::before {
+  input:checked + .slider > .point {
     transform: translateX(13px);
   }
-  .slider.round {
-    border-radius: 17px;
-    width: 30px;
-    height: 17px;
-    margin: 7px;
-    top: 3px;
-  }
-  .slider.round::before {
-    border-radius: 50%;
-  }
   .switch_label {
-    padding-left: 30px;
-    margin-top: -1px;
+    padding-left: 5px;
     user-select: none;
+    display: inline-block;
+    vertical-align: middle;
   }
 }
