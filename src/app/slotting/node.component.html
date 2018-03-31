@@ -1,4 +1,4 @@
-<div *ngFor="let company of context.company" class="company-container">
+<div *ngFor="let company of context.company" class="company-container" [class.condensed]="slottingService.slotlistCondensed">
   <div class="company-title-container title-container" [ngClass]="company.side ? company.side : null">
     <span class="natosymbol" [ngClass]="company.natosymbol" [matTooltip]="company.vehicletype">
     </span>
@@ -12,7 +12,7 @@
   </div>
 </div>
 
-<div *ngFor="let platoon of context.platoon" class="platoon-container">
+<div *ngFor="let platoon of context.platoon" class="platoon-container" [class.condensed]="slottingService.slotlistCondensed">
   <div class="platoon-title-container title-container">
     <span class="natosymbol" [ngClass]="platoon.natosymbol" [matTooltip]="platoon.vehicletype">
     </span>
@@ -26,7 +26,7 @@
   </div>
 </div>
 
-<div *ngFor="let squad of context.squad" class="squad-container">
+<div *ngFor="let squad of context.squad" class="squad-container" [class.condensed]="slottingService.slotlistCondensed">
   <div class="squad-title-container title-container">
     <span class="natosymbol" [ngClass]="squad.natosymbol" [matTooltip]="squad.vehicletype"></span>
     <span class="squad-title">{{squad.callsign}}</span>
@@ -39,6 +39,6 @@
   </div>
 </div>
 
-<div *ngFor="let fireteam of context.fireteam" class="fireteam-container">
+<div *ngFor="let fireteam of context.fireteam" class="fireteam-container" [class.condensed]="slottingService.slotlistCondensed">
   <app-event-slot class="slot" *ngFor="let slot of fireteam.slot" [slot]="slot" [isFireteam]="true" [reservation]="reservation" [matchid]="matchid"></app-event-slot>
 </div>

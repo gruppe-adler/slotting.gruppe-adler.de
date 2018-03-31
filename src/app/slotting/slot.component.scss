@@ -22,7 +22,7 @@
   background-repeat: no-repeat !important;
   background-size: cover !important;
   background-position: center center !important;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
 
   &:hover {
     background-color: #f9f9f9;
@@ -95,4 +95,29 @@
   height: 20px;
   width: 20px;
   font-size: 20px;
+}
+
+.slot-container {
+  &.condensed {
+    .avatar {
+      box-shadow: none;
+    }
+
+    .slot-descr {
+      opacity: 0;
+      height: 0;
+      display: none;
+    }
+  }
+}
+
+:host-context(.squad-container:hover) {
+  .slot-descr {
+    display: inline-block;
+    opacity: 1;
+  }
+
+  .avatar {
+    box-shadow: none;
+  }
 }

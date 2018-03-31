@@ -1,6 +1,14 @@
 
 <ng-container *ngIf="context.company">
-  <div *ngFor="let company of context.company" class="company-container" draggable [dragData]="{type: 'company', data: company, origin: context.company}" [dragScope]="'company'" [class.preset]="company.preset" (onDragStart)="dragStart()" (onDragEnd)="dragEnd()">
+  <div
+    *ngFor="let company of context.company"
+    class="company-container" draggable
+    [dragData]="{type: 'company', data: company, origin: context.company}"
+    [dragScope]="'company'"
+    [class.preset]="company.preset"
+    (onDragStart)="dragStart()"
+    (onDragEnd)="dragEnd()"
+    [class.condensed]="slottingService.slotlistCondensed">
     <div class="company-title-container title-container" [ngClass]="company.side ? company.side : null">
       <span class="natosymbol" [ngClass]="company.natosymbol" [matTooltip]="company.vehicletype ? company.vehicletyp : null"></span>
       <span class="company-title" [ngClass]="company.side ? company.side : null">{{company.callsign}}</span>
@@ -25,7 +33,16 @@
 </ng-container>
 
 <ng-container *ngIf="context.platoon">
-  <div *ngFor="let platoon of context.platoon" class="platoon-container" draggable [dragData]="{type: 'platoon', data: platoon, origin: context.platoon}" [dragScope]="'platoon'" [class.preset]="platoon.preset" (onDragStart)="dragStart()" (onDragEnd)="dragEnd()">
+  <div
+    *ngFor="let platoon of context.platoon"
+    class="platoon-container"
+    draggable
+    [dragData]="{type: 'platoon', data: platoon, origin: context.platoon}"
+    [dragScope]="'platoon'"
+    [class.preset]="platoon.preset"
+    (onDragStart)="dragStart()"
+    (onDragEnd)="dragEnd()"
+    [class.condensed]="slottingService.slotlistCondensed">
     <div class="platoon-title-container title-container">
       <span class="natosymbol" [ngClass]="platoon.natosymbol" [matTooltip]="platoon.vehicletype ? platoon.vehicletyp : null">
       </span>
@@ -51,7 +68,15 @@
 </ng-container>
 
 <ng-container *ngIf="context.squad">
-  <div *ngFor="let squad of context.squad" class="squad-container" draggable [dragData]="{type: 'squad', data: squad, origin: context.squad}" [dragScope]="'squad'" [class.preset]="squad.preset" (onDragStart)="dragStart()" (onDragEnd)="dragEnd()">
+  <div
+    *ngFor="let squad of context.squad"
+    class="squad-container" draggable
+    [dragData]="{type: 'squad', data: squad, origin: context.squad}"
+    [dragScope]="'squad'"
+    [class.preset]="squad.preset"
+    (onDragStart)="dragStart()"
+    (onDragEnd)="dragEnd()"
+    [class.condensed]="slottingService.slotlistCondensed">
     <div class="squad-title-container title-container">
       <span class="natosymbol" [ngClass]="squad.natosymbol" [matTooltip]="squad.vehicletype ? squad.vehicletyp : null"></span>
       <span class="squad-title">{{squad.callsign}}</span>
@@ -76,7 +101,15 @@
 </ng-container>
 
 <ng-container *ngIf="context.fireteam">
-  <div *ngFor="let fireteam of context.fireteam" class="fireteam-container" draggable [dragData]="{type: 'fireteam', data: fireteam, origin: context.fireteam}" [dragScope]="'fireteam'" [class.preset]="fireteam.preset" (onDragStart)="dragStart()" (onDragEnd)="dragEnd()">
+  <div
+    *ngFor="let fireteam of context.fireteam"
+    class="fireteam-container" draggable
+    [dragData]="{type: 'fireteam', data: fireteam, origin: context.fireteam}"
+    [dragScope]="'fireteam'"
+    [class.preset]="fireteam.preset"
+    (onDragStart)="dragStart()"
+    (onDragEnd)="dragEnd()"
+    [class.condensed]="slottingService.slotlistCondensed">
     <ng-container>
       <app-edit-slot class="slot" *ngFor="let slot of fireteam.slot" [slot]="slot" [isFireteam]="true" [reservation]="reservation" [context]="fireteam"></app-edit-slot>
     </ng-container>

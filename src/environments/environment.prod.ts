@@ -8,6 +8,7 @@ export const environment = {
     forumUrl: 'https://forum.gruppe-adler.de/api'
   },
   storageKeys: {
-    showGroupColor: 'grad-slotting-showGroupColor'
+    showGroupColor: 'grad-slotting-showGroupColor',
+    showMinified: 'grad-slotting-showMinified'
   }
 };

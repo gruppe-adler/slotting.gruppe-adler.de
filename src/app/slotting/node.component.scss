@@ -122,6 +122,7 @@ $slotSize: 35px;
   padding-right: 15px;
   padding-bottom: 5px;
   padding-left: 15px;
+  transition: all 0.3s ease;
 }
 
 .squad-siblings {
@@ -173,6 +174,7 @@ $slotSize: 35px;
   text-transform: uppercase;
   font-weight: bold;
   font-size: 16px;
+  transition: all 0.3s ease;
 }
 
 .slot {
@@ -182,6 +184,7 @@ $slotSize: 35px;
   margin-right: 5px;
   margin-left: 5px;
   position: relative;
+  transition: all 0.3s ease;
 }
 
 /*
@@ -197,12 +200,82 @@ $slotSize: 35px;
   left: 15px;
   background-size: 30px 20px !important;
   z-index: 100;
+  transition: all 0.3s ease;
 
   $icons: air, armor, art, hq, inf, maint, mech_inf, med, mortar, motor_inf, plane, recon, service, support, uav;
-
   @each $icon in $icons {
     &.#{$icon} {
       background: url('../../assets/slotting/icons/' + $icon + '.svg');
     }
   }
+}
+
+.company-container, .platoon-container, .squad-container, .fireteam-container {
+  transition: all 0.3s ease;
+  &.condensed {
+    .slot {
+      width: 8px;
+      height: 8px;
+    }
+
+    .squad-siblings {
+      min-height: 30px;
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+
+    .squad-title, .platoon-title, .company-title {
+      top: 15px;
+      font-size: 10px;
+    }
+
+    .natosymbol {
+      top: 10px;
+      left: calc(50% - 15px);
+    }
+  }
+}
+
+.platoon-container.condensed {
+  width: fit-content;
+  float: left;
+}
+
+.squad-container.condensed {
+  min-height: 100px;
+  min-width: 100px;
+
+  &:hover {
+    min-height: 150px;
+    min-width: 184px;
+
+    .fireteam-container {
+      padding: 7px 10px 7px 10px;
+    }
+
+    .squad-siblings {
+      min-height: 72px;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+    .slot {
+      width: 35px;
+      height: 35px;
+    }
+
+    .natosymbol {
+      top: 10px;
+      left: 15px;
+    }
+
+    .squad-title {
+      top: 0;
+      font-size: 16px;
+    }
+  }
+}
+
+.fireteam-container.condensed {
+  padding: 7px 5px 7px 5px;
 }

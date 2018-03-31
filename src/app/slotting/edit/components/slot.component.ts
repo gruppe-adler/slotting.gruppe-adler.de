@@ -4,6 +4,7 @@ import {
 } from '@angular/core';
 import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 import { EditService } from '../edit.service';
+import { SlottingService } from '../../slotting.service';
 
 @Component({
   templateUrl: './slot.component.html',
@@ -45,7 +46,10 @@ export class SlotComponent implements OnInit, AfterViewInit {
   public toolbarExpanded = false;
   public initialized = false;
 
-  constructor(private elementRef: ElementRef, private cdr: ChangeDetectorRef, private editService: EditService) {
+  constructor(private elementRef: ElementRef,
+              private cdr: ChangeDetectorRef,
+              private editService: EditService,
+              public slottingService: SlottingService) {
   }
 
   public ngOnInit(): void {

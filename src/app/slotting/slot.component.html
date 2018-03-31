@@ -1,4 +1,4 @@
-<div class="slot-container">
+<div class="slot-container" [class.condensed]="slottingService.slotlistCondensed">
   <ng-container *ngIf="slot">
     <div class="avatar" [matTooltip]="slot.user ? slot.user.username : slotTooltip" matTooltipPosition="above" [ngStyle]="{'background': background}" [ngClass]="isFireteam ? 'fireteam' : null" (click)="slotUser()">
       <span *ngIf="slot.user && slot.user['icon:text'] && !slot.user.picture">

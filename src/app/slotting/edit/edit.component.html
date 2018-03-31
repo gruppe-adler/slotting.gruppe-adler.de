@@ -6,7 +6,7 @@
       <div class="switch_label">XML Editor</div>
     </label>
     <label class="switch">
-      <input type="checkbox" id="input_arma3-slotting-condensed">
+      <input type="checkbox" id="input_arma3-slotting-condensed" [checked]="slottingService.slotlistCondensed" (change)="slottingService.toggleCondensedView()">
       <div class="slider round"><span class="point"></span></div>
       <div class="switch_label">Condensed</div>
     </label>

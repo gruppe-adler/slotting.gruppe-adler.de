@@ -13,6 +13,7 @@ export const environment = {
     forumUrl: 'https://forum.gruppe-adler.de/api' // 'http://localhost:4567/api'
   },
   storageKeys: {
-    showGroupColor: 'grad-slotting-showGroupColor'
+    showGroupColor: 'grad-slotting-showGroupColor',
+    showMinified: 'grad-slotting-showMinified'
   }
 };

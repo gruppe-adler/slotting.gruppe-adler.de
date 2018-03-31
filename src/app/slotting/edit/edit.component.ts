@@ -3,6 +3,7 @@ import { SlottingService } from '../slotting.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EditService } from './edit.service';
 import { NodeComponent } from './components/node.component';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-edit',
@@ -13,6 +14,8 @@ export class EditComponent implements OnInit {
   public xml = '';
   public showSourcecode = false;
   public matchChangedExternal = false;
+  public readonly environment = environment;
+  public readonly localStorage = localStorage;
 
   private dragClientY = 0;
   private isScrolling = false;
@@ -30,7 +33,7 @@ export class EditComponent implements OnInit {
   constructor(public router: Router,
               private route: ActivatedRoute,
               public editService: EditService,
-              private slottingService: SlottingService) {
+              public slottingService: SlottingService) {
   }
 
   ngOnInit() {

@@ -12,6 +12,7 @@ export class SlottingService implements OnDestroy {
   public tid: number;
   public showGroupsChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
   public matchChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
+  public slotlistCondensed = localStorage[environment.storageKeys.showMinified] === 'true';
 
   private slottingInProgress = false;
   private unslottingInProgress = false;
@@ -303,5 +304,11 @@ export class SlottingService implements OnDestroy {
       console.log(e);
       return false;
     }
+  }
+
+  public toggleCondensedView(): void {
+    const value = localStorage[environment.storageKeys.showMinified] === 'true';
+    localStorage[environment.storageKeys.showMinified] = !value;
+    this.slotlistCondensed = !value;
   }
 }

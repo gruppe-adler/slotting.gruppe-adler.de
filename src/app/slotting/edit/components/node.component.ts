@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { EditService } from '../edit.service';
+import { SlottingService } from '../../slotting.service';
 
 @Component({
   templateUrl: './node.component.html',
@@ -11,7 +12,7 @@ export class NodeComponent implements OnInit {
   @Input() context: any;
   @Input() reservation = '';
 
-  constructor(private editService: EditService) {
+  constructor(private editService: EditService, public slottingService: SlottingService) {
   }
 
   ngOnInit(): void {

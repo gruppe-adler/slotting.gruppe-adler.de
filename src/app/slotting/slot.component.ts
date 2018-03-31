@@ -28,7 +28,7 @@ export class SlotComponent implements OnInit {
               public sharedService: SharedService,
               private dialog: MatDialog,
               private translateService: TranslateService,
-              private slottingService: SlottingService) {
+              public slottingService: SlottingService) {
   }
 
   public ngOnInit(): void {
