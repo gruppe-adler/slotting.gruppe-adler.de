@@ -216,6 +216,11 @@ $slotSize: 35px;
     .slot {
       width: 8px;
       height: 8px;
+
+      &:first-child {
+        margin-right: 5px;
+        margin-top: 5px;
+      }
     }
 
     .squad-siblings {
@@ -262,6 +267,13 @@ $slotSize: 35px;
     .slot {
       width: 35px;
       height: 35px;
+    }
+
+    .company-header, .platoon-header, .squad-header {
+      .slot:first-child {
+        height: $firstSlotSize;
+        width: $firstSlotSize;
+      }
     }
 
     .natosymbol {

@@ -4,6 +4,11 @@
   margin-bottom: 20px;
   display: inline-block;
   transition: opacity 0.2s ease;
+
+  &.condensed {
+    height: 0;
+    width: 0;
+  }
 }
 
 .avatar {
@@ -24,4 +29,9 @@
     background-color: transparent;
     color: transparent;
   }
+}
+
+:host-context(.squad-container:hover) .slot-container {
+  height: 35px;
+  width: 35px;
 }
