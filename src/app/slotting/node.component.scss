@@ -162,7 +162,6 @@ $slotSize: 35px;
   color: rgba(0,0,0,0.5);
   text-align: center;
   height: 100%;
-  width: 100%;
   line-height: 48px;
   display: block;
   position: absolute;
@@ -170,6 +169,9 @@ $slotSize: 35px;
   top: 0;
   cursor: default;
   user-select: none;
+  margin-right: 60px;
+  margin-left: 60px;
+  width: calc(100% - 120px);
 
   text-transform: uppercase;
   font-weight: bold;
@@ -232,6 +234,9 @@ $slotSize: 35px;
     .squad-title, .platoon-title, .company-title {
       top: 15px;
       font-size: 10px;
+      margin-left: 0;
+      margin-right: 0;
+      width: 100%;
     }
 
     .natosymbol {
@@ -243,7 +248,9 @@ $slotSize: 35px;
 
 .platoon-container.condensed {
   width: fit-content;
-  float: left;
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 10px;
 }
 
 .squad-container.condensed {
