@@ -306,6 +306,20 @@ export class SlottingService implements OnDestroy {
     }
   }
 
+  public async createMatch(): Promise<string> {
+    try {
+      const response = await this.http.post(environment.api.forumUrl + '/arma3-slotting/' + this.tid + '/match', '<match></match>', {withCredentials: true}).toPromise();
+      if (response['uuid']) {
+        this.matches.splice(0, 0, response);
+        return response['uuid'];
+      }
+      return '';
+    } catch (e) {
+      console.log(e);
+      return '';
+    }
+  }
+
   public toggleCondensedView(): void {
     const value = localStorage[environment.storageKeys.showMinified] === 'true';
     localStorage[environment.storageKeys.showMinified] = !value;
