@@ -60,7 +60,7 @@
          (onDragEnter)="onDragEnter($event)"
          (onDragLeave)="onDragLeave($event)"
          [dropEnabled]="!platoon.preset"
-         [dropScope]="['platoon', 'squad']"
+         [dropScope]="['squad']"
          [dragHintClass]="'drag-target'">
       <app-edit-node [context]="platoon" [reservation]="reservation"></app-edit-node>
     </div>

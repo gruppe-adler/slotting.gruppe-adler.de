@@ -44,7 +44,7 @@ export class NodeComponent implements OnInit {
       } break;
 
       case 'platoon': {
-        if (type !== 'squad' && type !== 'platoon') {
+        if (type !== 'squad') {
           return;
         }
       } break;
