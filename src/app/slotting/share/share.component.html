@@ -11,8 +11,16 @@
 <h3>Verfügbare Slottinglings</h3>
 <ng-container *ngIf="shareData && shareData.availableReservations">
   <ng-container *ngIf="shareData.availableReservations.length > 0; else noSharesAvailable">
-    <div *ngFor="let available of shareData.availableReservations">
-
+    <div *ngFor="let available of shareData.availableReservations" class="reservation">
+      <div>
+        <i class="fa fa-group group-icon"></i>
+        {{available}}
+      </div>
+      <div class="actions">
+        <a class="nodebb btn btn-default action-button" (click)="add(available)">
+          <i class="fa fa-plus"></i>
+        </a>
+      </div>
     </div>
   </ng-container>
   <ng-template #noSharesAvailable>

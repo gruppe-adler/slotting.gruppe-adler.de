@@ -5,6 +5,8 @@ import * as io from 'socket.io-client';
 
 @Injectable()
 export class SlottingService implements OnDestroy {
+  public static bootboxConfirmCallback: Function;
+
   public matches: any[];
   public slots = [];
   public slottedCount = 0;
@@ -16,7 +18,6 @@ export class SlottingService implements OnDestroy {
 
   private slottingInProgress = false;
   private unslottingInProgress = false;
-  private bootboxConfirmCallback: Function;
 
   constructor(private http: HttpClient) {
     this.initWebsocket();
@@ -36,15 +37,19 @@ export class SlottingService implements OnDestroy {
 
       switch (event.data.type) {
         case 'bootboxConfirmResult': {
-          if (this.bootboxConfirmCallback) {
-            this.bootboxConfirmCallback(event.data.data);
+          console.log('cb', SlottingService.bootboxConfirmCallback);
+          if (SlottingService.bootboxConfirmCallback) {
+            console.log('confirm result', event);
+            SlottingService.bootboxConfirmCallback(event.data.data);
+            SlottingService.bootboxConfirmCallback = null;
           }
         } break;
 
         case 'bootboxConfirm': {
-          if (this.bootboxConfirmCallback) {
-            this.bootboxConfirmCallback(confirm(event.data.data));
-            this.bootboxConfirmCallback = null;
+          if (SlottingService.bootboxConfirmCallback) {
+            console.log('bootbox confirm');
+            SlottingService.bootboxConfirmCallback(confirm(event.data.data));
+            SlottingService.bootboxConfirmCallback = null;
           }
         } break;
 
@@ -150,11 +155,23 @@ export class SlottingService implements OnDestroy {
     });
 
     this.socket.on('event:match-changed', async data => {
+      console.log('match update', data);
+      if (data.tid.toString() !== this.tid) {
+        return;
+      }
+      console.log('dwa');
+
       const index = this.matches.findIndex(x => x.uuid === data.matchid);
       if (index > -1) {
         this.matches[index] = await this.getMatch(this.tid, data.matchid);
         this.matchChanged.emit(true);
         console.log('match changed');
+      } else {
+        console.log('getting match changed');
+        const match = await this.getMatch(this.tid, data.matchid);
+        if (match) {
+          this.matches.splice(0, 0, match);
+        }
       }
     });
 
@@ -289,7 +306,9 @@ export class SlottingService implements OnDestroy {
   }
 
   public bootboxConfirm(message: string, callback: Function): void {
-    this.bootboxConfirmCallback = callback;
+    SlottingService.bootboxConfirmCallback = callback;
+    console.log('bootbox confirm callback', callback);
+    console.log('bootbox confirm callback', SlottingService.bootboxConfirmCallback);
     window.parent.postMessage({
       type: 'bootboxConfirm',
       data: message
