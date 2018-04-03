@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { SlottingService } from './slotting.service';
-import { enterView } from '@angular/core/src/render3/instructions';
 import { environment } from '../../environments/environment';
 
 @Component({

@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { SharedService } from './shared/shared.service';
 import { environment } from '../../environments/environment';
 import { SlottingService } from './slotting.service';
 

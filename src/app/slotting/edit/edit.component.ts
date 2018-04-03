@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SlottingService } from '../slotting.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EditService } from './edit.service';

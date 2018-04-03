@@ -1,6 +1,4 @@
-import {
-  AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, Input, OnInit
-} from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, Input, OnInit } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { EditService } from '../edit.service';
 

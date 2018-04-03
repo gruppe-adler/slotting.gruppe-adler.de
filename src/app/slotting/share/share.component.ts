@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ShareService } from './share.service';
 import { ActivatedRoute } from '@angular/router';
 import { SlottingService } from '../slotting.service';
-import { del } from 'selenium-webdriver/http';
 
 @Component({
   templateUrl: './share.component.html',
