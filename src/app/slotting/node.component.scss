@@ -251,6 +251,42 @@ $slotSize: 35px;
   display: inline-block;
   vertical-align: top;
   margin-right: 10px;
+
+  &:hover {
+    .platoon-title-container {
+      .natosymbol {
+        top: 10px;
+        left: 15px;
+      }
+
+      .platoon-title {
+        top: 0;
+        font-size: 16px;
+      }
+    }
+
+    .platoon-header {
+      > .slot {
+        width: 35px;
+        height: 35px;
+      }
+
+      > .slot:first-child {
+        height: $firstSlotSize;
+        width: $firstSlotSize;
+      }
+      ::ng-deep {
+        .slot-descr {
+          display: inline-block;
+          opacity: 1;
+        }
+
+        .avatar {
+          box-shadow: none;
+        }
+      }
+    }
+  }
 }
 
 .squad-container.condensed {
@@ -276,7 +312,7 @@ $slotSize: 35px;
       height: 35px;
     }
 
-    .company-header, .platoon-header, .squad-header {
+    .squad-header {
       .slot:first-child {
         height: $firstSlotSize;
         width: $firstSlotSize;
