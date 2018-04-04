@@ -31,6 +31,7 @@
   .drop-container {
     height: 100%;
     min-height: 450px;
+    transition: all 0.3s ease;
 
     &.drag-target {
       border: #666666;
@@ -38,6 +39,11 @@
       border-style: dashed;
       animation: expand-bottom 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
       padding-bottom: 60px;
+    }
+
+    &.drag-over {
+      border-color: red;
+      border-width: 3px;
     }
   }
 
@@ -49,7 +55,6 @@
     width: 200px;
   }
 }
-
 
 @keyframes expand-bottom {
   0% {

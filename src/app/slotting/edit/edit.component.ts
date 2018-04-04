@@ -159,4 +159,11 @@ export class EditComponent implements OnInit {
     this.editService.match[type] = this.editService.match[type] || [];
     this.editService.match[type].push(data);
   }
+
+  public onDragEnter(event): void {
+    this.editService.updateHighlightedContainer(event.target);
+  }
+  public onDragLeave(event): void {
+    this.editService.removeHighlightedContainer(event.target);
+  }
 }

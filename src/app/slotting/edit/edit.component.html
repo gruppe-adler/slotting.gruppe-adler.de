@@ -22,7 +22,8 @@
 </div>
 
 <div class="editor-container" *ngIf="!showSourcecode; else sourceCode">
-  <div class="drop-container" droppable [dropScope]="['company', 'platoon', 'squad']" [dragHintClass]="'drag-target'" (onDrop)="onRootDrop($event)">
+  <div class="drop-container" droppable [dropScope]="['company', 'platoon', 'squad']" [dragHintClass]="'drag-target'" (onDrop)="onRootDrop($event)" (onDragEnter)="onDragEnter($event)"
+       (onDragLeave)="onDragLeave($event)">
     <app-edit-node *ngIf="editService.match" [context]="editService.match"></app-edit-node>
   </div>
   <div class="items-container">
