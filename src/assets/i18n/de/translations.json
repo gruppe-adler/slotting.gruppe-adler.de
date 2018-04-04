@@ -2,7 +2,7 @@
   "events": {
     "main": {
       "admin-notice": {
-        "body": "Diese Adminversion erlaubt Dir das Bearbeiten aller Slots, die Deinem Clan zugewiesen wurden. Dieser Link ist für Führungspersonen gedacht. \nFür den normalen Nutzer ist <a href=\"{{link}}\">dieser Link</a> vorgesehen.",
+        "body": "Diese Adminversion erlaubt Dir das Bearbeiten aller Slots, die Deinem Clan zugewiesen wurden. Dieser Link ist für Führungspersonen gedacht. Für den normalen Nutzer ist <a href=\"{{link}}\">dieser Link</a> vorgesehen.",
         "heading": "Achtung, Link nicht weitergeben!"
       },
       "heading": "Joint-Ops Slottingtool",
