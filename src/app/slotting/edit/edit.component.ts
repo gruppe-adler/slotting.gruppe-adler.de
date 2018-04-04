@@ -150,7 +150,7 @@ export class EditComponent implements OnInit {
       // remove data from origin
       const index = origin.indexOf(data);
       if (index > -1) {
-        origin.slice(index, 1);
+        origin.splice(index, 1);
       }
     } else {
       data = JSON.parse(JSON.stringify(data));
