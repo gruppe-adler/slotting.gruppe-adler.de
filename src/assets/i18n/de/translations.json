@@ -2,11 +2,11 @@
   "events": {
     "main": {
       "admin-notice": {
-        "body": "Diese Adminversion erlaubt Dir das Bearbeiten von Slots, die Deinem Clan zugewiesen wurden. Dieser Link ist für Führungspersonen gedacht.\nSei vorsichtig, wem Du diesen Link weitergibst. Falls dieser Link doch mal abhanden gekommen ist, kontaktiere uns bitte!<br/>\nFür den normalen Nutzer ist <a href=\"{{link}}\">dieser Link</a> vorgesehen.",
-        "heading": "Achtung, Du siehst die Adminversion!"
+        "body": "Diese Adminversion erlaubt Dir das Bearbeiten aller Slots, die Deinem Clan zugewiesen wurden. Dieser Link ist für Führungspersonen gedacht. \nFür den normalen Nutzer ist <a href=\"{{link}}\">dieser Link</a> vorgesehen.",
+        "heading": "Achtung, Link nicht weitergeben!"
       },
       "heading": "Joint-Ops Slottingtool",
-      "introduction-text": "Mit diesem Tool kannst Du Dich bei der kommenden Joint-Ops slotten. Du benötigst keinen Account. Klicke einfach auf einen Slot, der nicht durch ein Schloss gekennzeichnet ist, um deine Anmeldung zu machen.<br/>\nKlicke erneut, falls du dich ausslotten möchtest. Wir freuen uns auf Dich!"
+      "introduction-text": "Klicke auf einen Slot, um deine Anmeldung zu machen. Klicke erneut zum abmelden. Kein Account notwendig. Wir freuen uns auf dich!"
     },
     "name-dialog": {
       "body": "Bitte gib hier den Namen an, der in der Slotliste erscheinen soll.\nBitte verwende keine Clantags. Wir klären das für Dich.",

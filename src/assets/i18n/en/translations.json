@@ -3,7 +3,7 @@
     "main": {
       "admin-notice": {
         "body": "This admin version allows you to edit slots assigned to your clan. This link is intended to be only available for leading personalities. Please be patient who you are sharing with this link. In case it gets lost somewhere, please contact us!<br/>\nThe normal user should receive <a href=\"{{link}}\">this link</a>.",
-        "heading": "Attention, this is the admin version!"
+        "heading": "Attention, don't share this link."
       },
       "heading": "Joint Ops Slottingtool",
       "introduction-text": "You can use this tool to slot yourself in the upcoming joint ops. You don't need an account. Just click on a slot that isn't marked by a lock to mark your attendance.<br/>\nClick again if you don't want to attend any more. We look forward to see you!"
