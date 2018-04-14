@@ -5,16 +5,15 @@ import * as io from 'socket.io-client';
 
 @Injectable()
 export class SlottingService implements OnDestroy {
-  public static bootboxConfirmCallback: Function;
-
   public matches: any[];
-  public slots = [];
+  public slots = {};
   public slottedCount = 0;
   public socket: any;
   public tid: number;
   public showGroupsChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
   public matchChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
   public slotlistCondensed = localStorage[environment.storageKeys.showMinified] === 'true';
+  public bootboxConfirmResolver: any;
 
   private slottingInProgress = false;
   private unslottingInProgress = false;
@@ -37,20 +36,18 @@ export class SlottingService implements OnDestroy {
 
       switch (event.data.type) {
         case 'bootboxConfirmResult': {
-          console.log('cb', SlottingService.bootboxConfirmCallback);
-          if (SlottingService.bootboxConfirmCallback) {
-            console.log('confirm result', event);
-            SlottingService.bootboxConfirmCallback(event.data.data);
-            SlottingService.bootboxConfirmCallback = null;
-          }
+          console.log('confirm result', event.data.data);
+          this.bootboxConfirmResolver(event.data.data);
+          this.bootboxConfirmResolver = null;
         } break;
 
         case 'bootboxConfirm': {
-          if (SlottingService.bootboxConfirmCallback) {
-            console.log('bootbox confirm');
-            SlottingService.bootboxConfirmCallback(confirm(event.data.data));
-            SlottingService.bootboxConfirmCallback = null;
-          }
+          const result = confirm(event.data.data);
+          window.parent.postMessage({
+            type: 'bootboxConfirmResult',
+            data: result
+          }, '*');
+          console.log('bootbox confirm');
         } break;
 
         case 'bootboxAlert': {
@@ -71,7 +68,7 @@ export class SlottingService implements OnDestroy {
       const match = await this.http.get(
         `${environment.api.forumUrl}/arma3-slotting/${tid}/match/${matchid}?withusers=1`, {withCredentials: true}).toPromise();
       this.parseMatch(match);
-      this.refreshSlottedCount();
+      this.refreshSlottedCount((match as any).uuid);
       console.log(match);
       return match;
     } catch (e) {
@@ -118,20 +115,19 @@ export class SlottingService implements OnDestroy {
    * @param match
    */
   private parseMatch(match: any): any {
-    this.slots = [];
-
-    return this.parseMatchRecursive(match);
+    return this.parseMatchRecursive(match, match.uuid);
   }
 
-  private parseMatchRecursive(match: any): any {
+  private parseMatchRecursive(match: any, uuid: string): any {
     ['company', 'platoon', 'squad', 'fireteam', 'slot'].forEach(currentFilter => {
       if (match[currentFilter] && match[currentFilter].length > 0) {
         match[currentFilter].forEach(current => {
           // Parse out slots
           if (currentFilter === 'slot') {
-            this.slots.push(current);
+            this.slots[uuid] = this.slots[uuid] || [];
+            this.slots[uuid].push(current);
           }
-          this.parseMatchRecursive(current);
+          this.parseMatchRecursive(current, uuid);
         });
       }
     });
@@ -139,13 +135,15 @@ export class SlottingService implements OnDestroy {
     return match;
   }
 
-  private refreshSlottedCount(): void {
-    this.slottedCount = 0;
-    this.slots.forEach(slot => {
-      if (slot.user) {
-        this.slottedCount++;
-      }
-    });
+  private refreshSlottedCount(matchid: string): void {
+    console.log('updating slotted count');
+    const result = this.matches.find(x => x.uuid === matchid);
+    if (result) {
+      console.log('result', result);
+      console.log(this.slots[result.uuid]);
+      result.slottedPlayerCount = this.slots[result.uuid].filter(x => x.user).length;
+    }
+    console.log(result);
   }
 
   private initWebsocket(): void {
@@ -159,7 +157,6 @@ export class SlottingService implements OnDestroy {
       if (data.tid.toString() !== this.tid) {
         return;
       }
-      console.log('dwa');
 
       const index = this.matches.findIndex(x => x.uuid === data.matchid);
       if (index > -1) {
@@ -175,15 +172,15 @@ export class SlottingService implements OnDestroy {
       }
     });
 
-    this.socket.on('event:user-slotted', () => {
+    this.socket.on('event:user-slotted', data => {
       setTimeout(() => {
-        this.refreshSlottedCount();
+        this.refreshSlottedCount(data.matchid);
       }, 400);
     });
 
-    this.socket.on('event:user-unslotted', () => {
+    this.socket.on('event:user-unslotted', data => {
       setTimeout(() => {
-        this.refreshSlottedCount();
+        this.refreshSlottedCount(data.matchid);
       }, 400);
     });
   }
@@ -244,7 +241,7 @@ export class SlottingService implements OnDestroy {
     }
   }
 
-  public showNodebbAlert(title: string, message: string, type: string = 'success', timeout: number = 2000): void {
+  public showNodebbAlert(title: string, message: string = '', type: string = 'success', timeout: number = 2000): void {
     window.parent.postMessage({
       type: 'alert',
       data: {
@@ -269,7 +266,7 @@ export class SlottingService implements OnDestroy {
     }
 
     try {
-      const result = await this.http.put(environment.api.forumUrl + '/arma3-slotting/' + this.tid + '/match/' + matchid, content, {
+      await this.http.put(environment.api.forumUrl + '/arma3-slotting/' + this.tid + '/match/' + matchid, content, {
         headers: {
           Accept: 'application/json; charset=utf-8',
           'Content-Type': 'application/xml',
@@ -305,14 +302,15 @@ export class SlottingService implements OnDestroy {
     }, '*');
   }
 
-  public bootboxConfirm(message: string, callback: Function): void {
-    SlottingService.bootboxConfirmCallback = callback;
-    console.log('bootbox confirm callback', callback);
-    console.log('bootbox confirm callback', SlottingService.bootboxConfirmCallback);
+  public async bootboxConfirm(message: string): Promise<boolean> {
+    const promise = new Promise<boolean>(resolve => this.bootboxConfirmResolver = resolve);
+
     window.parent.postMessage({
       type: 'bootboxConfirm',
       data: message
     }, '*');
+
+    return promise;
   }
 
   public async deleteMatch(matchid: string): Promise<boolean> {

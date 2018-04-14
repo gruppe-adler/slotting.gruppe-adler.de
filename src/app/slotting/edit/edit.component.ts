@@ -97,7 +97,7 @@ export class EditComponent implements OnInit {
     if (this.editService.matchDirty) {
       console.log(this.editService.rawMatch);
       console.log(this.editService.match);
-      this.slottingService.bootboxConfirm('Du hast noch ungespeicherte Änderungen. Möchtest du trotzdem abbrechen?', result => {
+      this.slottingService.bootboxConfirm('Du hast noch ungespeicherte Änderungen. Möchtest du trotzdem abbrechen?').then(result => {
         if (result) {
           abort();
         }
@@ -110,11 +110,10 @@ export class EditComponent implements OnInit {
   public async save(): Promise<void> {
     console.log('save');
     if (this.matchChangedExternal) {
-      this.slottingService.bootboxConfirm('Die Slotliste hat sich während der Bearbeitung verändert. Möchtest du die Änderungen überschreiben?', result => {
-        if (result) {
-          this.saveInternal();
-        }
-      });
+      const result = await this.slottingService.bootboxConfirm('Die Slotliste hat sich während der Bearbeitung verändert. Möchtest du die Änderungen überschreiben?');
+      if (result) {
+        this.saveInternal();
+      }
       return;
     }
     this.saveInternal();

@@ -17,21 +17,21 @@ export class ShareComponent implements OnInit {
     console.log(this.shareData);
   }
 
-  public delete(share: any): void {
+  public deleteLink(share: any): void {
     this.slottingService.bootboxConfirm(
       'Möchtest du den Slottinglink für ' + share.reservation + ' wirklich löschen? ' +
-      'Dies macht den aktuellen Link ungültig, behält jedoch alle geslotteten Nutzer.', async result => {
-        if (result) {
-          const deleteResult = await this.shareService.deleteShare(this.shareData.tid, this.shareData.matchid, share.reservation);
-          console.log(deleteResult);
-          if (deleteResult) {
-            const index = this.shareData.activeReservations.indexOf(share);
-            if (index > -1) {
-              this.shareData.activeReservations.splice(index, 1);
-            }
-            this.shareData.availableReservations.push(share.reservation);
+      'Dies macht den aktuellen Link ungültig, behält jedoch alle geslotteten Nutzer.').then(async result => {
+      if (result) {
+        const deleteResult = await this.shareService.deleteShare(this.shareData.tid, this.shareData.matchid, share.reservation);
+        console.log(deleteResult);
+        if (deleteResult) {
+          const index = this.shareData.activeReservations.indexOf(share);
+          if (index > -1) {
+            this.shareData.activeReservations.splice(index, 1);
           }
+          this.shareData.availableReservations.push(share.reservation);
         }
+      }
     });
   }
 

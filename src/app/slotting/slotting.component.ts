@@ -32,7 +32,7 @@ export class SlottingComponent implements OnInit {
   }
 
   deleteMatch(): void {
-    this.slottingService.bootboxConfirm('Slotliste ' + this.match.uuid + ' wirklich löschen?', result => {
+    this.slottingService.bootboxConfirm('Slotliste ' + this.match.uuid + ' wirklich löschen?').then(result => {
       if (result) {
         console.log('delete');
         this.slottingService.deleteMatch(this.match.uuid).then(deleteResult => {

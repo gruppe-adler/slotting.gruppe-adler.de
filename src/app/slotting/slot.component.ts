@@ -197,20 +197,21 @@ export class SlotComponent implements OnInit {
 
     if (this.slot.user) {
       const oldUsername = this.slot.user.username;
-      this.slottingService.bootboxConfirm(oldUsername + ' vom Slot kicken?', result => {
-        if (!result) {
-          return;
-        }
+      const result = await this.slottingService.bootboxConfirm(oldUsername + ' vom Slot kicken?');
+      console.log('kick user result', result);
 
-        SlotComponent.slottingInProgress = true;
-        this.slottingService.slotUser(this.matchid, this.slot.uuid).then(slotResult => {
-          SlotComponent.slottingInProgress = false;
-          if (slotResult) {
-            this.slottingService.showNodebbAlert('Eingeslottet', oldUsername + 'vom Slot gekickt und eingeslottet');
-          } else {
-            this.slottingService.showNodebbAlert('Fehler', '');
-          }
-        });
+      if (!result) {
+        return;
+      }
+
+      SlotComponent.slottingInProgress = true;
+      this.slottingService.slotUser(this.matchid, this.slot.uuid).then(slotResult => {
+        SlotComponent.slottingInProgress = false;
+        if (slotResult) {
+          this.slottingService.showNodebbAlert('Eingeslottet', oldUsername + ' vom Slot gekickt und eingeslottet');
+        } else {
+          this.slottingService.showNodebbAlert('Fehler');
+        }
       });
       return;
     }
@@ -219,9 +220,9 @@ export class SlotComponent implements OnInit {
     this.slottingService.slotUser(this.matchid, this.slot.uuid).then(result => {
       SlotComponent.slottingInProgress = false;
       if (result) {
-        this.slottingService.showNodebbAlert('Eingeslottet', '');
+        this.slottingService.showNodebbAlert('Eingeslottet');
       } else {
-        this.slottingService.showNodebbAlert('Fehler', '');
+        this.slottingService.showNodebbAlert('Fehler');
       }
     });
   }
@@ -277,9 +278,9 @@ export class SlotComponent implements OnInit {
     this.slottingService.unslotUser(this.matchid, this.slot.uuid).then(result => {
       SlotComponent.slottingInProgress = false;
       if (result) {
-        this.slottingService.showNodebbAlert('Ausgeslottet', '');
+        this.slottingService.showNodebbAlert('Ausgeslottet');
       } else {
-        // this.slottingService.showNodebbAlert('Fehler', '');
+        // this.slottingService.showNodebbAlert('Fehler');
       }
     });
   }
