@@ -6,7 +6,7 @@
 <label class="switch">
   <input type="checkbox" id="input_arma3-slotting-condensed" [checked]="slottingService.slotlistCondensed" (change)="slottingService.toggleCondensedView()">
   <div class="slider round"><span class="point"></span></div>
-  <div class="switch_label">Condensed</div>
+  <div class="switch_label">Kompakt</div>
 </label>
 
 <app-slotting *ngFor="let match of slottingService.matches" [match]="match"></app-slotting>
