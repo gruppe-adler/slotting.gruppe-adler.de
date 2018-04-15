@@ -11,15 +11,19 @@ export class NodeComponent implements OnInit {
   @Input() context: any;
   @Input() matchid = '';
   @Input() reservation = '';
+  @Input() minSlottedPlayerCount = 0;
 
   public readonly environment = environment;
-  public readonly localStorage = localStorage;
 
   constructor(public slottingService: SlottingService) {}
 
   ngOnInit(): void {
     if (this.context['reserved-for'] && this.context['reserved-for'] !== '') {
       this.reservation = this.context['reserved-for'];
+    }
+
+    if (this.context['min-slotted-player-count'] > 0) {
+      this.minSlottedPlayerCount = this.context['min-slotted-player-count'];
     }
   }
 }

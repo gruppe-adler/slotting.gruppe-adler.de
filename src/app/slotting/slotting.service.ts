@@ -75,10 +75,10 @@ export class SlottingService implements OnDestroy {
     }
   }
 
-  public async findMatch(tid: number, matchid: string): Promise<any> {
+  public async findMatch(tid = this.tid, matchid: string): Promise<any> {
     if (!this.matches || this.matches.length === 0) {
       console.log('loading matches');
-      await this.getMatches(tid);
+      await this.getMatches(this.tid);
     }
     return this.matches.find(x => x.uuid === matchid);
   }

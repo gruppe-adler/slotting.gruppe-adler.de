@@ -19,6 +19,7 @@ export class SlotComponent implements OnInit {
   @Input() isFireteam = false;
   @Input() matchid = '';
   @Input() reservation = '';
+  @Input() minSlottedPlayerCount = 0;
   public background: string;
   public slotTooltip: string;
   public slotLocked = false;
@@ -34,6 +35,9 @@ export class SlotComponent implements OnInit {
   public ngOnInit(): void {
     if (this.slot['reserved-for'] && this.slot['reserved-for'] !== '') {
       this.reservation = this.slot['reserved-for'];
+    }
+    if (this.slot['min-slotted-player-count'] > 0) {
+      this.minSlottedPlayerCount = this.slot['min-slotted-player-count'];
     }
 
     this.slottingService.slotChanged.subscribe(data => {
@@ -96,6 +100,14 @@ export class SlotComponent implements OnInit {
       this.updateBackgroundShared();
     } else {
       this.slotLocked = this.reservation && this.reservation !== '' && !this.slot.user;
+      if (this.minSlottedPlayerCount > 0) {
+        this.slottingService.findMatch(this.slottingService.tid, this.matchid).then(match => {
+          if (match.slottedPlayerCount < this.minSlottedPlayerCount) {
+            this.slotLocked = true;
+            this.slotTooltip = `${this.minSlottedPlayerCount}+ Spieler`;
+          }
+        });
+      }
     }
   }
 
@@ -200,7 +212,7 @@ export class SlotComponent implements OnInit {
    */
   private async slotUserInternal(): Promise<void> {
     console.log('slot');
-    if (this.reservation !== '' || this.slot['reserved-for']) {
+    if (this.slotLocked) {
       return;
     }
 

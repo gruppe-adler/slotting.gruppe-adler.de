@@ -10,7 +10,7 @@
       <span *ngIf="slot.user && slot.user['icon:text'] && !slot.user.picture">
         {{slot.user['icon:text']}}
       </span>
-      <ng-container *ngIf="slotLocked">
+      <ng-container *ngIf="slotLocked && !background">
         <mat-icon class="lock-icon">lock</mat-icon>
       </ng-container>
     </div>

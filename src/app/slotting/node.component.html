@@ -5,10 +5,10 @@
     <span class="company-title" [ngClass]="company.side ? company.side : null">{{company.callsign}}</span>
   </div>
   <div class="company-header">
-    <app-event-slot class="slot" *ngFor="let slot of company.slot" [slot]="slot" [reservation]="reservation" [matchid]="matchid"></app-event-slot>
+    <app-event-slot class="slot" *ngFor="let slot of company.slot" [slot]="slot" [reservation]="reservation" [minSlottedPlayerCount]="minSlottedPlayerCount" [matchid]="matchid"></app-event-slot>
   </div>
   <div class="company-siblings">
-    <app-event-node [context]="company" [reservation]="reservation" [matchid]="matchid"></app-event-node>
+    <app-event-node [context]="company" [reservation]="reservation" [minSlottedPlayerCount]="minSlottedPlayerCount" [matchid]="matchid"></app-event-node>
   </div>
 </div>
 
@@ -19,10 +19,10 @@
     <span class="platoon-title">{{platoon.callsign}}</span>
   </div>
   <div class="platoon-header">
-    <app-event-slot class="slot" *ngFor="let slot of platoon.slot" [slot]="slot" [reservation]="reservation" [matchid]="matchid"></app-event-slot>
+    <app-event-slot class="slot" *ngFor="let slot of platoon.slot" [slot]="slot" [reservation]="reservation" [minSlottedPlayerCount]="minSlottedPlayerCount" [matchid]="matchid"></app-event-slot>
   </div>
   <div class="platoon-siblings">
-    <app-event-node [context]="platoon" [reservation]="reservation" [matchid]="matchid"></app-event-node>
+    <app-event-node [context]="platoon" [reservation]="reservation" [minSlottedPlayerCount]="minSlottedPlayerCount" [matchid]="matchid"></app-event-node>
   </div>
 </div>
 
@@ -32,13 +32,13 @@
     <span class="squad-title">{{squad.callsign}}</span>
   </div>
   <div class="squad-header">
-    <app-event-slot class="slot" *ngFor="let slot of squad.slot" [slot]="slot" [reservation]="reservation" [matchid]="matchid"></app-event-slot>
+    <app-event-slot class="slot" *ngFor="let slot of squad.slot" [slot]="slot"  [reservation]="reservation" [minSlottedPlayerCount]="minSlottedPlayerCount" [matchid]="matchid"></app-event-slot>
   </div>
   <div class="squad-siblings">
-    <app-event-node [context]="squad" [reservation]="reservation" [matchid]="matchid"></app-event-node>
+    <app-event-node [context]="squad" [reservation]="reservation" [minSlottedPlayerCount]="minSlottedPlayerCount" [matchid]="matchid"></app-event-node>
   </div>
 </div>
 
 <div *ngFor="let fireteam of context.fireteam" class="fireteam-container" [class.condensed]="slottingService.slotlistCondensed">
-  <app-event-slot class="slot" *ngFor="let slot of fireteam.slot" [slot]="slot" [isFireteam]="true" [reservation]="reservation" [matchid]="matchid"></app-event-slot>
+  <app-event-slot class="slot" *ngFor="let slot of fireteam.slot" [slot]="slot" [isFireteam]="true" [reservation]="reservation" [minSlottedPlayerCount]="minSlottedPlayerCount" [matchid]="matchid"></app-event-slot>
 </div>
