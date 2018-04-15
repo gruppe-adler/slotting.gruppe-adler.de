@@ -13,6 +13,7 @@ export class SharedComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute, public sharedService: SharedService) {}
 
   ngOnInit(): void {
+    this.sharedService.initWebsocket();
     this.topic = this.activatedRoute.snapshot.data.data.topic;
     this.publicUserUrl = `${window.location.origin}${window.location.pathname}?tid=${this.activatedRoute.snapshot.queryParams.tid}&matchid=${this.activatedRoute.snapshot.queryParams.matchid}&uuid=${this.sharedService.shareData.publicUuid}&reservation=${this.activatedRoute.snapshot.queryParams.reservation}`;
     console.log(this.publicUserUrl);

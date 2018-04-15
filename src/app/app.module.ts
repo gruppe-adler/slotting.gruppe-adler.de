@@ -5,11 +5,8 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
 import { RouterModule } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { NavbarComponent } from './main/navbar.component';
-import { FooterComponent } from './main/footer.component';
 import { NgProgressModule } from '@ngx-progressbar/core';
 import { NgProgressHttpModule } from '@ngx-progressbar/http';
-import { BackgroundComponent } from './main/background.component';
 import { NotFoundComponent } from './main/not-found.component';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -24,9 +21,6 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
-    FooterComponent,
-    BackgroundComponent,
     NotFoundComponent
   ],
   imports: [

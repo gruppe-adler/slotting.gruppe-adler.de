@@ -8,6 +8,7 @@ import { NodeModule } from './node.module';
 import { SlottingResolver } from './slotting.resolver';
 import { FormsModule } from '@angular/forms';
 import { OverviewComponent } from './overview.component';
+import { NgDragDropModule } from 'ng-drag-drop';
 
 @NgModule({
   declarations: [

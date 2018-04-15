@@ -25,7 +25,7 @@
          (onDragEnter)="onDragEnter($event)"
          (onDragLeave)="onDragLeave($event)"
          [dropEnabled]="!company.preset"
-         [dropScope]="['company', 'platoon', 'squad']"
+         [dropScope]="['platoon', 'squad']"
          [dragHintClass]="'drag-target'">
       <app-edit-node [context]="company" [reservation]="reservation"></app-edit-node>
     </div>

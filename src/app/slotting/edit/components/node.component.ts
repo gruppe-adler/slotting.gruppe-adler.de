@@ -50,7 +50,7 @@ export class NodeComponent implements OnInit {
       } break;
 
       case 'company': {
-        if (type === 'fireteam') {
+        if (type !== 'platoon' && type !== 'squad') {
           return;
         } break;
       }

@@ -17,7 +17,6 @@ export class SharedService {
   public slotChanged: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private http: HttpClient) {
-    this.initWebsocket();
   }
 
   public async getMatch(tid: number, matchid: string, uuid: string, reservation: string): Promise<any> {
@@ -166,7 +165,7 @@ export class SharedService {
     };
   }
 
-  private initWebsocket(): void {
+  public initWebsocket(): void {
     this.socket = io(environment.api.forumSocketUrl);
     this.socket.on('connect', () => {
       console.log('connected');

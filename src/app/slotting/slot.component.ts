@@ -36,9 +36,18 @@ export class SlotComponent implements OnInit {
       this.reservation = this.slot['reserved-for'];
     }
 
-    this.sharedService.slotChanged.subscribe(data => {
+    this.slottingService.slotChanged.subscribe(data => {
       if (data.uuid === this.slot.uuid) {
         console.log('updated slot', data);
+        this.slot = data;
+        this.parseProfilePicture();
+        this.updateBackground();
+      }
+    });
+
+    this.sharedService.slotChanged.subscribe(data => {
+      if (data.uuid === this.slot.uuid) {
+        console.log('updated slot shared', data);
         this.slot = data;
         this.parseProfilePicture();
         this.updateBackground();
@@ -283,5 +292,13 @@ export class SlotComponent implements OnInit {
         // this.slottingService.showNodebbAlert('Fehler');
       }
     });
+  }
+
+  public onDrop(event): void {
+    console.log(event);
+  }
+
+  public dragStart(): void {
+    console.log('start');
   }
 }

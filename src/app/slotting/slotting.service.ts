@@ -7,13 +7,13 @@ import * as io from 'socket.io-client';
 export class SlottingService implements OnDestroy {
   public matches: any[];
   public slots = {};
-  public slottedCount = 0;
   public socket: any;
   public tid: number;
   public showGroupsChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
   public matchChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
   public slotlistCondensed = localStorage[environment.storageKeys.showMinified] === 'true';
   public bootboxConfirmResolver: any;
+  public slotChanged: EventEmitter<any> = new EventEmitter<any>();
 
   private slottingInProgress = false;
   private unslottingInProgress = false;
@@ -31,8 +31,6 @@ export class SlottingService implements OnDestroy {
       if (!event.data || !event.data.type) {
         return;
       }
-
-      console.log(event);
 
       switch (event.data.type) {
         case 'bootboxConfirmResult': {
@@ -81,12 +79,7 @@ export class SlottingService implements OnDestroy {
     if (!this.matches || this.matches.length === 0) {
       console.log('loading matches');
       await this.getMatches(tid);
-      this.matches.find(x => {
-        console.log('dwadwa', x);
-        return true;
-      });
     }
-    console.log('blerb', this.matches);
     return this.matches.find(x => x.uuid === matchid);
   }
 
@@ -139,17 +132,14 @@ export class SlottingService implements OnDestroy {
     console.log('updating slotted count');
     const result = this.matches.find(x => x.uuid === matchid);
     if (result) {
-      console.log('result', result);
-      console.log(this.slots[result.uuid]);
       result.slottedPlayerCount = this.slots[result.uuid].filter(x => x.user).length;
     }
-    console.log(result);
   }
 
   private initWebsocket(): void {
     this.socket = io(environment.api.forumSocketUrl);
     this.socket.on('connect', () => {
-      console.log('connected');
+      console.log('socket.io connected');
     });
 
     this.socket.on('event:match-changed', async data => {
@@ -173,15 +163,35 @@ export class SlottingService implements OnDestroy {
     });
 
     this.socket.on('event:user-slotted', data => {
-      setTimeout(() => {
-        this.refreshSlottedCount(data.matchid);
-      }, 400);
+      const slots = this.slots[data.matchid] || [];
+      const oldSlot = slots.find(slot =>
+        slot.user &&
+        ((slot.user.uid !== -1 && slot.user.uid === data.user.uid) ||
+          (slot.user.username === data.user.username && slot.user.userslug === data.user.username && slot.user['icon:text'] === data.user['icon:text'])));
+      if (oldSlot) {
+        console.log('old slot', oldSlot);
+        delete oldSlot.user;
+        this.slotChanged.emit(oldSlot);
+      }
+
+      const newSlot = slots.find(slot => slot.uuid === data.slot);
+      if (newSlot) {
+        console.log('new slot', newSlot);
+        newSlot.user = data.user;
+        this.slotChanged.emit(newSlot);
+      }
+      this.refreshSlottedCount(data.matchid);
     });
 
     this.socket.on('event:user-unslotted', data => {
-      setTimeout(() => {
-        this.refreshSlottedCount(data.matchid);
-      }, 400);
+      const slots = this.slots[data.matchid] || [];
+      slots.forEach(slot => {
+        if (slot.uuid === data.slot) {
+          delete slot.user;
+          this.slotChanged.emit(slot);
+        }
+      });
+      this.refreshSlottedCount(data.matchid);
     });
   }
 
@@ -224,11 +234,6 @@ export class SlottingService implements OnDestroy {
   }
 
   public async getOwnUserId(): Promise<string> {
-    /*
-    if (window.parent && window.parent['app'] && window.parent['app'].user) {
-      return window.parent['app'].user.uid;
-    }*/
-
     try {
       const result = await this.http.get(environment.api.forumUrl + '/me', {withCredentials: true}).toPromise();
       if (result['uid']) {
