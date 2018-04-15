@@ -70,7 +70,7 @@
 
   .selections {
     width: 4.2rem;
-    height: 0;
+    max-height: 0;
     position: relative;
     top: 0;
     left: -1rem;
@@ -102,7 +102,7 @@
 
   &:hover {
     .selections {
-      height: 20rem;
+      max-height: 20rem;
     }
   }
 }
