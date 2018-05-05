@@ -306,8 +306,47 @@ export class SlotComponent implements OnInit {
     });
   }
 
-  public onDrop(event): void {
+  public async onDrop(event): Promise<void> {
     console.log(event);
+    if (!event.dragData || !event.dragData.user || event.dragData.user.uid < 0) {
+      return;
+    }
+
+    console.log('slot');
+    if (this.slotLocked) {
+      return;
+    }
+
+    if (this.slot.user) {
+      const oldUsername = this.slot.user.username;
+      const result = await this.slottingService.bootboxConfirm(oldUsername + ' vom Slot kicken?');
+      console.log('kick user result', result);
+
+      if (!result) {
+        return;
+      }
+
+      SlotComponent.slottingInProgress = true;
+      this.slottingService.slotUser(this.matchid, this.slot.uuid, event.dragData.user.uid).then(slotResult => {
+        SlotComponent.slottingInProgress = false;
+        if (slotResult) {
+          this.slottingService.showNodebbAlert('Eingeslottet', oldUsername + ' vom Slot gekickt und ' + event.dragData.user.username + ' eingeslottet');
+        } else {
+          this.slottingService.showNodebbAlert('Fehler');
+        }
+      });
+      return;
+    }
+
+    SlotComponent.slottingInProgress = true;
+    this.slottingService.slotUser(this.matchid, this.slot.uuid, event.dragData.user.uid).then(result => {
+      SlotComponent.slottingInProgress = false;
+      if (result) {
+        this.slottingService.showNodebbAlert(event.dragData.user.username + ' eingeslottet');
+      } else {
+        this.slottingService.showNodebbAlert('Fehler');
+      }
+    });
   }
 
   public dragStart(): void {

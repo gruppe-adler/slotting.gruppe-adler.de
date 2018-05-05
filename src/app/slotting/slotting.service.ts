@@ -9,6 +9,7 @@ export class SlottingService implements OnDestroy {
   public slots = {};
   public socket: any;
   public tid: number;
+  public permissions: any;
   public showGroupsChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
   public matchChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
   public slotlistCondensed = localStorage[environment.storageKeys.showMinified] === 'true';
@@ -95,6 +96,8 @@ export class SlottingService implements OnDestroy {
         match = await this.getMatch(this.tid, match.uuid);
         this.matches.push(match);
       }
+      this.permissions = await this.getPermissions();
+      console.log('permissions', this.permissions);
       return this.matches;
     } catch (e) {
       console.log(e);
@@ -199,12 +202,15 @@ export class SlottingService implements OnDestroy {
     this.socket.close();
   }
 
-  public async slotUser(matchid: string, slotid: string): Promise<boolean> {
+  public async slotUser(matchid: string, slotid: string, uid: any = undefined): Promise<boolean> {
     if (this.slottingInProgress) {
       return false;
     }
     this.slottingInProgress = true;
-    const uid = await this.getOwnUserId();
+    if (!uid) {
+      uid = await this.getOwnUserId();
+    }
+
     console.log(uid);
     try {
       await this.http.put(environment.api.forumUrl + '/arma3-slotting/' + this.tid + '/match/' + matchid + '/slot/' + slotid + '/user', {uid}, {withCredentials: true}).toPromise();
