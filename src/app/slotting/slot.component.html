@@ -1,4 +1,4 @@
-<div class="slot-container" [class.condensed]="slottingService.slotlistCondensed" droppable (onDrop)="onDrop($event)">
+<div class="slot-container" [class.condensed]="slottingService.slotlistCondensed" droppable (onDrop)="onDrop($event)" ondragover="console.log('test'); event.preventDefault()">
   <ng-container *ngIf="slot">
     <div [draggable]="slottingService.permissions && slottingService.permissions.result && !sharedService.shareData && slot.user && slot.user.uid > -1" (onDragStart)="dragStart()" class="avatar-container" [dragData]="{user: slot.user}">
       <div class="avatar"

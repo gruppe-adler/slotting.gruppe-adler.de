@@ -307,6 +307,7 @@ export class SlotComponent implements OnInit {
   }
 
   public async onDrop(event): Promise<void> {
+    event.nativeEvent.preventDefault();
     console.log(event);
     if (!event.dragData || !event.dragData.user || event.dragData.user.uid < 0 || this.slotLocked || (this.slot.user && this.slot.user.uid < 0)) {
       return;
