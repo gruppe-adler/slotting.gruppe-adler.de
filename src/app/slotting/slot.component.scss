@@ -108,12 +108,19 @@
   &.condensed {
     .avatar {
       box-shadow: none;
+      span {
+        font-size: 0;
+      }
     }
 
     .slot-descr {
       opacity: 0;
       height: 0;
       display: none;
+    }
+
+    .lock-icon {
+      font-size: 0;
     }
   }
 }
@@ -126,5 +133,12 @@
 
   .avatar {
     box-shadow: none;
+    span {
+      font-size: 14px;
+    }
+  }
+
+  .lock-icon {
+    font-size: 20px;
   }
 }
