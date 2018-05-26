@@ -12,7 +12,7 @@ export class SlottingService implements OnDestroy {
   public permissions: any;
   public showGroupsChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
   public matchChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
-  public slotlistCondensed = localStorage[environment.storageKeys.showMinified] === 'true';
+  public slotlistCondensed = false;
   public bootboxConfirmResolver: any;
   public slotChanged: EventEmitter<any> = new EventEmitter<any>();
 
@@ -21,6 +21,7 @@ export class SlottingService implements OnDestroy {
 
   constructor(private http: HttpClient) {
     this.initWebsocket();
+    this.initCondensedView();
 
     window.addEventListener('storage', event => {
       if (event.key === environment.storageKeys.showGroupColor) {
@@ -349,8 +350,24 @@ export class SlottingService implements OnDestroy {
   }
 
   public toggleCondensedView(): void {
-    const value = localStorage[environment.storageKeys.showMinified] === 'true';
-    localStorage[environment.storageKeys.showMinified] = !value;
-    this.slotlistCondensed = !value;
+    try {
+        const value = localStorage[environment.storageKeys.showMinified] === 'true';
+        localStorage[environment.storageKeys.showMinified] = !value;
+        this.slotlistCondensed = !value;
+    } catch (e) {
+      console.warn(e);
+    }
+  }
+
+  private initCondensedView(): void {
+    try {
+        this.slotlistCondensed = localStorage[environment.storageKeys.showMinified] === 'true';
+    } catch (e) {
+      console.warn(e);
+    }
+  }
+
+  public isCondensedView(): boolean {
+    return this.slotlistCondensed;
   }
 }
