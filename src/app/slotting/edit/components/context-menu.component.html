@@ -1,30 +1,51 @@
-<div #toolbar class="toolbar" *ngIf="toolbarExpanded" [class.expanded]="toolbarExpanded" (keypress)="onKey($event)" [ngStyle]="{left: 'calc(50% - ' + toolbar.clientWidth / 2 + 'px)'}">
+<div #toolbar class="toolbar" *ngIf="toolbarExpanded" [class.expanded]="toolbarExpanded" (keypress)="onKey($event)"
+     [ngStyle]="{left: 'calc(50% - ' + toolbar.clientWidth / 2 + 'px)'}">
   <div class="arrow"></div>
   <div class="tools">
     <form>
-      <mat-form-field floatLabel="never" class="app-input-white-underline callsign-input">
-        <input #description matInput placeholder="Callsign" [(ngModel)]="element.callsign" name="callsign">
-      </mat-form-field>
-      <mat-form-field floatLabel="never" class="app-input-white-underline vehicle-input">
-        <input #description matInput placeholder="Vehicle" [(ngModel)]="element.vehicletype" name="vehicle">
-      </mat-form-field>
-      <mat-divider [vertical]="true"></mat-divider>
-      <div class="flag-select">
-        <div class="natosymbol" [ngClass]="element.natosymbol"></div>
-        <ul class="selections">
-          <li *ngFor="let flag of editService.flagIcons" (click)="setFlag(flag)">
-            <div class="natosymbol" [ngClass]="flag"></div>
-          </li>
-        </ul>
+      <div class="mat-row">
+        <div class="flag-select">
+          <div class="natosymbol" [ngClass]="element.natosymbol"></div>
+          <ul class="selections">
+            <li *ngFor="let flag of editService.flagIcons" (click)="setFlag(flag)">
+              <div class="natosymbol" [ngClass]="flag"></div>
+            </li>
+          </ul>
+        </div>
+        <mat-form-field class="app-input-white-underline callsign-input">
+          <input #description matInput placeholder="Callsign" [(ngModel)]="element.callsign" name="callsign">
+        </mat-form-field>
+        <mat-divider [vertical]="true"></mat-divider>
+        <button mat-button (click)="duplicate()">
+          <mat-icon class="copy-icon">content_copy</mat-icon>
+        </button>
+        <mat-divider [vertical]="true"></mat-divider>
+        <button mat-button (click)="delete()">
+          <mat-icon class="delete-icon">delete</mat-icon>
+        </button>
       </div>
-      <mat-divider [vertical]="true"></mat-divider>
-      <button mat-button (click)="duplicate()">
-        <mat-icon class="copy-icon">content_copy</mat-icon>
-      </button>
-      <mat-divider [vertical]="true"></mat-divider>
-      <button mat-button (click)="delete()">
-        <mat-icon class="delete-icon">delete</mat-icon>
-      </button>
+      <div class="mat-row">
+        <mat-form-field class="app-input-white-underline">
+          <input #description matInput placeholder="Frequency" [(ngModel)]="element.frequency" name="frequency">
+        </mat-form-field>
+        <mat-form-field class="app-input-white-underline">
+          <input #description matInput placeholder="Vehicle" [(ngModel)]="element.vehicletype" name="vehicle">
+        </mat-form-field>
+      </div>
+    <div class="mat-row">
+        <mat-form-field class="app-input-white-underline">
+          <input #description matInput placeholder="Reserve for user group" [(ngModel)]="element['reserved-for']" name="reserved-for">
+        </mat-form-field>
+        <mat-form-field class="" >
+          <input #description matInput
+                 placeholder="Lock until slotting count"
+                 [(ngModel)]="element['min-slotted-player-count']"
+                 name="min-slotted-player-count"
+                 type="number"
+                 min="0"
+          >
+        </mat-form-field>
+      </div>
     </form>
   </div>
 </div>
