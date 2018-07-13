@@ -32,7 +32,7 @@
     <span class="squad-title">{{squad.callsign}}</span>
   </div>
   <div class="squad-header">
-    <app-event-slot class="slot" *ngFor="let slot of squad.slot" [slot]="slot"  [reservation]="reservation" [minSlottedPlayerCount]="minSlottedPlayerCount" [matchid]="matchid"></app-event-slot>
+    <app-event-slot class="slot" *ngFor="let slot of squad.slot" [slot]="slot" [reservation]="reservation" [minSlottedPlayerCount]="minSlottedPlayerCount" [matchid]="matchid"></app-event-slot>
   </div>
   <div class="squad-siblings">
     <app-event-node [context]="squad" [reservation]="reservation" [minSlottedPlayerCount]="minSlottedPlayerCount" [matchid]="matchid"></app-event-node>

@@ -112,7 +112,9 @@ export class SlotComponent implements OnInit {
   }
 
   private updateBackgroundShared(): void {
-    this.slotLocked = (!this.slot.user || (this.slot.user && !this.slot.user['icon:text'])) && this.sharedService.shareData.reservation !== this.reservation;
+    this.slotLocked =
+      (!this.slot.user || (this.slot.user && !this.slot.user['icon:text'])) &&
+      this.sharedService.shareData.reservation !== this.reservation;
   }
 
   /**
