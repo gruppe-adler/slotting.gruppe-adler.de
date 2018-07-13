@@ -31,18 +31,19 @@
     box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22) !important;
 
     form {
-      display: flex;
-
-      .callsign-input {
-        max-width: 125px;
-        margin-right: 20px;
-        margin-left: 10px;
+      .mat-row {
+        display: flex;
       }
 
-      .vehicle-input {
-        max-width: 100px;
-        margin-right: 20px;
+      .mat-form-field {
+        flex-grow: 5;
+        margin-right: 10px;
         margin-left: 10px;
+        margin-top: 5px;
+      }
+
+      .flag-select {
+        z-index: 1; // elsewise the other inputs go over the expanded menu :/
       }
 
       button {

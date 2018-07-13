@@ -110,7 +110,9 @@ export class EditComponent implements OnInit {
   public async save(): Promise<void> {
     console.log('save');
     if (this.matchChangedExternal) {
-      const result = await this.slottingService.bootboxConfirm('Die Slotliste hat sich während der Bearbeitung verändert. Möchtest du die Änderungen überschreiben?');
+      const result = await this.slottingService.bootboxConfirm(
+        'Die Slotliste hat sich während der Bearbeitung verändert. Möchtest du die Änderungen überschreiben?'
+      );
       if (result) {
         this.saveInternal();
       }
