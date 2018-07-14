@@ -173,8 +173,15 @@ export class SharedService {
     this.socket.on('event:user-slotted', data => {
       const oldSlot = this.slots.find(slot =>
         slot.user &&
-        ((slot.user.uid !== -1 && slot.user.uid === data.user.uid) ||
-          (slot.user.username === data.user.username && slot.user.userslug === data.user.username && slot.user['icon:text'] === data.user['icon:text'])));
+        (
+          (slot.user.uid !== -1 && slot.user.uid === data.user.uid) ||
+          (
+            slot.user.username === data.user.username &&
+            slot.user.userslug === data.user.username &&
+            slot.user['icon:text'] === data.user['icon:text']
+          )
+        )
+      );
       if (oldSlot) {
         console.log('old slot', oldSlot);
         delete oldSlot.user;
