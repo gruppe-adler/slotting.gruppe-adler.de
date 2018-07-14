@@ -6,3 +6,12 @@
     color: white;
   }
 }
+
+.slotlist-new-tab {
+  transition: all 0.2s ease;
+  &:hover {
+    background-color: #8F1167;
+    border-color: #660066 !important;
+    color: white;
+  }
+}
