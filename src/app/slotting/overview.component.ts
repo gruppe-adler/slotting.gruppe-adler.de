@@ -28,4 +28,12 @@ export class OverviewComponent implements OnInit {
       this.slottingService.bootbox('Das ging schief :(');
     }
   }
+
+  public isInIframe(): boolean {
+    return window !== window.parent;
+  }
+
+  public openInNewTab(): void {
+    window.open(window.location.href, '_blank');
+  }
 }
