@@ -21,6 +21,29 @@
     border-bottom: 5px solid black;
   }
 
+  ::ng-deep .mat-input-underline {
+        background: #666; 
+      }
+
+  .mat-focused ::ng-deep .mat-input-underline {
+        background: #bb7e1c; 
+      }
+
+  ::ng-deep .mat-form-field-ripple {
+      background: #d18d1f;
+      height: 1px;
+  }
+
+  ::ng-deep .mat-form-field-label {
+      padding-top: 2px;
+      padding-left: 5px;
+  }
+
+   ::ng-deep .mat-input-element {
+      padding-left: 5px;
+  }
+  
+
   .tools {
     background-color: #222;
     width: 100%;
