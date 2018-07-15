@@ -86,12 +86,13 @@
       background: black;
       padding: 8px 1rem;
       cursor: pointer;
+      outline: none;
 
-      &:hover {
+      &:hover, &:focus, &:focus-within {
         .natosymbol {
           background-color: #d18d1f;
         }
-        background: #1e1e1e;
+        background: #d18d1f;
       }
     }
 
@@ -101,7 +102,7 @@
     }
   }
 
-  &:hover {
+  &:hover, &:focus, &:focus-within {
     .selections {
       max-height: 20rem;
     }
