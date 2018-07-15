@@ -105,14 +105,11 @@ export class ContextMenuComponent implements OnInit, AfterViewInit {
 
   //changes focus from ul onto li with current natosymbol
   public onFocusFlagSelect(event): void {
-    var list = event.target.getElementsByTagName("ul")[0].getElementsByTagName("li");
 
-    for (var i=0; i<list.length; i++) {
-      var element = list[i];
-      if (list[i].getElementsByTagName("div")[0].getAttribute("ng-reflect-ng-class") == this.element.natosymbol) {
-        list[i].focus();
-      }
-    }
+    var newTarget = event.target.querySelector("li div[ng-reflect-ng-class='"+this.element.natosymbol+"']");
+
+    newTarget.parentNode.focus();
+
   }
 
   //changes focus to next / previous li
