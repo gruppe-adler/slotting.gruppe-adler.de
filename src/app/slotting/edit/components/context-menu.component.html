@@ -4,10 +4,18 @@
   <div class="tools">
     <form>
       <div class="mat-row">
-        <div class="flag-select">
+        <div class="flag-select"
+             tabindex="1"
+             (focus)="onFocusFlagSelect($event);"
+        >
           <div class="natosymbol" [ngClass]="element.natosymbol"></div>
           <ul class="selections">
-            <li *ngFor="let flag of editService.flagIcons" (click)="setFlag(flag)">
+            <li  tabIndex="-1" *ngFor="let flag of editService.flagIcons"
+            (click)="setFlag(flag)"
+            (focus)="setFlag(flag)"
+            (keydown.ArrowDown)="onKeyFlagSelect($event, 'down');"
+            (keydown.ArrowUp)="onKeyFlagSelect($event, 'up');"
+            >
               <div class="natosymbol" [ngClass]="flag"></div>
             </li>
           </ul>
