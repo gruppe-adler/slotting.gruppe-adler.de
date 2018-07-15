@@ -15,6 +15,12 @@
         <mat-form-field class="app-input-white-underline callsign-input">
           <input #description matInput placeholder="Callsign" [(ngModel)]="element.callsign" name="callsign">
         </mat-form-field>
+        <mat-form-field class="app-input-white-underline">
+          <input #description matInput placeholder="Frequency" [(ngModel)]="element.frequency" name="frequency">
+        </mat-form-field>
+        <mat-form-field class="app-input-white-underline">
+          <input #description matInput placeholder="Vehicle" [(ngModel)]="element.vehicletype" name="vehicle">
+        </mat-form-field>
         <mat-divider [vertical]="true"></mat-divider>
         <button mat-button (click)="duplicate()">
           <mat-icon class="copy-icon">content_copy</mat-icon>
@@ -24,21 +30,18 @@
           <mat-icon class="delete-icon">delete</mat-icon>
         </button>
       </div>
-      <div class="mat-row">
+    <div class="mat-row secondary">
+        <div class="iconContainer">
+          <mat-icon class="lock-icon">lock</mat-icon>
+        </div>
+        <div class="txt_secondary">for everyone besides</div>
         <mat-form-field class="app-input-white-underline">
-          <input #description matInput placeholder="Frequency" [(ngModel)]="element.frequency" name="frequency">
+          <input #description matInput placeholder="group name" [(ngModel)]="element['reserved-for']" name="reserved-for">
         </mat-form-field>
-        <mat-form-field class="app-input-white-underline">
-          <input #description matInput placeholder="Vehicle" [(ngModel)]="element.vehicletype" name="vehicle">
-        </mat-form-field>
-      </div>
-    <div class="mat-row">
-        <mat-form-field class="app-input-white-underline">
-          <input #description matInput placeholder="Reserve for user group" [(ngModel)]="element['reserved-for']" name="reserved-for">
-        </mat-form-field>
+        <div class="txt_secondary">AND/OR until</div>
         <mat-form-field class="" >
           <input #description matInput
-                 placeholder="Lock until slotting count"
+                 placeholder="slotted count count"
                  [(ngModel)]="element['min-slotted-player-count']"
                  name="min-slotted-player-count"
                  type="number"
