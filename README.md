@@ -17,6 +17,7 @@ nodejs
 * clone 
 * `npm install && npm start`
 * point your browser for example at http://localhost:4200/slotting?tid=2127
+* if necessary, edit config to point at correct backend (host your own slotlist-backend)
 * hack away! when saving files, the project will re-compile and refresh the browser window
 
 ## generated slotlist-backend code
