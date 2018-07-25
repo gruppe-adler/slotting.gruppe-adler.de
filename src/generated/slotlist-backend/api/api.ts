@@ -1,0 +1,15 @@
+export * from './v1auth.service';
+import { V1authService } from './v1auth.service';
+export * from './v1communities.service';
+import { V1communitiesService } from './v1communities.service';
+export * from './v1missionSlotTemplates.service';
+import { V1missionSlotTemplatesService } from './v1missionSlotTemplates.service';
+export * from './v1missions.service';
+import { V1missionsService } from './v1missions.service';
+export * from './v1notifications.service';
+import { V1notificationsService } from './v1notifications.service';
+export * from './v1status.service';
+import { V1statusService } from './v1status.service';
+export * from './v1users.service';
+import { V1usersService } from './v1users.service';
+export const APIS = [V1authService, V1communitiesService, V1missionSlotTemplatesService, V1missionsService, V1notificationsService, V1statusService, V1usersService];
