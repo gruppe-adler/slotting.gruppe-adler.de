@@ -8,6 +8,7 @@
     "lint": "ng lint",
     "ng": "ng",
     "start": "ng serve --host=0.0.0.0 --port=4200",
+    "start:prod": "ng serve --host=0.0.0.0 --port=4200 --configuration=production",
     "start:aot": "ng serve --host=0.0.0.0 --port=4200 --aot",
     "publish": "npm run build && node ./scripts/upload-build.js",
     "test": "jest"

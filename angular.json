@@ -45,6 +45,17 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ]
+            },
+            "development": {
+              "optimization": false,
+              "outputHashing": "all",
+              "sourceMap": true,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": false
             }
           }
         },
@@ -56,6 +67,9 @@
           "configurations": {
             "production": {
               "browserTarget": "slotting.gruppe-adler.de:build:production"
+            },
+            "development": {
+              "browserTarget": "slotting.gruppe-adler.de:build:development"
             }
           }
         },

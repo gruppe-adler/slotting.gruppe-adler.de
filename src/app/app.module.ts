@@ -13,6 +13,8 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from './translate-http-loader';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgDragDropModule } from 'ng-drag-drop';
+import {BASE_PATH} from '../generated/slotlist-backend';
+import {environment} from '../environments/environment';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -40,6 +42,10 @@ export function HttpLoaderFactory(http: HttpClient) {
         component: NotFoundComponent
       },
       {
+        path: 'auth',
+        loadChildren: './auth/auth.module#AuthModule'
+      },
+      {
         path: '**',
         // redirectTo: '/404'
         component: NotFoundComponent
@@ -60,7 +66,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     NgProgressModule.forRoot(),
     NgProgressHttpModule
   ],
-  providers: [],
+  providers: [{provide: BASE_PATH, useValue: environment.api.slotlistBackendEndpoint}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

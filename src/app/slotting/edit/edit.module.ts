@@ -13,19 +13,14 @@ import { NodeComponent } from './components/node.component';
 import { NgDragDropModule } from 'ng-drag-drop';
 import { SlotAddComponent } from './components/slot-add.component';
 import { ContextMenuComponent } from './components/context-menu.component';
+import {SlotlistBackendModule} from '../slotlist-backend/slotlist-backend.module';
 
 @NgModule({
-  declarations: [
-    EditComponent,
-    SlotComponent,
-    SlotAddComponent,
-    NodeComponent,
-    ContextMenuComponent
-  ],
   imports: [
     CommonModule,
     MaterialModule,
     FormsModule,
+    SlotlistBackendModule,
     NgDragDropModule.forRoot(),
     RouterModule.forChild([
       {
@@ -44,6 +39,13 @@ import { ContextMenuComponent } from './components/context-menu.component';
     EditService,
     SlottingResolver,
     SlottingService
-  ]
+  ],
+  declarations: [
+    EditComponent,
+    SlotComponent,
+    SlotAddComponent,
+    NodeComponent,
+    ContextMenuComponent
+  ],
 })
 export class EditModule {}

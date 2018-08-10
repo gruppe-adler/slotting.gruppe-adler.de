@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import {environment} from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,8 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  public rawView = false;
+  public slotlistBackendEndpoint: string;
+  public adlerForumEndpoint: string;
 
   constructor(private router: Router, private translateService: TranslateService) {
     translateService.setDefaultLang('en');
@@ -20,6 +22,8 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.slotlistBackendEndpoint = environment.api.slotlistBackendEndpoint;
+    this.adlerForumEndpoint = environment.api.forumUrl;
     this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
         return;

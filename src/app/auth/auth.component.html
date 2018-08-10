@@ -1,0 +1,9 @@
+<div>hello yes authenticationing here of is!</div>
+
+<div *ngIf="getAuthToken()">
+  this is your auth token: {{getAuthToken()}}
+</div>
+
+<div>
+  <button (click)="startAuthentication()">try again</button>
+</div>

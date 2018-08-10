@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as xml from 'xml2js';
 import { SlottingService } from '../slotting.service';
+import {SlotlistBackendRepository} from '../slotlist-backend/slotlist-backend.repository';
 
 @Injectable()
 export class EditService {
@@ -57,7 +58,10 @@ export class EditService {
   public match: any;
   private highlightedElement = null;
 
-  constructor(private slottingService: SlottingService) {
+  constructor(
+    private slottingService: SlottingService,
+    private slotlistBackendRepository: SlotlistBackendRepository,
+  ) {
   }
 
   init(match: any): void {
@@ -116,9 +120,10 @@ export class EditService {
     return recurse(rawMatch);
   }
 
-  public updateMatchFromXml(xmlMatch: string): void {
+  public updateMatchFromXml(xmlMatch: string, callback: Function = () => {}): void {
     xml.parseString(xmlMatch, (err, result) => {
       this.match = this.parseMatchFromXml(result);
+      callback();
     });
   }
 
@@ -173,6 +178,9 @@ export class EditService {
   }
 
   public async updateMatch(xmlMatch: string): Promise<boolean> {
+    this.updateMatchFromXml(xmlMatch, () => {
+      this.slotlistBackendRepository.save(this.match);
+    });
     this.rawMatch = this.match;
     return await this.slottingService.updateMatch(this.match.uuid, xmlMatch);
   }
