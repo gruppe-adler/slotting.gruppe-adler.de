@@ -55,7 +55,7 @@ export class EditService {
 
   public rawMatch: any;
   public match: any;
-  private highligtedElement = null;
+  private highlightedElement = null;
 
   constructor(private slottingService: SlottingService) {
   }
@@ -155,20 +155,20 @@ export class EditService {
   }
 
   public updateHighlightedContainer(nativeElement): void {
-    if (this.highligtedElement) {
-      this.highligtedElement.classList.remove('drag-over');
+    if (this.highlightedElement) {
+      this.highlightedElement.classList.remove('drag-over');
     }
-    if (nativeElement === this.highligtedElement) {
+    if (nativeElement === this.highlightedElement) {
       return;
     }
-    this.highligtedElement = nativeElement;
-    this.highligtedElement.classList.add('drag-over');
+    this.highlightedElement = nativeElement;
+    this.highlightedElement.classList.add('drag-over');
   }
 
   public removeHighlightedContainer(nativeElement): void {
-    if (this.highligtedElement === nativeElement) {
-      this.highligtedElement.classList.remove('drag-over');
-      this.highligtedElement = null;
+    if (this.highlightedElement === nativeElement) {
+      this.highlightedElement.classList.remove('drag-over');
+      this.highlightedElement = null;
     }
   }
 
