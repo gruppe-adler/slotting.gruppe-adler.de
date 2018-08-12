@@ -16,6 +16,19 @@
   Note: need to save first to forum, only then saving to slotlist-backend becomes possible.
 </aside>
 
+  <div style="display: inline-block">
+    <label class="switch">
+      <input type="checkbox" id="input_arma3-slotting-show-group-color" (change)="toggleSourceediting()">
+      <div class="slider round"><span class="point"></span></div>
+      <div class="switch_label">XML Editor</div>
+    </label>
+    <label class="switch">
+      <input type="checkbox" id="input_arma3-slotting-condensed" [checked]="slottingService.slotlistCondensed" (change)="slottingService.toggleCondensedView()">
+      <div class="slider round"><span class="point"></span></div>
+      <div class="switch_label">Condensed</div>
+    </label>
+  </div>
+
 <div class="editor-container" *ngIf="!showSourcecode; else sourceCode">
   <div class="drop-container" droppable [dropScope]="['company', 'platoon', 'squad']" [dragHintClass]="'drag-target'" (onDrop)="onRootDrop($event)" (onDragEnter)="onDragEnter($event)"
        (onDragLeave)="onDragLeave($event)">
@@ -39,26 +52,12 @@
 
 
   <mat-action-row>
-    <div style="display: inline-block">
-      <label class="switch">
-        <input type="checkbox" id="input_arma3-slotting-show-group-color" (change)="toggleSourceediting()">
-        <div class="slider round"><span class="point"></span></div>
-        <div class="switch_label">XML Editor</div>
-      </label>
-      <label class="switch">
-        <input type="checkbox" id="input_arma3-slotting-condensed" [checked]="slottingService.slotlistCondensed" (change)="slottingService.toggleCondensedView()">
-        <div class="slider round"><span class="point"></span></div>
-        <div class="switch_label">Condensed</div>
-      </label>
-    </div>
-    <div class="buttons-container">
       <a class="nodebb btn btn-default" (click)="abort()">
         <i class="fa fa-close"></i> Abbrechen
       </a>
       <a class="nodebb btn btn-primary" (click)="save()">
         <i class="fa fa-check"></i> Änderungen speichern
       </a>
-    </div>
   </mat-action-row>
 
 </mat-expansion-panel>
