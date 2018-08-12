@@ -5,6 +5,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {AuthProviderService} from './auth-provider.service';
 import {EventService} from './event-service';
 import {MissionService} from './mission-service';
+import {SlotGroupService} from './slot-group.service';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import {MissionService} from './mission-service';
     AuthProviderService,
     EventService,
     MissionService,
+    SlotGroupService,
     SlotlistBackendRepository,
   ],
   exports: [

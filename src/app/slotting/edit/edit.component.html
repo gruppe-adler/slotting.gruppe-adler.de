@@ -1,5 +1,3 @@
-
-
 <app-mission-editor *ngIf="matchId" [forumMatchId]="matchId"></app-mission-editor>
 
 <mat-expansion-panel>
@@ -12,9 +10,9 @@
     </mat-panel-description>
   </mat-expansion-panel-header>
 
-<aside *ngIf="!matchId">
-  Note: need to save first to forum, only then saving to slotlist-backend becomes possible.
-</aside>
+  <aside *ngIf="!matchId">
+    Note: need to save first to forum, only then saving to slotlist-backend becomes possible.
+  </aside>
 
   <div style="display: inline-block">
     <label class="switch">
@@ -23,41 +21,48 @@
       <div class="switch_label">XML Editor</div>
     </label>
     <label class="switch">
-      <input type="checkbox" id="input_arma3-slotting-condensed" [checked]="slottingService.slotlistCondensed" (change)="slottingService.toggleCondensedView()">
+      <input type="checkbox" id="input_arma3-slotting-condensed" [checked]="slottingService.slotlistCondensed"
+             (change)="slottingService.toggleCondensedView()">
       <div class="slider round"><span class="point"></span></div>
       <div class="switch_label">Condensed</div>
     </label>
   </div>
 
-<div class="editor-container" *ngIf="!showSourcecode; else sourceCode">
-  <div class="drop-container" droppable [dropScope]="['company', 'platoon', 'squad']" [dragHintClass]="'drag-target'" (onDrop)="onRootDrop($event)" (onDragEnter)="onDragEnter($event)"
-       (onDragLeave)="onDragLeave($event)">
-    <app-edit-node *ngIf="editService.match" [context]="editService.match"></app-edit-node>
+  <div class="editor-container" *ngIf="!showSourcecode; else sourceCode">
+    <div class="drop-container" droppable [dropScope]="['company', 'platoon', 'squad']" [dragHintClass]="'drag-target'"
+         (onDrop)="onRootDrop($event)" (onDragEnter)="onDragEnter($event)"
+         (onDragLeave)="onDragLeave($event)">
+      <app-edit-node *ngIf="editService.match" [context]="editService.match"></app-edit-node>
+    </div>
+    <div class="items-container">
+      <app-edit-node [context]="{company: [{preset: true, natosymbol: 'inf', callsign: 'Company'}]}"></app-edit-node>
+      <app-edit-node [context]="{platoon: [{preset: true, natosymbol: 'inf', callsign: 'Platoon'}]}"></app-edit-node>
+      <app-edit-node [context]="{squad: [{preset: true, natosymbol: 'inf', callsign: 'Squad'}]}"></app-edit-node>
+      <app-edit-node [context]="{fireteam: [fireteamPreset]}"></app-edit-node>
+    </div>
   </div>
-  <div class="items-container">
-    <app-edit-node [context]="{company: [{preset: true, natosymbol: 'inf', callsign: 'Company'}]}"></app-edit-node>
-    <app-edit-node [context]="{platoon: [{preset: true, natosymbol: 'inf', callsign: 'Platoon'}]}"></app-edit-node>
-    <app-edit-node [context]="{squad: [{preset: true, natosymbol: 'inf', callsign: 'Squad'}]}"></app-edit-node>
-    <app-edit-node [context]="{fireteam: [fireteamPreset]}"></app-edit-node>
-  </div>
-</div>
-<ng-template #sourceCode>
-  <div class="source-edit-container">
-    <mat-form-field>
+  <ng-template #sourceCode>
+    <div class="source-edit-container">
+      <mat-form-field>
     <textarea matInput matTextareaAutosize placeholder="Slotliste" [(ngModel)]="xml">
     </textarea>
-    </mat-form-field>
-  </div>
-</ng-template>
-
+      </mat-form-field>
+    </div>
+  </ng-template>
 
   <mat-action-row>
-      <a class="nodebb btn btn-default" (click)="abort()">
-        <i class="fa fa-close"></i> Abbrechen
-      </a>
-      <a class="nodebb btn btn-primary" (click)="save()">
-        <i class="fa fa-check"></i> Änderungen speichern
-      </a>
+  <a class="nodebb btn btn-default" (click)="reload()" style="position: absolute; left: 15px;">
+    <i class="fa fa-close"></i> Änderungen verwerfen
+  </a>
+  <a class="nodebb btn btn-primary" (click)="save()">
+    <i class="fa fa-check"></i> Änderungen speichern
+  </a>
   </mat-action-row>
 
 </mat-expansion-panel>
+
+<mat-action-row class="left-align">
+  <a class="nodebb btn btn-default" (click)="back()">
+    <i class="fa fa-close"></i> Zurück
+  </a>
+</mat-action-row>

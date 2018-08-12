@@ -18,6 +18,7 @@ export class EditComponent implements OnInit {
   public readonly localStorage = localStorage;
 
   public matchId: string;
+  public tid: number;
 
   private dragClientY = 0;
   private isScrolling = false;
@@ -40,12 +41,17 @@ export class EditComponent implements OnInit {
 
   ngOnInit() {
     this.matchId = this.route.snapshot.queryParams['matchid'];
-    this.slottingService.findMatch(this.route.snapshot.queryParams['tid'], this.matchId).then(result => {
-      this.editService.init(result);
-    });
+    this.tid = Number(this.route.snapshot.queryParams['tid']);
+    this.reload();
     this.slottingService.matchChanged.subscribe(value => this.matchChangedExternal = value);
 
     document.addEventListener('dragover', this.dragover);
+  }
+
+  public reload() {
+    this.slottingService.findMatch(this.tid, this.matchId).then(result => {
+      this.editService.init(result);
+    });
   }
 
   dragover(e): void {
@@ -88,25 +94,22 @@ export class EditComponent implements OnInit {
     scroll();
   }
 
-  public abort(): void {
-    console.log('abort');
-    const abort = () => {
+  public async back() {
+    const reallyBack = () => {
       this.router.navigate(['/slotting'], {
         queryParams: {
-          tid: this.route.snapshot.queryParams['tid']
+          tid: this.tid
         }
       });
     };
+    let confirmed = true;
     if (this.editService.matchDirty) {
       console.log(this.editService.rawMatch);
       console.log(this.editService.match);
-      this.slottingService.bootboxConfirm('Du hast noch ungespeicherte Änderungen. Möchtest du trotzdem abbrechen?').then(result => {
-        if (result) {
-          abort();
-        }
-      });
-    } else {
-      abort();
+      confirmed = await this.slottingService.bootboxConfirm('Du hast noch ungespeicherte Änderungen. Möchtest du trotzdem abbrechen?');
+    }
+    if (confirmed) {
+      reallyBack();
     }
   }
 
@@ -131,7 +134,7 @@ export class EditComponent implements OnInit {
     console.log('edit dirty', this.editService.matchDirty);
     const result = await this.editService.updateMatch(this.xml);
     if (result) {
-      this.abort();
+      this.back();
     } else {
       this.slottingService.bootbox('Das ging schief.');
     }

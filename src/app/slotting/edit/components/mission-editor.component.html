@@ -56,12 +56,15 @@
           <input matInput type="datetime-local" [(ngModel)]="mission.endTime" name="endTime" placeholder="end time">
         </mat-form-field>
       </mat-grid-tile>
-
-      <mat-divider [vertical]="true"></mat-divider>
-      <button mat-button (click)="saveMission()">
-        <mat-icon>save</mat-icon>
-      </button>
-      <mat-divider [vertical]="true"></mat-divider>
     </mat-grid-list>
   </form>
+
+  <mat-action-row>
+    <a class="nodebb btn btn-default" (click)="reload()" style="position: absolute; left: 15px;">
+      <i class="fa fa-close"></i> Änderungen verwerfen
+    </a>
+    <a class="nodebb btn btn-primary" (click)="save()">
+      <i class="fa fa-check"></i> Änderungen speichern
+    </a>
+  </mat-action-row>
 </mat-expansion-panel>
