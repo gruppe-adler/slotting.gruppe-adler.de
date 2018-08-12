@@ -8,43 +8,60 @@
       Mission description & details
     </mat-panel-description>
   </mat-expansion-panel-header>
-  <mat-grid-list appResponsiveCols="{xs: 2, sm: 2, md: 4, lg: 6, xl: 8}"></mat-grid-list>
-<form>
-  <mat-form-field>
-    <input matInput placeholder="title of the mission" minlength="1" maxlength="255" [(ngModel)]="mission.title" name="title">
-  </mat-form-field>
-  <!-- slug can be generated automatically -->
+  <form>
+    <mat-grid-list appResponsiveCols="{xs: 1, sm: 1, md: 1, lg: 2, xl: 2}" cols="2" rowHeight="75px">
+      <mat-grid-tile>
+        <mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="description" minlength="1" [(ngModel)]="mission.description" name="description">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="detailed description" minlength="1" [(ngModel)]="mission.detailedDescription" name="detailedDescription">
-  </mat-form-field>
+          <input matInput placeholder="title of the mission" minlength="1" maxlength="255" [(ngModel)]="mission.title"
+                 name="title">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="description" minlength="1" [(ngModel)]="mission.description" name="description">
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
 
-  <mat-divider [vertical]="true"></mat-divider>
+    <mat-form-field style="width: 100%">
+        <textarea matInput placeholder="detailed description. use markdown or html as you see fit." minlength="1"
+                  [(ngModel)]="mission.detailedDescription"
+                  name="detailedDescription" style="width:100%;min-height: 150px"></textarea>
+    </mat-form-field>
+    <mat-divider [vertical]="true"></mat-divider>
+    <mat-grid-list appResponsiveCols="{xs: 1, sm: 2, md: 4, lg: 4, xl: 4}" cols="4" rowHeight="75px">
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput type="datetime-local" [(ngModel)]="mission.briefingTime" name="briefingTime"
+                 placeholder="briefing time">
+        </mat-form-field>
+      </mat-grid-tile>
 
-  <mat-form-field>
-    <input matInput type="datetime-local" [(ngModel)]="mission.briefingTime" name="briefingTime" placeholder="briefing time">
-  </mat-form-field>
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput type="datetime-local" [(ngModel)]="mission.slottingTime" name="slottingTime"
+                 placeholder="slotting time">
+        </mat-form-field>
+      </mat-grid-tile>
 
-  <mat-form-field>
-    <input matInput type="datetime-local" [(ngModel)]="mission.slottingTime" name="slottingTime" placeholder="slotting time">
-  </mat-form-field>
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput type="datetime-local" [(ngModel)]="mission.startTime" name="startTime"
+                 placeholder="start time">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput type="datetime-local" [(ngModel)]="mission.endTime" name="endTime" placeholder="end time">
+        </mat-form-field>
+      </mat-grid-tile>
 
-  <mat-form-field>
-    <input matInput type="datetime-local" [(ngModel)]="mission.startTime" name="startTime" placeholder="start time">
-  </mat-form-field>
-
-  <mat-form-field>
-    <input matInput type="datetime-local" [(ngModel)]="mission.endTime" name="endTime" placeholder="end time">
-  </mat-form-field>
-
-  <mat-divider [vertical]="true"></mat-divider>
-  <button mat-button (click)="saveMission()">
-    <mat-icon>save</mat-icon>
-  </button>
-  <mat-divider [vertical]="true"></mat-divider>
-</form>
-
+      <mat-divider [vertical]="true"></mat-divider>
+      <button mat-button (click)="saveMission()">
+        <mat-icon>save</mat-icon>
+      </button>
+      <mat-divider [vertical]="true"></mat-divider>
+    </mat-grid-list>
+  </form>
 </mat-expansion-panel>

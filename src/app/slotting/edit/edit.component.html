@@ -1,27 +1,17 @@
-<div class="topbar-container">
-  <div>
-    <label class="switch">
-      <input type="checkbox" id="input_arma3-slotting-show-group-color" (change)="toggleSourceediting()">
-      <div class="slider round"><span class="point"></span></div>
-      <div class="switch_label">XML Editor</div>
-    </label>
-    <label class="switch">
-      <input type="checkbox" id="input_arma3-slotting-condensed" [checked]="slottingService.slotlistCondensed" (change)="slottingService.toggleCondensedView()">
-      <div class="slider round"><span class="point"></span></div>
-      <div class="switch_label">Condensed</div>
-    </label>
-  </div>
-  <div class="buttons-container">
-    <a class="nodebb btn btn-default" (click)="abort()">
-      <i class="fa fa-close"></i> Abbrechen
-    </a>
-    <a class="nodebb btn btn-primary" (click)="save()">
-      <i class="fa fa-check"></i> Änderungen speichern
-    </a>
-  </div>
-</div>
+
 
 <app-mission-editor *ngIf="matchId" [forumMatchId]="matchId"></app-mission-editor>
+
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Slots
+    </mat-panel-title>
+    <mat-panel-description>
+      Mission ORBAT & slotting
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+
 <aside *ngIf="!matchId">
   Note: need to save first to forum, only then saving to slotlist-backend becomes possible.
 </aside>
@@ -46,3 +36,29 @@
     </mat-form-field>
   </div>
 </ng-template>
+
+
+  <mat-action-row>
+    <div style="display: inline-block">
+      <label class="switch">
+        <input type="checkbox" id="input_arma3-slotting-show-group-color" (change)="toggleSourceediting()">
+        <div class="slider round"><span class="point"></span></div>
+        <div class="switch_label">XML Editor</div>
+      </label>
+      <label class="switch">
+        <input type="checkbox" id="input_arma3-slotting-condensed" [checked]="slottingService.slotlistCondensed" (change)="slottingService.toggleCondensedView()">
+        <div class="slider round"><span class="point"></span></div>
+        <div class="switch_label">Condensed</div>
+      </label>
+    </div>
+    <div class="buttons-container">
+      <a class="nodebb btn btn-default" (click)="abort()">
+        <i class="fa fa-close"></i> Abbrechen
+      </a>
+      <a class="nodebb btn btn-primary" (click)="save()">
+        <i class="fa fa-check"></i> Änderungen speichern
+      </a>
+    </div>
+  </mat-action-row>
+
+</mat-expansion-panel>

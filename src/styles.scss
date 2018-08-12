@@ -46,6 +46,10 @@ mat-divider {
   background: #333333;
 }
 
+mat-grid-list .mat-form-field-infix {
+  // width: initial;
+}
+
 mat-icon {
   color: #666666;
   font-family: 'Material Icons', sans-serif !important;
