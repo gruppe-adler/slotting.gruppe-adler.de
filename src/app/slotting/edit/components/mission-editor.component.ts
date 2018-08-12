@@ -12,12 +12,11 @@ import {MissionDetails} from '../../../../generated/slotlist-backend';
 export class MissionEditorComponent implements OnInit {
   public mission: MissionCreate = {} as any;
 
-  @Input() public matchIndex: number;
+  @Input() public forumMatchId: string;
 
   private converter: Converter & {makeMarkdown: (string) => string};
 
   public constructor(private missionService: MissionService) {
-
   }
 
    public async ngOnInit(): Promise<void> {
@@ -26,15 +25,15 @@ export class MissionEditorComponent implements OnInit {
 
     this.converter = converter;
 
-    // this.eventDescriptionMd = this.converter.makeMarkdown(this.mission.detailedDescription || '');
-    const missionDetails = await this.missionService.load(this.matchIndex);
-    if (missionDetails) {
-      this.mission = missionDetails;
+    try {
+      this.mission = await this.missionService.load(this.forumMatchId);
+    } catch (e) {
+      console.warn(`mission ${this.forumMatchId} could not be found in slotlist-backend: ${e.message}`);
     }
    }
 
   public async saveMission() {
-    const foo: MissionDetails = await this.missionService.save(this.mission, this.matchIndex);
+    const foo: MissionDetails = await this.missionService.save(this.mission, this.forumMatchId);
     window.console.info(foo);
   }
 

@@ -1,3 +1,14 @@
+<mat-expansion-panel>
+
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Mission Information
+    </mat-panel-title>
+    <mat-panel-description>
+      Mission description & details
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <mat-grid-list appResponsiveCols="{xs: 2, sm: 2, md: 4, lg: 6, xl: 8}"></mat-grid-list>
 <form>
   <mat-form-field>
     <input matInput placeholder="title of the mission" minlength="1" maxlength="255" [(ngModel)]="mission.title" name="title">
@@ -36,3 +47,4 @@
   <mat-divider [vertical]="true"></mat-divider>
 </form>
 
+</mat-expansion-panel>

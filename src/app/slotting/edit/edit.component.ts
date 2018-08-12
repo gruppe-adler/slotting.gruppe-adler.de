@@ -17,6 +17,8 @@ export class EditComponent implements OnInit {
   public readonly environment = environment;
   public readonly localStorage = localStorage;
 
+  public matchId: string;
+
   private dragClientY = 0;
   private isScrolling = false;
 
@@ -37,7 +39,8 @@ export class EditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.slottingService.findMatch(this.route.snapshot.queryParams['tid'], this.route.snapshot.queryParams['matchid']).then(result => {
+    this.matchId = this.route.snapshot.queryParams['matchid'];
+    this.slottingService.findMatch(this.route.snapshot.queryParams['tid'], this.matchId).then(result => {
       this.editService.init(result);
     });
     this.slottingService.matchChanged.subscribe(value => this.matchChangedExternal = value);

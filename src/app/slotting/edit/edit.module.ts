@@ -15,12 +15,14 @@ import { SlotAddComponent } from './components/slot-add.component';
 import { ContextMenuComponent } from './components/context-menu.component';
 import {SlotlistBackendModule} from '../slotlist-backend/slotlist-backend.module';
 import {MissionEditorComponent} from './components/mission-editor.component';
+import {UtilModule} from '../../../util/util.module';
 
 @NgModule({
   imports: [
     CommonModule,
     MaterialModule,
     FormsModule,
+    UtilModule,
     SlotlistBackendModule,
     NgDragDropModule.forRoot(),
     RouterModule.forChild([

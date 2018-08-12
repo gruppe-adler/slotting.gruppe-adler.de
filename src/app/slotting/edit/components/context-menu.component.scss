@@ -22,11 +22,11 @@
   }
 
   ::ng-deep .mat-input-underline {
-        background: #666; 
+        background: #666;
       }
 
   .mat-focused ::ng-deep .mat-input-underline {
-        background: #bb7e1c; 
+        background: #bb7e1c;
       }
 
   ::ng-deep .mat-form-field-ripple {
@@ -42,7 +42,7 @@
    ::ng-deep .mat-input-element {
       padding-left: 5px;
   }
-  
+
 
   .tools {
     background-color: #222;
@@ -173,4 +173,26 @@
       mask: url('../../../../assets/slotting/icons/' + $icon + '.svg') no-repeat 50% 50%;
     }
   }
+}
+
+
+.mat-focused .mat-form-field-infix {
+  background: #333;
+}
+
+
+.mat-input-container.app-input-no-underline .mat-input-underline {
+  display: none;
+}
+
+.mat-input-container.app-input-white-underline .mat-input-underline {
+  background: white;
+}
+
+.mat-form-field-label {
+  color: #666666 !important;
+}
+
+.mat-button:hover .mat-button-wrapper mat-icon, .mat-button:focus .mat-button-wrapper mat-icon {
+  color: #d18d1f !important;
 }

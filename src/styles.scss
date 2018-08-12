@@ -146,26 +146,6 @@ ul {
   }
 }
 
-.mat-input-container.app-input-no-underline .mat-input-underline {
-  display: none;
-}
-
-.mat-input-container.app-input-white-underline .mat-input-underline {
-  background: white;
-}
-
-.mat-form-field-label {
-  color: #666666 !important;
-}
-
-.mat-button:hover .mat-button-wrapper mat-icon, .mat-button:focus .mat-button-wrapper mat-icon {
-  color: #d18d1f !important;
-}
-
-.mat-focused .mat-form-field-infix {
-    background: #333;
-}
-
 .flag-select:hover, .flag-select:focus {
     border-top-left-radius: 5px;
     background:#d18d1f;

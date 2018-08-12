@@ -1,32 +1,18 @@
-import {EventService} from './event-service';
 import {Injectable} from '@angular/core';
 import {MissionCreate} from '../models/slotlist-backend/aliases';
-import {
-  GetMissionDetailsResponse, MissionDetails,
-  V1missionsService
-} from '../../../generated/slotlist-backend';
+import {GetMissionDetailsResponse, MissionDetails, V1missionsService} from '../../../generated/slotlist-backend';
 import {AuthProviderService} from './auth-provider.service';
-
-const communitySlug = 'grad';
 
 @Injectable()
 export class MissionService {
-  private tid: number;
-
   public constructor(
     private v1missionsService: V1missionsService,
-    private authProviderService: AuthProviderService,
-    private eventService: EventService
+    private authProviderService: AuthProviderService
   ) {
-    this.tid = eventService.getTid();
   }
 
-  public getMissionSlug(matchIndex: number): string {
-    return [communitySlug, this.tid, matchIndex].join('-');
-  }
-
-  public async save(mission: MissionCreate, matchIndex: number): Promise<MissionDetails> {
-    const slug = this.getMissionSlug(matchIndex);
+  public async save(mission: MissionCreate, forumMatchId: string): Promise<MissionDetails> {
+    const slug = forumMatchId;
     const authorization = this.authorization();
 
     mission.slug = slug;
@@ -42,10 +28,9 @@ export class MissionService {
     }
   }
 
-  public async load(matchIndex: number): Promise<MissionDetails> {
-    const slug = this.getMissionSlug(matchIndex);
+  public async load(forumMatchId: string): Promise<MissionDetails> {
     const missionDetails: GetMissionDetailsResponse = await this.v1missionsService
-      .getV1MissionsMissionslug(slug, this.authorization())
+      .getV1MissionsMissionslug(forumMatchId, this.authorization())
       .toPromise();
 
     return missionDetails.mission;
