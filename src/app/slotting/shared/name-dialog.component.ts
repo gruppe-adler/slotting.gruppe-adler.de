@@ -30,7 +30,11 @@ export class NameDialogComponent {
     username: ['', Validators.required]
   });
 
-  constructor(public dialogRef: MatDialogRef<NameDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private formBuilder: FormBuilder) {
+  constructor(
+    public dialogRef: MatDialogRef<NameDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private formBuilder: FormBuilder
+  ) {
     this.dialogForm.controls.username.setValue(data);
   }
 

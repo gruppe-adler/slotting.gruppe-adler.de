@@ -268,9 +268,8 @@ export class SlottingService implements OnDestroy {
 
   public async updateMatch(matchid: string, content: string): Promise<boolean> {
     console.log(content);
-    while (content.startsWith(' ')) {
-      content = content.substr(1, content.length - 1);
-    }
+
+    content = content.trim();
 
     if (!content.startsWith('<match')) {
       content = '<match>' + content + '</match>';
