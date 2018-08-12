@@ -1,0 +1,52 @@
+<form>
+  <mat-form-field>
+    <input matInput placeholder="title of the mission" minlength="1" maxlength="255" [(ngModel)]="mission.title" name="title">
+  </mat-form-field>
+  <!-- slug can be generated automatically -->
+
+  <mat-form-field>
+    <input matInput placeholder="description" minlength="1" [(ngModel)]="mission.description" name="description">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="detailed description" minlength="1" [(ngModel)]="mission.detailedDescription" name="detailedDescription">
+  </mat-form-field>
+
+  <mat-divider [vertical]="true"></mat-divider>
+
+  <mat-form-field>
+    <input matInput [matDatepicker]="missionBriefingTime" [(ngModel)]="mission.briefingTime" name="briefingTime" placeholder="briefing time">
+    <mat-datepicker-toggle matSuffix [for]="missionBriefingTime"></mat-datepicker-toggle>
+    <mat-datepicker #missionBriefingTime></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [matDatepicker]="missionSlottingTime" [(ngModel)]="mission.slottingTime" name="slottingTime" placeholder="slotting time">
+    <mat-datepicker-toggle matSuffix [for]="missionSlottingTime"></mat-datepicker-toggle>
+    <mat-datepicker #missionSlottingTime></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="time">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [matDatepicker]="missionStartTime" [(ngModel)]="mission.startTime" name="startTime" placeholder="start time">
+    <mat-datepicker-toggle matSuffix [for]="missionStartTime"></mat-datepicker-toggle>
+    <mat-datepicker #missionStartTime></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [matDatepicker]="missionEndTime" [(ngModel)]="mission.endTime" name="endTime" placeholder="end time">
+    <mat-datepicker-toggle matSuffix [for]="missionEndTime"></mat-datepicker-toggle>
+    <mat-datepicker #missionEndTime></mat-datepicker>
+  </mat-form-field>
+
+  <mat-divider [vertical]="true"></mat-divider>
+  <button mat-button (click)="duplicate()">
+    <mat-icon class="copy-icon">content_copy</mat-icon>
+  </button>
+  <mat-divider [vertical]="true"></mat-divider>
+  <button mat-button (click)="deleteSlot()">
+    <mat-icon class="delete-icon">delete</mat-icon>
+  </button>
+</form>
+

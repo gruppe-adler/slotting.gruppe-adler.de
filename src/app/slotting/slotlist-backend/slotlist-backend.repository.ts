@@ -27,7 +27,7 @@ export class SlotlistBackendRepository {
     this.v1missionsService.getV1MissionsSlugavailable(this.getMissionSlug()).subscribe((response) => {
       if (response.available) {
         this.v1missionsService.postV1Missions(this.authProviderService.getAuthorizationHeader(), {
-          title: 'Gruppe Adler mission',
+          title: `Gruppe Adler Mission`,
           slug: this.getMissionSlug(),
           description: 'totally awesome scenario',
           detailedDescription: 'Gruppe Adler mission',
@@ -35,7 +35,7 @@ export class SlotlistBackendRepository {
           slottingTime: '2018-08-18T17:45:00.000Z',
           startTime: '2018-08-18T18:00:00.000Z',
           endTime: '2018-08-18T21:00:00.000Z',
-          slotsAutoAssignable: false,
+          slotsAutoAssignable: true, // no admin confirmation needed
           requiredDLCs: ['apex'],
         }).subscribe(() => this.addSlots(match));
       } else {

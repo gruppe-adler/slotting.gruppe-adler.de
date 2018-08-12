@@ -21,6 +21,8 @@
   </div>
 </div>
 
+<app-mission-editor mission="{}"></app-mission-editor>
+
 <div class="editor-container" *ngIf="!showSourcecode; else sourceCode">
   <div class="drop-container" droppable [dropScope]="['company', 'platoon', 'squad']" [dragHintClass]="'drag-target'" (onDrop)="onRootDrop($event)" (onDragEnter)="onDragEnter($event)"
        (onDragLeave)="onDragLeave($event)">

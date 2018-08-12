@@ -14,6 +14,7 @@ import { NgDragDropModule } from 'ng-drag-drop';
 import { SlotAddComponent } from './components/slot-add.component';
 import { ContextMenuComponent } from './components/context-menu.component';
 import {SlotlistBackendModule} from '../slotlist-backend/slotlist-backend.module';
+import {MissionEditorComponent} from './components/mission-editor.component';
 
 @NgModule({
   imports: [
@@ -42,6 +43,7 @@ import {SlotlistBackendModule} from '../slotlist-backend/slotlist-backend.module
   ],
   declarations: [
     EditComponent,
+    MissionEditorComponent,
     SlotComponent,
     SlotAddComponent,
     NodeComponent,
