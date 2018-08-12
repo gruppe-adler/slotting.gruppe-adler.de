@@ -4,6 +4,7 @@ import {SlotlistBackendRepository} from './slotlist-backend.repository';
 import {HttpClientModule} from '@angular/common/http';
 import {AuthProviderService} from './auth-provider.service';
 import {EventService} from './event-service';
+import {MissionService} from './mission-service';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import {EventService} from './event-service';
   providers: [
     AuthProviderService,
     EventService,
+    MissionService,
     SlotlistBackendRepository,
   ],
   exports: [

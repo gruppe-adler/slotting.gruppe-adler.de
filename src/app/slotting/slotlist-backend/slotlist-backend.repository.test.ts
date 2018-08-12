@@ -6,8 +6,8 @@ describe('SlotlistBackendRepository', () => {
   it('bar', () => {
     const missionService = {} as any;
     const foo = new SlotlistBackendRepository(
-      missionService,
       {getAuthToken: () => 'foo'} as any,
+      missionService,
       {getTid: () => 1} as any
     );
     foo.save({
