@@ -9,6 +9,8 @@ import {SlotGroupService} from './slot-group.service';
 export class SlotlistBackendMigrationService {
   private tid: number;
 
+  private epochString = '1970-01-01T00:00:00Z';
+
   public constructor(
     private authProviderService: AuthProviderService,
     private missionService: MissionService,
@@ -19,8 +21,23 @@ export class SlotlistBackendMigrationService {
   }
 
   public async save(match: Match) {
+    const savedMission = await this.saveMission(match);
+    return this.addSlots(match);
+  }
 
-    this.addSlots(match);
+  private async saveMission(match: Match) {
+    this.missionService.save({
+      title: 'Einsatz bei Gruppe-Adler',
+        slug: match.uuid,
+      description: 'Einsatz bei Gruppe Adler - Details im entsprechenden Forenthread :)',
+      detailedDescription: `Einsatz bei Gruppe Adler  siehe https://forum.gruppe-adler.de/topic/${this.tid}`,
+      briefingTime: this.epochString,
+      slottingTime: this.epochString,
+      startTime: this.epochString,
+      endTime: this.epochString,
+      slotsAutoAssignable: true,
+      requiredDLCs: ['Apex'],
+    }, match.uuid);
   }
 
   private addSlots(match: Match): void {

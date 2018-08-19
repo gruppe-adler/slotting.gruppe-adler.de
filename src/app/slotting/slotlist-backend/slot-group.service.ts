@@ -1,11 +1,14 @@
 import {Injectable} from '@angular/core';
-import {Mission, Model64, Model93, V1missionsService} from '../../../generated/slotlist-backend';
+import {CreateMissionSlotGroupResponse, Mission, Model64, Model93, V1missionsService} from '../../../generated/slotlist-backend';
 import {Match} from '../models/match';
 import {AuthProviderService} from './auth-provider.service';
 import {MissionService} from './mission-service';
 import {SlotContainer} from '../models/slotContainer';
 import {SelfContainedUnit} from '../models/selfContainedUnit';
 import {EventService} from './event-service';
+import {Company} from '../models/company';
+import {Squad} from '../models/squad';
+import {Platoon} from '../models/platoon';
 
 export interface SlotGroupCreate extends Model64 /*title, description, insertAfter*/ {
   parentGroupUid?: string;
@@ -23,6 +26,13 @@ export interface SlotGroupPatch extends Model93 /*title, description, moveAfter*
   minSlottedPlayerCount?: number;
 }
 
+interface SlotGroupContext {
+  parentUid: string|null;
+  missionSlug: string;
+  slotContainer: SlotContainer & SelfContainedUnit;
+  nextInsertAfter: number;
+}
+
 @Injectable()
 export class SlotGroupService {
   private tid: number;
@@ -37,7 +47,7 @@ export class SlotGroupService {
 
   public postSlotGroups(mission: Match) {
     const saveSlotGroup = (c) => {
-      this.saveSlotGroup(c, null);
+      this.saveSlotGroup({slotContainer: c, parentUid: null, missionSlug: mission.uuid, nextInsertAfter: 0});
     };
     mission.company.forEach(saveSlotGroup);
     mission.platoon.forEach(saveSlotGroup);
@@ -45,16 +55,26 @@ export class SlotGroupService {
     // this.v1MissionService.postV1MissionsMissionslugSlotgroups(this.authService.getAuthorizationHeader(), mission.uuid, {});
   }
 
-  private async saveSlotGroup(slotContainer: SlotContainer & SelfContainedUnit, parentUid?: string): void {
-    const createdSlotGroup = await this.v1MissionService.postV1MissionsMissionslugSlotgroups(
+  private async saveSlotGroup(slotGroupContext: SlotGroupContext): Promise<void> {
+    const slotContainer = slotGroupContext.slotContainer;
+    const createdSlotGroup: CreateMissionSlotGroupResponse = await this.v1MissionService.postV1MissionsMissionslugSlotgroups(
       this.authService.getAuthorizationHeader(),
+      slotGroupContext.missionSlug,
       {
-      parentGroupUid: parentUid,
+        title: slotContainer.callsign,
+        description: slotContainer.callsign, // TODO
+      parentGroupUid: slotGroupContext.parentUid,
       radioFrequency: slotContainer.frequency,
       tacticalSymbol: slotContainer.natosymbol,
       vehicle: slotContainer.vehicletype,
-      minSlottedPayerCount: slotContainer['min-slotted-player-count']
+      minSlottedPlayerCount: slotContainer['min-slotted-player-count'],
+        insertAfter: slotGroupContext.nextInsertAfter, // TODO does that work?
     });
+    slotGroupContext.nextInsertAfter += 1;
+
+    ((slotGroupContext.slotContainer as Company).platoon || []).forEach((c) => {
+      this.saveSlotGroup({slotContainer: c, parentUid: createdSlotGroup.slotGroup.uid, missionSlug: slotGroupContext.missionSlug, nextInsertAfter: slotGroupContext.nextInsertAfter});
+    })
   }
 }
 

@@ -24,4 +24,10 @@ export interface Model64 {
      * Order number of slot group the new group should be inserted after. The order number created will be incremented by one and all higher order numbers adapted accordingly
      */
     insertAfter: number;
+
+  parentGroupUid?: string;
+  radioFrequency?: string;
+  tacticalSymbol?: string;
+  vehicle?: string;
+  minSlottedPlayerCount?: number;
 }

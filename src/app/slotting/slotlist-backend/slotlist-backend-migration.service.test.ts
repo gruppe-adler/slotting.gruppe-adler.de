@@ -2,7 +2,7 @@ import 'jest';
 import {ok} from 'assert';
 import {SlotlistBackendMigrationService} from './slotlist-backend-migration.service';
 
-describe('SlotlistBackendRepository', () => {
+describe('SlotlistBackendMigrationService', () => {
   it('bar', () => {
     const missionService = {} as any;
     const slotGroupService = {} as any;
