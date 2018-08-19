@@ -6,7 +6,7 @@ import {MissionService} from './mission-service';
 import {SlotGroupService} from './slot-group.service';
 
 @Injectable()
-export class SlotlistBackendRepository {
+export class SlotlistBackendMigrationService {
   private tid: number;
 
   public constructor(
@@ -26,5 +26,4 @@ export class SlotlistBackendRepository {
   private addSlots(match: Match): void {
     this.slotGroupService.postSlotGroups(match);
   }
-
 }

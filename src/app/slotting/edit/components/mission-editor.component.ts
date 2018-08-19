@@ -5,6 +5,7 @@ import {MissionCreate} from '../../models/slotlist-backend/aliases';
 import {MissionService} from '../../slotlist-backend/mission-service';
 import {MissionDetails} from '../../../../generated/slotlist-backend';
 import {Route, Router} from '@angular/router';
+import {SlotGroupService} from '../../slotlist-backend/slot-group.service';
 
 @Component({
   templateUrl: './mission-editor.component.html',
@@ -21,6 +22,7 @@ export class MissionEditorComponent implements OnInit {
   public constructor(
     private router: Router,
     private missionService: MissionService,
+    private slotGroupService: SlotGroupService,
   ) {
   }
 
@@ -44,6 +46,7 @@ export class MissionEditorComponent implements OnInit {
   public async save(): Promise<void> {
     try {
       const foo: MissionDetails = await this.missionService.save(this.mission, this.forumMatchId);
+      this.slotGroupService.postSlotGroups(this.mission);
     } catch (e) {
       window.console.error('couldnt save :(' + e.message);
     }

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import {ApiModule} from '../../../generated/slotlist-backend';
-import {SlotlistBackendRepository} from './slotlist-backend.repository';
+import {SlotlistBackendMigrationService} from './slotlist-backend-migration.service';
 import {HttpClientModule} from '@angular/common/http';
 import {AuthProviderService} from './auth-provider.service';
 import {EventService} from './event-service';
@@ -22,7 +22,7 @@ import {SlotGroupService} from './slot-group.service';
     EventService,
     MissionService,
     SlotGroupService,
-    SlotlistBackendRepository,
+    SlotlistBackendMigrationService,
   ],
   exports: [
     // components

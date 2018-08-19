@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as xml from 'xml2js';
 import { SlottingService } from '../slotting.service';
-import {SlotlistBackendRepository} from '../slotlist-backend/slotlist-backend.repository';
+import {SlotlistBackendMigrationService} from '../slotlist-backend/slotlist-backend-migration.service';
 
 @Injectable()
 export class EditService {
@@ -60,7 +60,7 @@ export class EditService {
 
   constructor(
     private slottingService: SlottingService,
-    private slotlistBackendRepository: SlotlistBackendRepository,
+    private slotlistBackendRepository: SlotlistBackendMigrationService,
   ) {
   }
 

@@ -1,12 +1,12 @@
 import 'jest';
 import {ok} from 'assert';
-import {SlotlistBackendRepository} from './slotlist-backend.repository';
+import {SlotlistBackendMigrationService} from './slotlist-backend-migration.service';
 
 describe('SlotlistBackendRepository', () => {
   it('bar', () => {
     const missionService = {} as any;
     const slotGroupService = {} as any;
-    const foo = new SlotlistBackendRepository(
+    const foo = new SlotlistBackendMigrationService(
       {getAuthToken: () => 'foo'} as any,
       missionService,
       slotGroupService,
