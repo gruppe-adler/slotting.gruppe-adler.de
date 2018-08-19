@@ -2,14 +2,14 @@ import {NgModule} from '@angular/core';
 import {OpenidAuthUrlService} from './openid-auth-url.service';
 import {AuthComponent} from './auth.component';
 import {RouterModule} from '@angular/router';
-import {AuthService} from './auth.service';
+import {LoginService} from './login.service';
 import {ApiModule} from '../../generated/slotlist-backend';
 import {CommonModule} from '@angular/common';
 
 @NgModule({
   providers: [
     OpenidAuthUrlService,
-    AuthService,
+    LoginService,
   ],
   declarations: [
     AuthComponent,

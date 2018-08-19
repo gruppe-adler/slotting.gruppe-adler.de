@@ -6,7 +6,7 @@ import {V1authService} from '../../generated/slotlist-backend';
 const localStorageKey = 'slotlist_auth';
 
 @Injectable()
-export class AuthService {
+export class LoginService {
 
 
   public constructor(
