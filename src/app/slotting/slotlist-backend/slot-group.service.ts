@@ -9,8 +9,10 @@ import {EventService} from './event-service';
 import {Company} from '../models/company';
 import {Squad} from '../models/squad';
 import {Platoon} from '../models/platoon';
+import {Slot} from '../models/slot';
 
-export interface SlotGroupCreate extends Model64 /*title, description, insertAfter*/ {
+export interface SlotGroupCreate extends Model64 /*title, description, insertAfter*/
+{
   parentGroupUid?: string;
   radioFrequency?: string;
   tacticalSymbol?: string;
@@ -18,7 +20,9 @@ export interface SlotGroupCreate extends Model64 /*title, description, insertAft
   minSlottedPlayerCount?: number;
 
 }
-export interface SlotGroupPatch extends Model93 /*title, description, moveAfter*/ {
+
+export interface SlotGroupPatch extends Model93 /*title, description, moveAfter*/
+{
   parentGroupUid?: string;
   radioFrequency?: string;
   tacticalSymbol?: string;
@@ -26,16 +30,32 @@ export interface SlotGroupPatch extends Model93 /*title, description, moveAfter*
   minSlottedPlayerCount?: number;
 }
 
-interface SlotGroupContext {
-  parentUid: string|null;
-  missionSlug: string;
-  slotContainer: SlotContainer & SelfContainedUnit;
-  nextInsertAfter: number;
+class SlotGroupContext {
+  public constructor(
+    public readonly action: SlotGroupSavingAction,
+    public readonly parentUid: string | null,
+    public readonly slotContainer: SlotContainer & SelfContainedUnit,
+  ) {
+  }
+}
+
+class SlotGroupSavingAction {
+  private insertAfter = 0;
+
+  public constructor(public readonly missionSlug: string) {
+  }
+
+  public nextInsertAfter(): number {
+    this.insertAfter += 1;
+
+    return this.insertAfter;
+  }
 }
 
 @Injectable()
 export class SlotGroupService {
   private tid: number;
+
   public constructor(
     private v1MissionService: V1missionsService,
     private authService: AuthProviderService,
@@ -47,7 +67,7 @@ export class SlotGroupService {
 
   public postSlotGroups(mission: Match) {
     const saveSlotGroup = (c) => {
-      this.saveSlotGroup({slotContainer: c, parentUid: null, missionSlug: mission.uuid, nextInsertAfter: 0});
+      this.saveSlotGroup(new SlotGroupContext(new SlotGroupSavingAction(mission.uuid), null, c));
     };
     mission.company.forEach(saveSlotGroup);
     mission.platoon.forEach(saveSlotGroup);
@@ -59,22 +79,48 @@ export class SlotGroupService {
     const slotContainer = slotGroupContext.slotContainer;
     const createdSlotGroup: CreateMissionSlotGroupResponse = await this.v1MissionService.postV1MissionsMissionslugSlotgroups(
       this.authService.getAuthorizationHeader(),
-      slotGroupContext.missionSlug,
+      slotGroupContext.action.missionSlug,
       {
         title: slotContainer.callsign,
         description: slotContainer.callsign, // TODO
-      parentGroupUid: slotGroupContext.parentUid,
-      radioFrequency: slotContainer.frequency,
-      tacticalSymbol: slotContainer.natosymbol,
-      vehicle: slotContainer.vehicletype,
-      minSlottedPlayerCount: slotContainer['min-slotted-player-count'],
-        insertAfter: slotGroupContext.nextInsertAfter, // TODO does that work?
-    });
-    slotGroupContext.nextInsertAfter += 1;
+        parentGroupUid: slotGroupContext.parentUid,
+        radioFrequency: slotContainer.frequency,
+        tacticalSymbol: slotContainer.natosymbol,
+        vehicle: slotContainer.vehicletype,
+        minSlottedPlayerCount: slotContainer['min-slotted-player-count'],
+        insertAfter: slotGroupContext.action.nextInsertAfter(),
+      });
 
-    ((slotGroupContext.slotContainer as Company).platoon || []).forEach((c) => {
-      this.saveSlotGroup({slotContainer: c, parentUid: createdSlotGroup.slotGroup.uid, missionSlug: slotGroupContext.missionSlug, nextInsertAfter: slotGroupContext.nextInsertAfter});
-    })
+    const saveSlotGroup = (c) => {
+      this.saveSlotGroup(new SlotGroupContext(
+        slotGroupContext.action,
+        createdSlotGroup.slotGroup.uid,
+        c,
+      ));
+    };
+
+    const saveSlot = (s: Slot) => {
+      this.v1MissionService.postV1MissionsMissionslugSlots(
+        this.authService.getAuthorizationHeader(),
+        slotGroupContext.action.missionSlug,
+        [{
+          slotGroupUid: createdSlotGroup.slotGroup.uid,
+          title: s.shortcode,
+          difficulty: 0,
+          description: s.description,
+          // restrictedCommunityUid?: string;
+          reserve: false,
+          blocked: false,
+          autoAssignable: true,
+          requiredDLCs: [],
+          insertAfter: 0,
+          duplicate: false,
+        }]);
+    };
+
+    ((slotGroupContext.slotContainer as Company).platoon || []).forEach(saveSlotGroup);
+    ((slotGroupContext.slotContainer as Company).squad || []).forEach(saveSlotGroup);
+    (slotGroupContext.slotContainer.slot || []).forEach(saveSlot);
   }
 }
 
@@ -94,6 +140,9 @@ phew.
 how to go about this? might be i should
 - first do the migration (extra button to save EVERYTHING is ok)
 - then separate code to CRUD all the single thingies
+
+
+
 
 
 
