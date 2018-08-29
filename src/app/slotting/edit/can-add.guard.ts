@@ -18,15 +18,16 @@ export class CanAddGuard implements CanActivate {
       return false;
     }
 
-    const permissionGranted = environment.ignoreMissingPermissions || (await this.slottingService.getPermissions(route.queryParams.tid)).result;
+    const hasPermissions = (await this.slottingService.getPermissions(route.queryParams.tid)).result;
+    const permissionGranted = environment.ignoreMissingPermissions || hasPermissions;
     if (!permissionGranted) {
       console.log(permissionGranted);
       console.log(route.queryParams);
-      this.router.navigate(['/slotting', {queryParams:
+      this.router.navigateByUrl('/slotting', {queryParams:
         {
           tid: route.queryParams.tid
         }
-      }]);
+      });
       console.log('permission denied');
       return false;
     }

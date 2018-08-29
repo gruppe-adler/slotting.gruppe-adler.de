@@ -41,7 +41,7 @@ export class SharedService {
    */
   private parseMatch(match: any): any {
     this.slots = [];
-    const slotuuid = this.getMatchStorage(this.shareData.tid, this.shareData.matchid);
+    const slotuuid = this.getMatchStorage(this.shareData.tid, this.shareData.slug);
 
     return this.parseMatchRecursive(match, slotuuid);
   }
@@ -88,7 +88,7 @@ export class SharedService {
     try {
       this.shareData = await this.http.get(`${environment.api.forumUrl}/arma3-slotting/${tid}/match/${matchid}/share/${uuid}`).toPromise();
       this.shareData.tid = tid;
-      this.shareData.matchid = matchid;
+      this.shareData.slug = matchid;
       return this.shareData;
     } catch (e) {
       console.log(e);
@@ -206,8 +206,8 @@ export class SharedService {
     });
 
     this.socket.on('event:match-changed', data => {
-      if (this.shareData && this.match && this.shareData.matchid === data.matchid) {
-        this.getMatch(this.shareData.tid, this.shareData.matchid, this.shareData.publicUuid, this.shareData.reservation);
+      if (this.shareData && this.match && this.shareData.slug === data.slug) {
+        this.getMatch(this.shareData.tid, this.shareData.slug, this.shareData.publicUuid, this.shareData.reservation);
       }
     });
   }

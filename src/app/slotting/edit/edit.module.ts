@@ -16,6 +16,9 @@ import { ContextMenuComponent } from './components/context-menu.component';
 import {SlotlistBackendModule} from '../slotlist-backend/slotlist-backend.module';
 import {MissionEditorComponent} from './components/mission-editor.component';
 import {UtilModule} from '../../../util/util.module';
+import {CanAddGuard} from './can-add.guard';
+import {AddComponent} from './add.component';
+import {SlugGeneratorService} from './slug-generator.service';
 
 @NgModule({
   imports: [
@@ -27,7 +30,13 @@ import {UtilModule} from '../../../util/util.module';
     NgDragDropModule.forRoot(),
     RouterModule.forChild([
       {
-        path: '',
+        path: 'new',
+        pathMatch: 'full',
+        component: AddComponent,
+        canActivate: [CanAddGuard],
+      },
+      {
+        path: 'match',
         pathMatch: 'full',
         component: EditComponent,
         canActivate: [CanEditGuard],
@@ -39,11 +48,14 @@ import {UtilModule} from '../../../util/util.module';
   ],
   providers: [
     CanEditGuard,
+    CanAddGuard,
     EditService,
     SlottingResolver,
-    SlottingService
+    SlottingService,
+    SlugGeneratorService,
   ],
   declarations: [
+    AddComponent,
     EditComponent,
     MissionEditorComponent,
     SlotComponent,

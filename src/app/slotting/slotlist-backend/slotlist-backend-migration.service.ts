@@ -28,7 +28,7 @@ export class SlotlistBackendMigrationService {
   private async saveMission(match: Match) {
     this.missionService.save({
       title: 'Einsatz bei Gruppe-Adler',
-        slug: match.uuid,
+      slug: match.uuid,
       description: 'Einsatz bei Gruppe Adler - Details im entsprechenden Forenthread :)',
       detailedDescription: `Einsatz bei Gruppe Adler  siehe https://forum.gruppe-adler.de/topic/${this.tid}`,
       briefingTime: this.epochString,
@@ -37,7 +37,7 @@ export class SlotlistBackendMigrationService {
       endTime: this.epochString,
       slotsAutoAssignable: true,
       requiredDLCs: ['Apex'],
-    }, match.uuid);
+    });
   }
 
   private addSlots(match: Match): void {

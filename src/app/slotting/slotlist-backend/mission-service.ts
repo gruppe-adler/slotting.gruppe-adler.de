@@ -11,10 +11,9 @@ export class MissionService {
   ) {
   }
 
-  public async save(mission: MissionCreate, slug: string): Promise<MissionDetails> {
-    const authorization = this.authorization();
-
-    mission.slug = slug;
+  public async save(mission: MissionCreate): Promise<MissionDetails> {
+    const authorization: string = this.authorization();
+    const slug: string = mission.slug;
 
     const response = await this.v1missionsService.getV1MissionsSlugavailable(slug).toPromise();
     if (response.available) {

@@ -151,14 +151,14 @@ export class SlottingService implements OnDestroy {
         return;
       }
 
-      const index = this.matches.findIndex(x => x.uuid === data.matchid);
+      const index = this.matches.findIndex(x => x.uuid === data.slug);
       if (index > -1) {
-        this.matches[index] = await this.getMatch(this.tid, data.matchid);
+        this.matches[index] = await this.getMatch(this.tid, data.slug);
         this.matchChanged.emit(true);
         console.log('match changed');
       } else {
         console.log('getting match changed');
-        const match = await this.getMatch(this.tid, data.matchid);
+        const match = await this.getMatch(this.tid, data.slug);
         if (match) {
           this.matches.splice(0, 0, match);
         }
@@ -166,7 +166,7 @@ export class SlottingService implements OnDestroy {
     });
 
     this.socket.on('event:user-slotted', data => {
-      const slots = this.slots[data.matchid] || [];
+      const slots = this.slots[data.slug] || [];
       const oldSlot = slots.find(slot =>
         slot.user &&
         ((slot.user.uid !== -1 && slot.user.uid === data.user.uid) ||
@@ -183,18 +183,18 @@ export class SlottingService implements OnDestroy {
         newSlot.user = data.user;
         this.slotChanged.emit(newSlot);
       }
-      this.refreshSlottedCount(data.matchid);
+      this.refreshSlottedCount(data.slug);
     });
 
     this.socket.on('event:user-unslotted', data => {
-      const slots = this.slots[data.matchid] || [];
+      const slots = this.slots[data.slug] || [];
       slots.forEach(slot => {
         if (slot.uuid === data.slot) {
           delete slot.user;
           this.slotChanged.emit(slot);
         }
       });
-      this.refreshSlottedCount(data.matchid);
+      this.refreshSlottedCount(data.slug);
     });
   }
 

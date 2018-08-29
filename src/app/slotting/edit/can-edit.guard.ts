@@ -14,7 +14,8 @@ export class CanEditGuard implements CanActivate {
       return false;
     }
 
-    const permissionGranted = environment.ignoreMissingPermissions || (await this.slottingService.getPermissions(route.queryParams.tid)).result;
+    const hasPermissions = (await this.slottingService.getPermissions(route.queryParams.tid)).result;
+    const permissionGranted = environment.ignoreMissingPermissions || hasPermissions;
     if (!permissionGranted) {
       console.log(permissionGranted);
       console.log(route.queryParams);

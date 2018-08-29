@@ -169,7 +169,7 @@ export class SlotComponent implements OnInit {
         return;
       }
 
-      const result = await this.sharedService.slotUser(this.sharedService.shareData.tid, this.sharedService.shareData.matchid, this.sharedService.shareData.adminUuid ? this.sharedService.shareData.adminUuid : this.sharedService.shareData.publicUuid, this.sharedService.shareData.reservation, this.slot.uuid, username);
+      const result = await this.sharedService.slotUser(this.sharedService.shareData.tid, this.sharedService.shareData.slug, this.sharedService.shareData.adminUuid ? this.sharedService.shareData.adminUuid : this.sharedService.shareData.publicUuid, this.sharedService.shareData.reservation, this.slot.uuid, username);
       if (!result) {
         const heading = await this.translateService.get('events.notification.error.heading').toPromise();
         const body = await this.translateService.get('events.notification.error.body').toPromise();
@@ -190,7 +190,7 @@ export class SlotComponent implements OnInit {
         // Unslot the user from his old slot in case he is not an admin
         if (!this.sharedService.shareData.adminUuid) {
           if (this.sharedService.currentSelectedSlot) {
-            this.sharedService.deleteSlotUser(this.sharedService.shareData.tid, this.sharedService.shareData.matchid, this.sharedService.shareData.publicUuid, this.sharedService.shareData.reservation, this.sharedService.currentSelectedSlot.uuid, this.sharedService.currentSelectedSlot.user.username);
+            this.sharedService.deleteSlotUser(this.sharedService.shareData.tid, this.sharedService.shareData.slug, this.sharedService.shareData.publicUuid, this.sharedService.shareData.reservation, this.sharedService.currentSelectedSlot.uuid, this.sharedService.currentSelectedSlot.user.username);
             delete this.sharedService.currentSelectedSlot.user;
           }
           this.sharedService.currentSelectedSlot = this.slot;
@@ -202,7 +202,7 @@ export class SlotComponent implements OnInit {
 
         // Store slot in storage to prevent double slotting and enable coloring
         if (!this.sharedService.shareData.adminUuid) {
-          this.sharedService.setMatchStorage(this.sharedService.shareData.tid, this.sharedService.shareData.matchid, this.slot.uuid);
+          this.sharedService.setMatchStorage(this.sharedService.shareData.tid, this.sharedService.shareData.slug, this.slot.uuid);
         }
       }
     });
@@ -266,7 +266,7 @@ export class SlotComponent implements OnInit {
    * @returns {Promise<void>}
    */
   private async deleteUserShared(): Promise<void> {
-    const result = await this.sharedService.deleteSlotUser(this.sharedService.shareData.tid, this.sharedService.shareData.matchid, this.sharedService.shareData.adminUuid ? this.sharedService.shareData.adminUuid : this.sharedService.shareData.publicUuid, this.sharedService.shareData.reservation, this.slot.uuid, this.slot.user.username);
+    const result = await this.sharedService.deleteSlotUser(this.sharedService.shareData.tid, this.sharedService.shareData.slug, this.sharedService.shareData.adminUuid ? this.sharedService.shareData.adminUuid : this.sharedService.shareData.publicUuid, this.sharedService.shareData.reservation, this.slot.uuid, this.slot.user.username);
     if (result) {
       if (this.sharedService.shareData.adminUuid) {
         const heading = await this.translateService.get('events.notification.unslotted.heading').toPromise();

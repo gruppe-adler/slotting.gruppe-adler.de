@@ -22,7 +22,7 @@ export class ShareComponent implements OnInit {
       'Möchtest du den Slottinglink für ' + share.reservation + ' wirklich löschen? ' +
       'Dies macht den aktuellen Link ungültig, behält jedoch alle geslotteten Nutzer.').then(async result => {
       if (result) {
-        const deleteResult = await this.shareService.deleteShare(this.shareData.tid, this.shareData.matchid, share.reservation);
+        const deleteResult = await this.shareService.deleteShare(this.shareData.tid, this.shareData.slug, share.reservation);
         console.log(deleteResult);
         if (deleteResult) {
           const index = this.shareData.activeReservations.indexOf(share);
@@ -36,7 +36,7 @@ export class ShareComponent implements OnInit {
   }
 
   public async add(share: any): Promise<void> {
-    const result = await this.shareService.addShare(this.shareData.tid, this.shareData.matchid, share);
+    const result = await this.shareService.addShare(this.shareData.tid, this.shareData.slug, share);
     if (result) {
       const index = this.shareData.availableReservations.indexOf(share);
       if (index > -1) {
