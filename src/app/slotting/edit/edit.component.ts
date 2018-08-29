@@ -42,8 +42,10 @@ export class EditComponent implements OnInit {
   ngOnInit() {
     this.matchId = this.route.snapshot.queryParams['matchid'];
     this.tid = Number(this.route.snapshot.queryParams['tid']);
-    this.reload();
-    this.slottingService.matchChanged.subscribe(value => this.matchChangedExternal = value);
+    if (this.matchId) {
+      this.reload();
+      this.slottingService.matchChanged.subscribe(value => this.matchChangedExternal = value);
+    }
 
     document.addEventListener('dragover', this.dragover);
   }

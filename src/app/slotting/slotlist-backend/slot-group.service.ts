@@ -65,7 +65,7 @@ export class SlotGroupService {
     this.tid = eventService.getTid();
   }
 
-  public postSlotGroups(mission: Match) {
+  public migrateSlotGroups(mission: Match) {
     const saveSlotGroup = (c) => {
       this.saveSlotGroup(new SlotGroupContext(new SlotGroupSavingAction(mission.uuid), null, c));
     };
@@ -75,7 +75,7 @@ export class SlotGroupService {
     // this.v1MissionService.postV1MissionsMissionslugSlotgroups(this.authService.getAuthorizationHeader(), mission.uuid, {});
   }
 
-  private async saveSlotGroup(slotGroupContext: SlotGroupContext): Promise<void> {
+  private async saveSlotGroup(slotGroupContext: SlotGroupContext) {
     const slotContainer = slotGroupContext.slotContainer;
     const createdSlotGroup: CreateMissionSlotGroupResponse = await this.v1MissionService.postV1MissionsMissionslugSlotgroups(
       this.authService.getAuthorizationHeader(),
@@ -89,7 +89,9 @@ export class SlotGroupService {
         vehicle: slotContainer.vehicletype,
         minSlottedPlayerCount: slotContainer['min-slotted-player-count'],
         insertAfter: slotGroupContext.action.nextInsertAfter(),
-      });
+      }).toPromise();
+
+    // const createdSlotGroup: CreateMissionSlotGroupResponse = createdSlotGroupResponse.
 
     const saveSlotGroup = (c) => {
       this.saveSlotGroup(new SlotGroupContext(

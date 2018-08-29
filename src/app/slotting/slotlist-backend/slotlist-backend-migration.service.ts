@@ -41,6 +41,6 @@ export class SlotlistBackendMigrationService {
   }
 
   private addSlots(match: Match): void {
-    this.slotGroupService.postSlotGroups(match);
+    this.slotGroupService.migrateSlotGroups(match);
   }
 }

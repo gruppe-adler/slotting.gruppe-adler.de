@@ -15,14 +15,13 @@ export class MissionEditorComponent implements OnInit {
   public mission: MissionCreate = {} as any;
 
   @Input() public tid: number;
-  @Input() public forumMatchId: string;
+  @Input() public matchid?: string;
 
   private converter: Converter & { makeMarkdown: (string) => string };
 
   public constructor(
     private router: Router,
     private missionService: MissionService,
-    private slotGroupService: SlotGroupService,
   ) {
   }
 
@@ -37,16 +36,16 @@ export class MissionEditorComponent implements OnInit {
 
   public async reload(): Promise<void> {
     try {
-      this.mission = await this.missionService.load(this.forumMatchId);
+      this.mission = await this.missionService.load(this.matchid);
     } catch (e) {
-      console.warn(`mission ${this.forumMatchId} could not be found in slotlist-backend: ${e.message}`);
+      console.warn(`mission ${this.matchid} could not be found in slotlist-backend: ${e.message}`);
     }
   }
 
   public async save(): Promise<void> {
     try {
-      const foo: MissionDetails = await this.missionService.save(this.mission, this.forumMatchId);
-      this.slotGroupService.postSlotGroups(this.mission);
+      const foo: MissionDetails = await this.missionService.save(this.mission, this.matchid);
+      this.router.navigate(['slotting', 'edit'], {queryParams: {tid: this.tid, matchid: foo.slug}});
     } catch (e) {
       window.console.error('couldnt save :(' + e.message);
     }
@@ -58,24 +57,4 @@ export class MissionEditorComponent implements OnInit {
 
     return htmlified;
   }
-
-  /*
-    public ngOnChanges(changes: SimpleChanges): void {
-      this.mission.detailedDescription = this.converter.makeHtml(this.eventDescriptionMd);
-    }
-    */
-  /*
-  {
-          title: missionDetails.title,
-          slug: missionDetails.slug,
-          description: missionDetails.description,
-          detailedDescription: missionDetails.detailedDescription,
-          briefingTime: missionDetails.briefingTime,
-          slottingTime: missionDetails.slottingTime,
-          startTime: missionDetails.startTime,
-          endTime: missionDetails.endTime,
-          slotsAutoAssignable: missionDetails.slotsAutoAssignable,
-          requiredDLCs: missionDetails.requiredDLCs,
-        };
-   */
 }

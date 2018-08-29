@@ -11,8 +11,7 @@ export class MissionService {
   ) {
   }
 
-  public async save(mission: MissionCreate, forumMatchId: string): Promise<MissionDetails> {
-    const slug = forumMatchId;
+  public async save(mission: MissionCreate, slug: string): Promise<MissionDetails> {
     const authorization = this.authorization();
 
     mission.slug = slug;
