@@ -111,6 +111,15 @@ export class SlotComponent implements OnInit {
     }
   }
 
+  private getUserGroupClass(): string {
+    let group = this.slot.user && this.slot.user.groupTitle ? this.slot.user.groupTitle : '';
+    console.log(group);
+    if (group.match(/^\[.+\]$/i)) {
+        group = JSON.parse(group)[0];
+    }
+    return group;
+  }
+
   private updateBackgroundShared(): void {
     this.slotLocked =
       (!this.slot.user || (this.slot.user && !this.slot.user['icon:text'])) &&
