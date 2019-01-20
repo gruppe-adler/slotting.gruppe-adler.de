@@ -15,7 +15,7 @@
         </ng-container>
       </div>
     </div>
-    <div class="slot-descr" [class.fireteam]="isFireteam" [class.group-color]="showGroupColors" [ngClass]="slot.user && slot.user.groupTitle ? slot.user.groupTitle : ''" [matTooltip]="slot.description" (click)="slotUser()" matTooltipPosition="above">
+    <div class="slot-descr" [class.fireteam]="isFireteam" [class.group-color]="showGroupColors" [ngClass]="getUserGroupClass()" [matTooltip]="slot.description" (click)="slotUser()" matTooltipPosition="above">
       {{slot.shortcode}}
     </div>
   </ng-container>

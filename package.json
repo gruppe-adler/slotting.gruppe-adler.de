@@ -1,7 +1,7 @@
 {
   "name": "slotting.gruppe-adler.de",
   "description": "",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "scripts": {
     "build": "ng build --prod --build-optimizer",
     "e2e": "ng e2e",
