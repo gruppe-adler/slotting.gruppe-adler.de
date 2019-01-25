@@ -162,7 +162,11 @@ ul {
   color: #d18d1f !important;
 }
 
-.mat-focused .mat-form-field-infix {
+.mat-input-element {
+    caret-color: #d18d1f !important;
+}
+
+.toolbar[_ngcontent-c5] .mat-focused .mat-input-infix{
     background: #333;
 }
 
