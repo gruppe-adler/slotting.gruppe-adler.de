@@ -52,6 +52,7 @@ export class SlotComponent implements OnInit, AfterViewInit {
               public slottingService: SlottingService) {
   }
 
+
   public ngOnInit(): void {
     if (this.slot.newSlot) {
       this.newSlot = true;
@@ -102,6 +103,7 @@ export class SlotComponent implements OnInit, AfterViewInit {
 
   @HostListener('document:mouseup', ['$event'])
   onKeyUp(ev: KeyboardEvent) {
+
     if (ev['path']) {
       if (ev['path'].indexOf(this.elementRef.nativeElement) === -1) {
         this.toolbarExpanded = false;
@@ -139,12 +141,87 @@ export class SlotComponent implements OnInit, AfterViewInit {
     }
   }
 
+
   public onKey(event): void {
-    if (event.keyCode === 13) {
-      this.toolbarExpanded = false;
-      this.checkNeededValues();
+
+    var shiftPressed = event.shiftKey;
+    console.log(shiftPressed);
+
+    switch (this.slot.shortcode) {
+        case 'CMD': this.slot.description = 'Commander';
+        this.cdr.detectChanges();
+        break;
+
+        case 'CA': this.slot.description = 'Command Assistant';
+        this.cdr.detectChanges();
+        break;
+
+        case 'SQL': this.slot.description = 'Squad Leader';
+        this.cdr.detectChanges();
+        break;
+
+        case 'SQM': this.slot.description = 'Squad Medic';
+        this.cdr.detectChanges();
+        break;
+
+        case 'MG': this.slot.description = 'Machine Gunner';
+        this.cdr.detectChanges();
+        break;
+
+        case 'AT': this.slot.description = 'AT Gunner';
+        this.cdr.detectChanges();
+        break;
+
+        case 'MED': this.slot.description = 'Medic';
+        this.cdr.detectChanges();
+        break;
+
+        case 'R': this.slot.description = 'Rifleman';
+        this.cdr.detectChanges();
+        break;
     }
-  }
+
+    
+      this.checkNeededValues();
+      this.toolbarExpanded = false;
+       event.stopPropagation();
+       event.preventDefault();
+
+       var currentSlot = this.elementRef.nativeElement.getElementsByClassName('avatar ng-star-inserted')[0];
+       var slotHTMLCollection = currentSlot.getRootNode().getElementsByClassName('avatar ng-star-inserted');// this.elementRef.nativeElement.parentNode.getElementsByClassName('avatar');
+       var slotArray = Array.from(slotHTMLCollection);
+       var slotArrayLength = slotArray.length;
+       var index = slotArray.indexOf(currentSlot);
+       var addValue = shiftPressed ? -1 : 1;
+       var resultIndex = 0;
+
+       if (!shiftPressed) {
+         if (index < (slotArrayLength-5)) {
+            resultIndex = index + addValue;
+           
+         } else {
+          resultIndex =0;
+         }
+       } else {
+         if (index < 1) {
+            resultIndex = (slotArrayLength-6);
+         } else {
+            resultIndex = index + addValue;
+         }
+       }
+
+       console.log(resultIndex);
+
+        slotHTMLCollection[resultIndex].click();
+            slotHTMLCollection[resultIndex].scrollIntoView({
+              behavior: 'auto',
+              block: 'center',
+              inline: 'center'
+          });
+      // console.log(index + " " + slotArrayLength);
+    
+  
+  
 
   public checkNeededValues(): void {
     this.slot.description = !this.slot.description || this.slot.description === '' ? 'Rifleman' : this.slot.description;
