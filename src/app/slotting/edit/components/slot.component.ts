@@ -83,6 +83,13 @@ export class SlotComponent implements OnInit, AfterViewInit {
       }, 100);
     }
 
+    const inputShortcode = this.elementRef.nativeElement.getElementsByTagName('input');
+    if (inputShortcode['shortcode']) {
+      setTimeout(() => {
+        inputShortcode['shortcode'].select();
+      }, 100);
+    }
+
     if (this.toolbarExpanded) {
       const element = this.elementRef.nativeElement.getElementsByClassName('tools')[0];
       const bounding = element.getBoundingClientRect();
