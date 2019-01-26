@@ -220,11 +220,10 @@ export class SlotComponent implements OnInit, AfterViewInit {
           });
       // console.log(index + " " + slotArrayLength);
     
-  
-  
-
-  public checkNeededValues(): void {
-    this.slot.description = !this.slot.description || this.slot.description === '' ? 'Rifleman' : this.slot.description;
-    this.slot.shortcode = !this.slot.shortcode || this.slot.shortcode === '' ? 'R' : this.slot.shortcode;
-  }
+    }
+    
+    public checkNeededValues(): void {
+      this.slot.description = !this.slot.description || this.slot.description === '' ? 'Rifleman' : this.slot.description;
+      this.slot.shortcode = !this.slot.shortcode || this.slot.shortcode === '' ? 'R' : this.slot.shortcode;
+    }
 }
