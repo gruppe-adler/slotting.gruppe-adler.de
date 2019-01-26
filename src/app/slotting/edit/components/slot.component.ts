@@ -145,7 +145,7 @@ export class SlotComponent implements OnInit, AfterViewInit {
   public onKey(event): void {
 
     var shiftPressed = event.shiftKey;
-    console.log(shiftPressed);
+    // console.log(shiftPressed);
 
     switch (this.slot.shortcode) {
         case 'CMD': this.slot.description = 'Commander';
@@ -210,7 +210,7 @@ export class SlotComponent implements OnInit, AfterViewInit {
          }
        }
 
-       console.log(resultIndex);
+       // console.log(resultIndex);
 
         slotHTMLCollection[resultIndex].click();
             slotHTMLCollection[resultIndex].scrollIntoView({
