@@ -10,6 +10,7 @@ import { environment } from '../../environments/environment';
 })
 export class SlottingComponent implements OnInit {
   @Input() public match: any;
+  public totalSlotCount = 0;
   public canAdministrate = false;
   public groupColorSwitch = false;
 
@@ -24,11 +25,22 @@ export class SlottingComponent implements OnInit {
         this.canAdministrate = true;
       }
     });
-    console.log('match', this.match);
+    // console.log('match', this.match);
+    this.resolveTotalSlotsR(this.match);
 
     const groupColorSwitchValue = localStorage.getItem(environment.storageKeys.showGroupColor) || 'false';
     this.groupColorSwitch = groupColorSwitchValue === 'true';
     this.slottingService.showGroupsChanged.subscribe(value => this.groupColorSwitch = value);
+  }
+ 
+  resolveTotalSlotsR(obj: Object): void {
+      let subs = ['company', 'platoon', 'squad', 'fireteam'];
+
+      subs.forEach(x => {
+              if (Array.isArray(obj[x])) obj[x].forEach(s => this.resolveTotalSlotsR(s));
+      })
+      
+      if (obj['slot'] !== null) this.totalSlotCount += obj['slot'].length;
   }
 
   deleteMatch(): void {

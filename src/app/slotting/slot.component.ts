@@ -113,7 +113,7 @@ export class SlotComponent implements OnInit {
 
   private getUserGroupClass(): string {
     let group = this.slot.user && this.slot.user.groupTitle ? this.slot.user.groupTitle : '';
-    console.log(group);
+    // console.log(group);
     if (group.match(/^\[.+\]$/i)) {
         group = JSON.parse(group)[0];
     }
@@ -157,7 +157,7 @@ export class SlotComponent implements OnInit {
       return;
     }
 
-    console.log(this.slot.user, this.sharedService.shareData.adminUuid, this.sharedService.currentSelectedSlot);
+    // console.log(this.slot.user, this.sharedService.shareData.adminUuid, this.sharedService.currentSelectedSlot);
 
     // Check if not admin and if slot is already taken
     if (this.slot.user && !this.sharedService.shareData.adminUuid && (this.slot !== this.sharedService.currentSelectedSlot)) {

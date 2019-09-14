@@ -5,7 +5,7 @@
         <mat-icon class="lock-icon">lock</mat-icon>
       </ng-container>
     </div>
-    <div #toolbar class="toolbar" *ngIf="toolbarExpanded" [class.expanded]="toolbarExpanded" [ngStyle]="{left: -(toolbar.clientWidth / 2 - avatar.clientWidth / 2) + 'px'}" (keypress)="onKey($event)">
+    <div #toolbar class="toolbar" *ngIf="toolbarExpanded" [class.expanded]="toolbarExpanded" [ngStyle]="{left: -(toolbar.clientWidth / 2 - avatar.clientWidth / 2) + 'px'}" (keydown.enter)="onKey($event)" (keydown.shift.enter)="onKey($event)">
       <div class="arrow"></div>
       <div class="tools">
         <form>
