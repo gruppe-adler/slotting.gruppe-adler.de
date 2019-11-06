@@ -166,7 +166,7 @@
   width: 100%;
   height: 100%;
 
-  $icons: air, armor, art, hq, inf, maint, mech_inf, med, mortar, motor_inf, plane, recon, service, support, uav;
+  $icons: zeus, air, armor, art, hq, inf, maint, mech_inf, med, mortar, motor_inf, plane, recon, service, support, uav;
 
   @each $icon in $icons {
     &.#{$icon} {
