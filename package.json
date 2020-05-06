@@ -41,6 +41,7 @@
     "js-polyfills": "^0.1.42",
     "js2xmlparser": "^3.0.0",
     "ng-drag-drop": "^4.0.1",
+    "node-sass": "^4.14.1",
     "octicons": "^7.4.0",
     "rxjs": "^5.5.11",
     "socket.io-client": "^2.1.1",
