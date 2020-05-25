@@ -144,42 +144,15 @@ export class SlotComponent implements OnInit, AfterViewInit {
 
   public onKey(event): void {
 
-    var shiftPressed = event.shiftKey;
-    // console.log(shiftPressed);
+    const shiftPressed = event.shiftKey;
 
-    switch (this.slot.shortcode) {
-        case 'CMD': this.slot.description = 'Commander';
+    const shortCode = this.slot.shortcode.toLowerCase();
+    const preset = this.editService.slotPresets.find(p => p.shortcode.toLowerCase() === shortCode);
+    if (preset !== undefined) {
+        this.slot.description = preset.description;
         this.cdr.detectChanges();
-        break;
+    };
 
-        case 'CA': this.slot.description = 'Command Assistant';
-        this.cdr.detectChanges();
-        break;
-
-        case 'SQL': this.slot.description = 'Squad Leader';
-        this.cdr.detectChanges();
-        break;
-
-        case 'SQM': this.slot.description = 'Squad Medic';
-        this.cdr.detectChanges();
-        break;
-
-        case 'MG': this.slot.description = 'Machine Gunner';
-        this.cdr.detectChanges();
-        break;
-
-        case 'AT': this.slot.description = 'AT Gunner';
-        this.cdr.detectChanges();
-        break;
-
-        case 'MED': this.slot.description = 'Medic';
-        this.cdr.detectChanges();
-        break;
-
-        case 'R': this.slot.description = 'Rifleman';
-        this.cdr.detectChanges();
-        break;
-    }
 
     
       this.checkNeededValues();

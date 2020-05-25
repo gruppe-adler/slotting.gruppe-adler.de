@@ -48,6 +48,43 @@ export class EditService {
     return ['zeus', 'air', 'armor', 'art', 'hq', 'inf', 'maint', 'mech_inf', 'med', 'mortar', 'motor_inf', 'plane', 'recon', 'service', 'support', 'uav'];
   }
 
+  public get slotPresets(): Array<{ shortcode: string, description: string }> {
+    return [
+      {
+        shortcode: 'CMD',
+        description:  'Commander'
+      },
+      {
+        shortcode: 'CA',
+        description: 'Command Assistant'
+      },
+      {
+        shortcode: 'SQL',
+        description: 'Squad Leader'
+      },
+      {
+        shortcode: 'SQM',
+        description: 'Squad Medic'
+      },
+      {
+        shortcode: 'MG',
+        description: 'Machine Gunner'
+      },
+      {
+        shortcode: 'AT',
+        description: 'AT Gunner'
+      },
+      {
+        shortcode: 'MED',
+        description:  'Medic'
+      },
+      {
+        shortcode: 'R',
+        description:  'Rifleman'
+      }
+    ];
+  }
+
   public get matchDirty() {
     return JSON.stringify(this.match) !== JSON.stringify(this.rawMatch);
   }
