@@ -50,39 +50,39 @@ export class EditService {
 
   public get slotPresets(): Array<{ shortcode: string, description: string }> {
     return [
-      {
-        shortcode: 'CMD',
-        description:  'Commander'
-      },
-      {
-        shortcode: 'CA',
-        description: 'Command Assistant'
-      },
-      {
-        shortcode: 'SQL',
-        description: 'Squad Leader'
-      },
-      {
-        shortcode: 'SQM',
-        description: 'Squad Medic'
-      },
-      {
-        shortcode: 'MG',
-        description: 'Machine Gunner'
-      },
-      {
-        shortcode: 'AT',
-        description: 'AT Gunner'
-      },
-      {
-        shortcode: 'MED',
-        description:  'Medic'
-      },
-      {
-        shortcode: 'R',
-        description:  'Rifleman'
-      }
-    ];
+      { shortcode: 'CL', description: 'Company Leader' },
+      { shortcode: 'PTL', description: 'Platoon Leader' },
+      { shortcode: 'PTA', description: 'Asst. Platoon Leader' },
+      { shortcode: 'PTM', description: 'Platoon Medic' },
+      { shortcode: 'SQL', description: 'Squad Leader' },
+      { shortcode: 'SQA', description: 'Asst. Squad Leader' },
+      { shortcode: 'SQM', description: 'Squad Medic' },
+      { shortcode: 'FTL', description: 'Fireteam Leader' },
+      { shortcode: 'LAT', description: 'Light Anti-Tank Gunner' },
+      { shortcode: 'AT', description: 'Anti-Tank Gunner' },
+      { shortcode: 'AAT', description: 'Asst. Anti-Tank Gunner' },
+      { shortcode: 'AAA', description: 'Asst. Anti-Air Gunner' },
+      { shortcode: 'AA', description: 'Anti-Air Gunner' },
+      { shortcode: 'MG', description: 'Machine Gunner' },
+      { shortcode: 'AMG', description: 'Asst. Machine Gunner' },
+      { shortcode: 'AAR', description: 'Asst. Autorifleman' },
+      { shortcode: 'AR', description: 'Autorifleman' },
+      { shortcode: 'M', description: 'Medic' },
+      { shortcode: 'GRN', description: 'Grenadier' },
+      { shortcode: 'JTAC', description: 'Joint Terminal Attack Controller' },
+      { shortcode: 'Z', description: 'Zeus' },
+      { shortcode: 'DRV', description: 'Driver' },
+      { shortcode: 'GUN', description: 'Gunner' },
+      { shortcode: 'CMD', description: 'Commander' },
+      { shortcode: 'CMA', description: 'Asst. Commander' },
+      { shortcode: 'RTO', description: 'Radiotelephone Operator' },
+      { shortcode: 'E', description: 'Engineer' },
+      { shortcode: 'DM', description: 'Designated Marksman' },
+      { shortcode: 'CFR', description: 'Combat First Responder' },
+      { shortcode: 'P', description: 'Pilot' },
+      { shortcode: 'CP', description: 'Co-Pilot' },
+      { shortcode: 'R', description: 'Rifleman' }
+    ].sort((a, b) => a.description.localeCompare(b.description));
   }
 
   public get matchDirty() {
