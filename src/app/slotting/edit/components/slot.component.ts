@@ -6,6 +6,11 @@ import { animate, keyframes, style, transition, trigger } from '@angular/animati
 import { EditService } from '../edit.service';
 import { SlottingService } from '../../slotting.service';
 
+interface SlotPreset {
+  shortcode: string;
+  description: string;
+}
+
 @Component({
   templateUrl: './slot.component.html',
   styleUrls: ['../../slot.component.scss', './slot.component.scss'],
@@ -57,6 +62,18 @@ export class SlotComponent implements OnInit, AfterViewInit {
     if (this.slot.newSlot) {
       this.newSlot = true;
     }
+
+    // check if description is from a preset
+    const desc = this.slot.description.toLowerCase();
+    const preset = this.editService.slotPresets.find(p => p.description.toLowerCase() === desc);
+    if (preset !== undefined) {
+      this.presetInput = preset.description;
+      this.slot.description = preset.description;
+      this.slot.shortcode = preset.shortcode;
+    } else {
+      this.customShortnameAndDesc = true;
+    }
+
     this.checkNeededValues();
   }
 
@@ -198,5 +215,23 @@ export class SlotComponent implements OnInit, AfterViewInit {
     public checkNeededValues(): void {
       this.slot.description = !this.slot.description || this.slot.description === '' ? 'Rifleman' : this.slot.description;
       this.slot.shortcode = !this.slot.shortcode || this.slot.shortcode === '' ? 'R' : this.slot.shortcode;
+    }
+
+    public presetInput: string = '';
+    public filteredSlotPresets: SlotPreset[] = [];
+    public customShortnameAndDesc = false;
+
+    public updateFilteredSlotPresets () {
+      const filter = this.presetInput.toLowerCase();
+
+      this.filteredSlotPresets = this.editService.slotPresets.filter(p => p.description.toLowerCase().includes(filter) || p.shortcode.toLowerCase().includes(filter));
+    }
+
+    public selectSlotPreset(event: MouseEvent, { shortcode, description }: { shortcode: string, description: string }): void {
+      this.slot.shortcode = shortcode;
+      this.slot.description = description;
+      this.presetInput = description;
+
+      this.checkNeededValues();
     }
 }

@@ -1,28 +1,42 @@
 <div class="slot-container" [class.condensed]="slottingService.slotlistCondensed">
   <ng-container *ngIf="slot">
     <div class="avatar" [class.fireteam]="isFireteam" [class.selected]="toolbarExpanded" #avatar (click)="onClick()" [@toolbarState]="toolbarExpanded">
-      <ng-container *ngIf="reservation || slot['reserved-for']">
-        <mat-icon class="lock-icon">lock</mat-icon>
-      </ng-container>
+        <ng-container *ngIf="reservation || slot['reserved-for']">
+            <mat-icon class="lock-icon">lock</mat-icon>
+        </ng-container>
     </div>
     <div #toolbar class="toolbar" *ngIf="toolbarExpanded" [class.expanded]="toolbarExpanded" [ngStyle]="{left: -(toolbar.clientWidth / 2 - avatar.clientWidth / 2) + 'px'}" (keydown.enter)="onKey($event)" (keydown.shift.enter)="onKey($event)">
       <div class="arrow"></div>
       <div class="tools">
         <form>
-          <mat-form-field floatLabel="never" class="app-input-white-underline shortcode-input app-input-white-label">
-            <input matInput placeholder="Code" maxlength="3" [(ngModel)]="slot.shortcode" name="shortcode">
-          </mat-form-field>
-          <mat-form-field floatLabel="never" class="app-input-white-underline description-input">
-            <input #description matInput placeholder="Beschreibung" [(ngModel)]="slot.description" name="description">
-          </mat-form-field>
-          <mat-divider [vertical]="true"></mat-divider>
-          <button mat-button (click)="duplicate()">
-            <mat-icon>content_copy</mat-icon>
-          </button>
-          <mat-divider [vertical]="true"></mat-divider>
-          <button mat-button (click)="deleteSlot()">
-            <mat-icon>delete</mat-icon>
-          </button>
+            <div class="preset-list">
+                <mat-form-field *ngIf="!customShortnameAndDesc" floatLabel="never" class="app-input-white-underline preset-input">
+                    <input type="text" matInput placeholder="Preset" name="preset" [(ngModel)]="presetInput" (ngModelChange)="updateFilteredSlotPresets()" (focus)="updateFilteredSlotPresets()" >
+                </mat-form-field>
+                <ul>
+                    <li *ngFor="let preset of filteredSlotPresets;" (mousedown)="selectSlotPreset($event, preset)">{{preset.description}}</li>
+                </ul>
+            </div>
+            <ng-container *ngIf="customShortnameAndDesc">
+                <mat-form-field floatLabel="never" class="app-input-white-underline shortcode-input app-input-white-label">
+                    <input matInput placeholder="Code" maxlength="3" [(ngModel)]="slot.shortcode" name="shortcode">
+                </mat-form-field>
+                <mat-form-field floatLabel="never" class="app-input-white-underline description-input">
+                    <input #description matInput placeholder="Beschreibung" [(ngModel)]="slot.description" name="description">
+                </mat-form-field>
+            </ng-container>
+            <button mat-button (click)="customShortnameAndDesc = !customShortnameAndDesc">
+                <mat-icon *ngIf="!customShortnameAndDesc">edit</mat-icon>
+                <mat-icon *ngIf="customShortnameAndDesc">list</mat-icon>
+            </button>
+            <mat-divider [vertical]="true"></mat-divider>
+            <button mat-button (click)="duplicate()">
+                <mat-icon>content_copy</mat-icon>
+            </button>
+            <mat-divider [vertical]="true"></mat-divider>
+            <button mat-button (click)="deleteSlot()">
+                <mat-icon>delete</mat-icon>
+            </button>
         </form>
       </div>
     </div>
