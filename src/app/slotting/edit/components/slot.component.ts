@@ -168,9 +168,7 @@ export class SlotComponent implements OnInit, AfterViewInit {
     if (preset !== undefined) {
         this.slot.description = preset.description;
         this.cdr.detectChanges();
-    };
-
-
+    }
     
       this.checkNeededValues();
       this.toolbarExpanded = false;
@@ -227,7 +225,7 @@ export class SlotComponent implements OnInit, AfterViewInit {
       this.filteredSlotPresets = this.editService.slotPresets.filter(p => p.description.toLowerCase().includes(filter) || p.shortcode.toLowerCase().includes(filter));
     }
 
-    public selectSlotPreset(event: MouseEvent, { shortcode, description }: { shortcode: string, description: string }): void {
+    public selectSlotPreset(event: MouseEvent, { shortcode, description }: SlotPreset): void {
       this.slot.shortcode = shortcode;
       this.slot.description = description;
       this.presetInput = description;
