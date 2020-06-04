@@ -7,6 +7,10 @@ $slotSize: 35px;
   box-sizing: border-box
 }
 
+.company-container, .fireteam-container, .platoon-container, .squad-container {
+    border-radius: 4px;
+}
+
 .platoon-container {
   box-shadow: 0 0 5px 0 rgba(0,0,0,0.15);
   // margin: 20px 20px 5px 20px;
@@ -89,7 +93,6 @@ $slotSize: 35px;
   min-width: 184px;
 
   .squad-title-container {
-    background-color: white;
 
     .squad-title {
       color: #333;
@@ -126,7 +129,7 @@ $slotSize: 35px;
 }
 
 .squad-siblings {
-  min-height: 75px;
+  min-height: 25px;
 }
 
 .platoon-siblings, .comapny-siblings {
