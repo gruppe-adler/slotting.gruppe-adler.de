@@ -45,18 +45,64 @@
         margin-left: 10px;
       }
 
+      .preset-input {
+        max-width: 175px;
+        margin-right: 10px;
+        margin-left: 10px;
+
+      }
+      .preset-list {
+        position: relative;
+        
+        ::-webkit-scrollbar {
+          background: black;
+          width: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+          background: #d18d1f;
+          margin: 1px;
+        }
+
+        ul {
+          position: absolute;
+          top: calc(100% - 5px);
+          min-width: 100%;
+          width: auto;
+          max-height: 0;
+          padding-left: 0;
+          list-style: none;
+          transition: all 0.2s ease;
+          overflow: hidden;
+          overflow-y: auto;
+          margin-bottom: 0px;
+  
+          li {
+            margin: 0;
+            background: black;
+            padding: .5rem 1rem;
+            cursor: pointer;
+            outline: none;
+            text-align: left;
+      
+            &:hover, &:focus, &:focus-within {
+              background: #d18d1f;
+            }
+          }
+        }
+
+        &:focus-within {
+          ul {
+            max-height: 42rem;
+          }
+        }
+      
+      }
+
       button {
         padding-right: 5px;
         padding-left: 5px;
         min-width: 65px;
-
-        .copy-icon {
-
-        }
-
-        .delete-icon {
-
-        }
       }
     }
   }

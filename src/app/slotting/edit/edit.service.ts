@@ -48,6 +48,43 @@ export class EditService {
     return ['zeus', 'air', 'armor', 'art', 'hq', 'inf', 'maint', 'mech_inf', 'med', 'mortar', 'motor_inf', 'plane', 'recon', 'service', 'support', 'uav'];
   }
 
+  public get slotPresets(): Array<{ shortcode: string, description: string }> {
+    return [
+      { shortcode: 'AA', description: 'Anti-Air Specialist' },
+      { shortcode: 'AT', description: 'Anti-Tank Specialist' },
+      { shortcode: 'AAA', description: 'Asst. Anti-Air Specialist' },
+      { shortcode: 'AAT', description: 'Asst. Anti-Tank Specialist' },
+      { shortcode: 'AAR', description: 'Asst. Autorifleman' },
+      { shortcode: 'CMA', description: 'Asst. Commander' },
+      { shortcode: 'AMG', description: 'Asst. Machine Gunner' },
+      { shortcode: 'PTA', description: 'Asst. Platoon Leader' },
+      { shortcode: 'SQA', description: 'Asst. Squad Leader' },
+      { shortcode: 'AR', description: 'Autorifleman' },
+      { shortcode: 'CP', description: 'Co-Pilot' },
+      { shortcode: 'CFR', description: 'Combat First Responder' },
+      { shortcode: 'CMD', description: 'Commander' },
+      { shortcode: 'CL', description: 'Company Leader' },
+      { shortcode: 'DM', description: 'Designated Marksman' },
+      { shortcode: 'DRV', description: 'Driver' },
+      { shortcode: 'E', description: 'Engineer' },
+      { shortcode: 'FTL', description: 'Fireteam Leader' },
+      { shortcode: 'GRN', description: 'Grenadier' },
+      { shortcode: 'GUN', description: 'Gunner' },
+      { shortcode: 'JTAC', description: 'Joint Terminal Attack Controller' },
+      { shortcode: 'MG', description: 'Machine Gunner' },
+      { shortcode: 'M', description: 'Medic' },
+      { shortcode: 'P', description: 'Pilot' },
+      { shortcode: 'PTL', description: 'Platoon Leader' },
+      { shortcode: 'PTM', description: 'Platoon Medic' },
+      { shortcode: 'RTO', description: 'Radiotelephone Operator' },
+      { shortcode: 'LAT', description: 'Rifleman (AT)' },
+      { shortcode: 'R', description: 'Rifleman' },
+      { shortcode: 'SQL', description: 'Squad Leader' },
+      { shortcode: 'SQM', description: 'Squad Medic' },
+      { shortcode: 'Z', description: 'Zeus' }
+    ]
+  }
+
   public get matchDirty() {
     return JSON.stringify(this.match) !== JSON.stringify(this.rawMatch);
   }
