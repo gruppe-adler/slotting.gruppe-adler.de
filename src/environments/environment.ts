@@ -10,8 +10,7 @@ export const environment = {
     baseUrl: 'https://www.gruppe-adler.de/wp-json/wp/v2',
     arma3ServersNetKey: 'za5G3UkrmyIiI3ZtId5pibgBl66Bu0fMF',
     forumSocketUrl: 'https://forum.gruppe-adler.de/slotting', // 'http://localhost:4567/slotting',
-    forumUrl: 'https://forum.gruppe-adler.de/api', // 'http://localhost:4567/api'
-    forumBaseUrl: 'https://forum.gruppe-adler.de' // 'http://localhost:4567'
+    forumUrl: 'https://forum.gruppe-adler.de', // 'http://localhost:4567'
   },
   storageKeys: {
     showGroupColor: 'grad-slotting-showGroupColor',

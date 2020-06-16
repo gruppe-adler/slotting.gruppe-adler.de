@@ -22,7 +22,7 @@ export class SharedService {
   public async getMatch(tid: number, matchid: string, uuid: string, reservation: string): Promise<any> {
     try {
       const match = await this.http.get(
-        `${environment.api.forumUrl}/arma3-slotting/${tid}/match/${matchid}?withusers=1`,
+        `${environment.api.forumUrl}/api/arma3-slotting/${tid}/match/${matchid}?withusers=1`,
         {headers: this.getHeaders(uuid, reservation)}).toPromise();
       this.parseMatch(match);
       console.log(match);
@@ -77,7 +77,7 @@ export class SharedService {
 
   public async getTopic(tid: number, matchid: string, uuid: string): Promise<any> {
     try {
-      return await this.http.get(`${environment.api.forumUrl}/arma3-slotting/${tid}/match/${matchid}/share/${uuid}/topic`).toPromise();
+      return await this.http.get(`${environment.api.forumUrl}/api/arma3-slotting/${tid}/match/${matchid}/share/${uuid}/topic`).toPromise();
     } catch (e) {
       console.log(e);
       return null;
@@ -86,7 +86,7 @@ export class SharedService {
 
   public async getShare(tid: number, matchid: string, uuid: string): Promise<any> {
     try {
-      this.shareData = await this.http.get(`${environment.api.forumUrl}/arma3-slotting/${tid}/match/${matchid}/share/${uuid}`).toPromise();
+      this.shareData = await this.http.get(`${environment.api.forumUrl}/api/arma3-slotting/${tid}/match/${matchid}/share/${uuid}`).toPromise();
       this.shareData.tid = tid;
       this.shareData.matchid = matchid;
       return this.shareData;
@@ -105,7 +105,7 @@ export class SharedService {
 
     try {
       const response = await this.http.put(
-        `${environment.api.forumUrl}/arma3-slotting/${tid}/match/${matchid}/slot/${slotid}/user`, body,
+        `${environment.api.forumUrl}/api/arma3-slotting/${tid}/match/${matchid}/slot/${slotid}/user`, body,
         {observe: 'response', headers: this.getHeaders(uuid, reservation)}).toPromise();
       return response.status === 204;
     } catch (e) {
@@ -124,7 +124,7 @@ export class SharedService {
     try {
       const response = await this.http.request(
         'delete',
-        `${environment.api.forumUrl}/arma3-slotting/${tid}/match/${matchid}/slot/${slotid}/user`,
+        `${environment.api.forumUrl}/api/arma3-slotting/${tid}/match/${matchid}/slot/${slotid}/user`,
         {body, observe: 'response', headers: this.getHeaders(uuid, reservation)}).toPromise();
       return response.status === 204;
     } catch (e) {

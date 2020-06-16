@@ -65,7 +65,7 @@ export class SlottingService implements OnDestroy {
 
     try {
       const match = await this.http.get(
-        `${environment.api.forumUrl}/arma3-slotting/${tid}/match/${matchid}?withusers=1`, {withCredentials: true}).toPromise();
+        `${environment.api.forumUrl}/api/arma3-slotting/${tid}/match/${matchid}?withusers=1`, {withCredentials: true}).toPromise();
       this.parseMatch(match);
       this.refreshSlottedCount((match as any).uuid);
       console.log(match);
@@ -89,7 +89,7 @@ export class SlottingService implements OnDestroy {
 
     try {
       const matches = await this.http.get<any[]>(
-        `${environment.api.forumUrl}/arma3-slotting/${tid}`, {withCredentials: true}).toPromise();
+        `${environment.api.forumUrl}/api/arma3-slotting/${tid}`, {withCredentials: true}).toPromise();
       this.matches = [];
       for (let i = 0; i < matches.length; i++) {
         let match = matches[i];
@@ -213,7 +213,7 @@ export class SlottingService implements OnDestroy {
 
     console.log(uid);
     try {
-      await this.http.put(environment.api.forumUrl + '/arma3-slotting/' + this.tid + '/match/' + matchid + '/slot/' + slotid + '/user', {uid}, {withCredentials: true}).toPromise();
+      await this.http.put(environment.api.forumUrl + '/api/arma3-slotting/' + this.tid + '/match/' + matchid + '/slot/' + slotid + '/user', {uid}, {withCredentials: true}).toPromise();
       this.slottingInProgress = false;
       return true;
     } catch (e) {
@@ -229,7 +229,7 @@ export class SlottingService implements OnDestroy {
     }
     this.unslottingInProgress = true;
     try {
-      await this.http.delete(environment.api.forumUrl + '/arma3-slotting/' + this.tid + '/match/' + matchid + '/slot/' + slotid + '/user', {withCredentials: true}).toPromise();
+      await this.http.delete(environment.api.forumUrl + '/api/arma3-slotting/' + this.tid + '/match/' + matchid + '/slot/' + slotid + '/user', {withCredentials: true}).toPromise();
       this.unslottingInProgress = false;
       return true;
     } catch (e) {
@@ -241,7 +241,7 @@ export class SlottingService implements OnDestroy {
 
   public async getOwnUserId(): Promise<string> {
     try {
-      const result = await this.http.get(environment.api.forumUrl + '/me', {withCredentials: true}).toPromise();
+      const result = await this.http.get(environment.api.forumUrl + '/api/me', {withCredentials: true}).toPromise();
       if (result['uid']) {
         return result['uid'];
       }
@@ -276,7 +276,7 @@ export class SlottingService implements OnDestroy {
     }
 
     try {
-      await this.http.put(environment.api.forumUrl + '/arma3-slotting/' + this.tid + '/match/' + matchid, content, {
+      await this.http.put(environment.api.forumUrl + '/api/arma3-slotting/' + this.tid + '/match/' + matchid, content, {
         headers: {
           Accept: 'application/json; charset=utf-8',
           'Content-Type': 'application/xml',
@@ -292,7 +292,7 @@ export class SlottingService implements OnDestroy {
 
   public async getPermissions(tid = this.tid): Promise<any> {
     try {
-      return await this.http.get(environment.api.forumUrl + '/arma3-slotting/' + tid + '/has-permissions', {withCredentials: true}).toPromise();
+      return await this.http.get(environment.api.forumUrl + '/api/arma3-slotting/' + tid + '/has-permissions', {withCredentials: true}).toPromise();
     } catch (e) {
       return null;
     }
@@ -325,7 +325,7 @@ export class SlottingService implements OnDestroy {
 
   public async deleteMatch(matchid: string): Promise<boolean> {
     try {
-      await this.http.delete(environment.api.forumUrl + '/arma3-slotting/' + this.tid + '/match/' + matchid, {withCredentials: true}).toPromise();
+      await this.http.delete(environment.api.forumUrl + '/api/arma3-slotting/' + this.tid + '/match/' + matchid, {withCredentials: true}).toPromise();
       return true;
     } catch (e) {
       console.log(e);
@@ -335,7 +335,7 @@ export class SlottingService implements OnDestroy {
 
   public async createMatch(): Promise<string> {
     try {
-      const response = await this.http.post(environment.api.forumUrl + '/arma3-slotting/' + this.tid + '/match', '<match></match>', {withCredentials: true}).toPromise();
+      const response = await this.http.post(environment.api.forumUrl + '/api/arma3-slotting/' + this.tid + '/match', '<match></match>', {withCredentials: true}).toPromise();
       if (response['uuid']) {
         this.matches.splice(0, 0, response);
         return response['uuid'];
