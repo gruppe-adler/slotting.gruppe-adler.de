@@ -83,7 +83,7 @@ export class SlotComponent implements OnInit {
    */
   private parseProfilePicture(): void {
     if (this.slot.user && this.slot.user.picture && !this.slot.user.picture.startsWith('http')) {
-      this.slot.user.picture = environment.api.forumBaseUrl + this.slot.user.picture;
+      this.slot.user.picture = environment.api.forumUrl + this.slot.user.picture;
     }
   }
 
