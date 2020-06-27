@@ -55,6 +55,7 @@ export class EditService {
       { shortcode: 'AAA', description: 'Asst. Anti-Air Specialist' },
       { shortcode: 'AAT', description: 'Asst. Anti-Tank Specialist' },
       { shortcode: 'AAR', description: 'Asst. Autorifleman' },
+      { shortcode: 'CLA', description: 'Asst. Company Leader' },
       { shortcode: 'CMA', description: 'Asst. Commander' },
       { shortcode: 'AMG', description: 'Asst. Machine Gunner' },
       { shortcode: 'PTA', description: 'Asst. Platoon Leader' },
