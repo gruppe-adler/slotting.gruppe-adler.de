@@ -1,7 +1,0 @@
-{
-  "serverHost": "localhost",
-  "serverPort": "22",
-  "username": "foo",
-  "privateKey": "path/to/file",
-  "targetDir": "/var/www/bar"
-}

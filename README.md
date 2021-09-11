@@ -1,25 +1,24 @@
-# Gruppe Adler Slotting Interface
-[![Build Status](https://travis-ci.org/gruppe-adler/slotting.gruppe-adler.de.svg?branch=master)](https://travis-ci.org/gruppe-adler/slotting.gruppe-adler.de)
-[![](https://img.shields.io/david/gruppe-adler/slotting.gruppe-adler.de.svg)](https://david-dm.org/gruppe-adler/slotting.gruppe-adler.de)
-[![](https://img.shields.io/david/dev/gruppe-adler/slotting.gruppe-adler.de.svg)](https://david-dm.org/gruppe-adler/slotting.gruppe-adler.de?type=dev)  
-Gruppe Adler Angular Slotting interface
+# slotting.gruppe-adler.de
 
-# Internationalization (i18n)
-The open source freeware [i18n-editor](https://github.com/jcbvm/i18n-editor) should be used for internationalization.
-Beside that, the files can be edited manually.
+## Project setup
+```
+npm install
+```
 
-# Prerequisites
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
 
-nodejs
+### Compiles and minifies for production
+```
+npm run build
+```
 
-# Development
+### Lints and fixes files
+```
+npm run lint
+```
 
-* clone 
-* `npm install && npm start`
-* point your browser for example at http://localhost:4200/slotting?tid=2127
-* hack away! when saving files, the project will re-compile and refresh the browser window
-
-# Deployment
-
-* run `npm run build`
-* copy contents of /dist to wherever you want to serve the files from
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
