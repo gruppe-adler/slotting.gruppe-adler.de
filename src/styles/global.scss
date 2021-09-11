@@ -1,0 +1,39 @@
+// TODO: Do not load from google fonts
+@import url('https://fonts.googleapis.com/css?family=Oswald|Source+Sans+Pro|Source+Code+Pro|Material+Icons&display=swap');
+
+:root {
+    --c-text-1: #212121;
+    --c-text-2: #595959;
+    --c-text-3: #7D7D7D;
+
+    --c-surf-1: #F0EEEC;
+    --c-surf-2: #FEFEFE;
+    --c-surf-3: #F5F2F0;
+}
+
+@media(prefers-color-scheme: dark) {
+    :root {
+        --c-text-1: #DEDEDE;
+        --c-text-2: #A6A6A6;
+        --c-text-3: #818181;
+    
+        --c-surf-1: #222222;
+        --c-surf-2: #353535;
+        --c-surf-3: #282828;
+    }
+}
+
+html, body {
+    margin: 0;
+    font-family: Soruce Sans Pro, sans-serif;
+    background-color: var(--c-surf-1);
+    color: var(--c-text-1);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: Oswald, sans-serif;
+}
+
+textarea, input, pre, code {
+    font-family: Source Code Pro, monospace;
+}
