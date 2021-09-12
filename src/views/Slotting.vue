@@ -2,7 +2,7 @@
     <main>
         <label>
             <input type="checkbox" role="switch" />
-            <span>Gruppenfarbe anzeigen</span>
+            <span>{{ $t('showGroupColor') }}</span>
         </label>
         <template v-if="matches.length > 0">
            <Match v-for="m in matches" :match="m" :key="m.id" />
@@ -10,14 +10,12 @@
         <section v-else></section>
         <ForumButton
             icon="sitemap"
-            title="Match erstellen"
-            text="Match erstellen"
+            :text="$t('createMatch')"
             @click="createMatch"
         />
         <ForumButton
             icon="external-link-alt"
-            title="In neuem Tab öffnen"
-            text="In neuem Tab öffnen"
+            :text="$t('openInNewTab')"
             style="float: right"
             @click="openInNewTab"
         />

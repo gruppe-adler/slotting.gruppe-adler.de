@@ -1,0 +1,9 @@
+{
+  "404": {
+      "heading": "Du bist auf dem falschen Pfad unterwegs",
+      "text": "Wir wollen dich nicht beim Suchen stören, aber hier ist nichts."
+  },
+  "showGroupColor": "Gruppenfarbe anzeigen",
+  "openInNewTab": "In neuem Tab öffnen",
+  "createMatch": "Match erstellen"
+}

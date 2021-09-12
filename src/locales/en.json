@@ -1,0 +1,9 @@
+{
+    "404": {
+        "heading": "You are on the wrong path",
+        "text": "We don't want to bother you looking, but there's nothing here."
+    },
+    "showGroupColor": "Show group colors",
+    "openInNewTab": "Open in new tab",
+    "createMatch": "Create match"
+}

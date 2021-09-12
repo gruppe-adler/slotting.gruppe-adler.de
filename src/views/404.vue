@@ -1,8 +1,8 @@
 <template>
     <main>
         <img src="https://gruppe-adler.de/logo.png">
-        <h1>Du bist auf dem falschen Pfad unterwegs</h1>
-        <p>Wir wollen dich nicht beim Suchen stören, aber hier ist nichts.</p>
+        <h1>{{ $t('404.heading') }}</h1>
+        <p>{{ $t('404.text') }}</p>
     </main>
 </template>
 
