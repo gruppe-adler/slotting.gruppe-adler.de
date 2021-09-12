@@ -22,7 +22,7 @@
         </div>
         <div style="grid-area: slots;">
             <!-- TODO: Add Slots -->
-            {{ match }}
+            {{ model }}
         </div>
     </section>
 </template>
@@ -34,7 +34,7 @@ import { Prop } from 'vue-property-decorator';
 
 @Options({})
 export default class MatchVue extends Vue {
-    @Prop({ required: true, type: Object }) private match!: Match[];
+    @Prop({ required: true, type: Object }) private model!: Match[];
     private moreShown = false;
     private windowClick!: (event: MouseEvent) => void;
 

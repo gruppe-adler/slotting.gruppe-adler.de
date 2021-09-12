@@ -12,7 +12,7 @@
             <input type="checkbox" role="switch" v-model="showGroupColor" />
             <span>{{ $t('showGroupColor') }}</span>
         </label>
-        <Match v-for="m in matches" :match="m" :key="m.uuid" />
+        <Match v-for="m in matches" :model="m" :key="m.uuid" />
         <ForumButton
             icon="sitemap"
             :text="$t('createMatch')"
