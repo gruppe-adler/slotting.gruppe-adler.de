@@ -28,16 +28,18 @@
 import { Options, Vue } from 'vue-class-component';
 import ForumButton from '@/components/ForumButton.vue';
 import { Match } from '@/models';
+import MatchVue from '@/components/Slotting/Match.vue';
 
 @Options({
     components: {
-        ForumButton: ForumButton
+        ForumButton: ForumButton,
+        Match: MatchVue
     }
 })
-export default class SlottingVie extends Vue {
+export default class SlottingView extends Vue {
     private matches: Match[] = [];
 
-    public created () {
+    public created (): void {
         // TODO: Load matches
     }
 

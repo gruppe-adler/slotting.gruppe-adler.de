@@ -7,7 +7,7 @@
 import { Options, Vue } from 'vue-class-component';
 
 @Options({})
-export default class SlottingVie extends Vue {}
+export default class MatchVue extends Vue {}
 </script>
 
 <style lang="scss" scoped>
