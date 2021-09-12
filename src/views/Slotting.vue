@@ -1,19 +1,25 @@
 <template>
-    <main>
+    <main v-if="error">
+        <!-- TODO: Error has to be pretty -->
+        {{ error }}
+    </main>
+    <main v-else-if="matches.length === 0">
+        <!-- TODO: Add loader -->
+        Loading...
+    </main>
+    <main v-else>
         <label>
-            <input type="checkbox" role="switch" />
+            <input type="checkbox" role="switch" v-model="showGroupColor" />
             <span>{{ $t('showGroupColor') }}</span>
         </label>
-        <template v-if="matches.length > 0">
-           <Match v-for="m in matches" :match="m" :key="m.id" />
-        </template>
-        <section v-else></section>
+        <Match v-for="m in matches" :match="m" :key="m.uuid" />
         <ForumButton
             icon="sitemap"
             :text="$t('createMatch')"
             @click="createMatch"
         />
         <ForumButton
+            v-if="isInIFrame"
             icon="external-link-alt"
             :text="$t('openInNewTab')"
             style="float: right"
@@ -28,6 +34,8 @@ import ForumButton from '@/components/ForumButton.vue';
 import { Match } from '@/models';
 import MatchVue from '@/components/Slotting/Match.vue';
 
+import { getMatches } from '@/services/slotting';
+
 @Options({
     components: {
         ForumButton: ForumButton,
@@ -36,17 +44,32 @@ import MatchVue from '@/components/Slotting/Match.vue';
 })
 export default class SlottingView extends Vue {
     private matches: Match[] = [];
+    private error: Error|null = null;
+    private showGroupColor = false;
 
     public created (): void {
-        // TODO: Load matches
+        const q = this.$route.query.tid ?? '';
+        const tid = (typeof q === 'object' ? q[0] : q) ?? '';
+
+        getMatches(tid).then(matches => {
+            this.matches = matches;
+            if (matches.length === 0) this.$router.push('/');
+        }).catch(err => {
+            this.error = err;
+            console.error(err);
+        });
     }
 
     private openInNewTab () {
-        // TODO
+        window.open(window.location.href, '_blank');
     }
 
     private createMatch () {
         // TODO
+    }
+
+    private get isInIFrame (): boolean {
+        return window !== window.parent;
     }
 }
 </script>

@@ -5,5 +5,9 @@
     },
     "showGroupColor": "Show group colors",
     "openInNewTab": "Open in new tab",
-    "createMatch": "Create match"
+    "createMatch": "Create match",
+    "slotlistHeader": "Slotlist (Slotted {count} / {max})",
+    "edit": "Edit",
+    "share": "Share",
+    "delete": "Delete"
 }

@@ -5,5 +5,9 @@
   },
   "showGroupColor": "Gruppenfarbe anzeigen",
   "openInNewTab": "In neuem Tab öffnen",
-  "createMatch": "Match erstellen"
+  "createMatch": "Match erstellen",
+  "slotlistHeader": "Slotliste (Geslottet {count} / {max})",
+  "edit": "Bearbeiten",
+  "share": "Teilen",
+  "delete": "Löschen"
 }
