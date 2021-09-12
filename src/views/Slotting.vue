@@ -56,7 +56,6 @@ export default class SlottingView extends Vue {
             if (matches.length === 0) this.$router.push('/');
         }).catch(err => {
             this.error = err;
-            console.error(err);
         });
     }
 
@@ -77,13 +76,14 @@ export default class SlottingView extends Vue {
 <style lang="scss" scoped>
 label {
     cursor: pointer;
+    font-size: 0.9rem;
     padding: .5em .25em;
     display: inline-flex;
     align-items: center;
     user-select: none;
 
     &:focus, &:hover {
-        background-color: var(--c-surf-4);
+        background-color: var(--c-surf-3);
     }
 }
 </style>

@@ -29,6 +29,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// TODO: Fix colors
 button {
     color: #333;
     background-color: #fff;

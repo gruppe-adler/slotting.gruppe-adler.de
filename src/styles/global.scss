@@ -6,10 +6,12 @@
     --c-text-2: #595959;
     --c-text-3: #7D7D7D;
 
-    --c-surf-1: #F0EEEC;
-    --c-surf-2: #FEFEFE;
-    --c-surf-3: #F5F2F0;
-    --c-surf-4: #E9E5E2;
+    --c-surf-1: #FFFFFF; // BACKGROUND
+    --c-surf-2: #d9d9d9; // "ACCENT"
+    --c-surf-3: rgba(0, 0, 0, 0.1); // HOVER
+
+    --shadow-1:  0 0 .125rem 0 rgb(0 0 0 / 20%);
+    --shadow-2:  0 0 .125rem 0 rgb(0 0 0 / 40%);
 }
 
 // TODO: Uncomment and check colors
@@ -21,8 +23,6 @@
     
 //         --c-surf-1: #222222;
 //         --c-surf-2: #353535;
-//         --c-surf-3: #282828;
-//         --c-surf-4: #121111;
 //     }
 // }
 
@@ -42,18 +42,18 @@ textarea, input, pre, code {
 }
 
 // SWITCH --------------------------------------------------------------
-$thumbSize: 1.25em;
-$trackPadding: 0.25em;
+$thumbSize: 1em;
+$trackPadding: 0.125em;
 
 input[type="checkbox"][role="switch"] {
     appearance: none;
     pointer-events: none;
-    width: $thumbSize * 2;
-    height: $thumbSize;
+    inline-size: $thumbSize * 2;
+    block-size: $thumbSize;
     background-color: var(--c-text-3);
     border-radius: calc(#{$trackPadding} * 2 + #{$thumbSize});
-    transition: .2s ease-in-out;
-    padding: $trackPadding;
+    transition: .15s ease-in-out;
+    border: $trackPadding solid var(--c-text-3);
     box-sizing: content-box;
     display: grid;
     grid: [track] 1fr / [track] 1fr;
@@ -62,9 +62,9 @@ input[type="checkbox"][role="switch"] {
 
     &::after {
         content: '';
-        width: $thumbSize;
-        height: $thumbSize;
-        background-color: var(--c-surf-2);
+        inline-size: $thumbSize;
+        block-size: $thumbSize;
+        background-color: var(--c-surf-1);
         border-radius: $thumbSize * 2;
         transition: inherit;
         grid-area: track;
@@ -72,6 +72,7 @@ input[type="checkbox"][role="switch"] {
 
     &:checked {
         background-color: #66AA66;
+        border-color: #66AA66;
 
         &::after {
             transform: translateX(100%);
@@ -86,7 +87,44 @@ input[type="checkbox"][role="switch"] {
 
     &:focus, &:hover {
         &::after {
-            box-shadow: 0 0 0 0.4*$thumbSize rgba(black, 0.5);
+            box-shadow: 0 0 0 0.4 * $thumbSize var(--c-surf-3);
         }
+    }
+}
+
+// TOOLTIP -------------------------------------------------------------
+.grad-tooltip {
+    position: relative;
+    display: flex;
+    justify-content: center;
+
+    &::before {
+        display: block;
+        content: var(--grad-tooltip, 'TOOLTIP');
+
+        color: white;
+        white-space: nowrap;
+        background-color: rgba(black, 0.6);
+        padding: .25em .5em;
+        border-radius: .25em;
+        position: absolute;
+        font-size: 0.9em;
+        inset-block-start: 0;
+        margin-left: auto;
+        margin-right: auto;
+        letter-spacing: 0.04em;
+        transform: translateY( calc(100% + .25em) ) scale(0);
+        transition: transform .15s ease;
+        transform-origin: top center;
+        z-index: 2;
+        font-family: 'Source Sans Pro', sans-serif;
+        
+        @media (prefers-reduced-motion) {
+            transition: none;
+        }
+    }
+
+    &:hover:before {
+        transform: translateY( calc(100% + .25em) ) scale(1);
     }
 }

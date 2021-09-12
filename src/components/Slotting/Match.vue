@@ -123,7 +123,7 @@ div:first-of-type {
         position: absolute;
         inset-block-start: 0;
         inset-inline-end: 0;
-        box-shadow: 0 10px 20px rgb(0 0 0 / 19%), 0 6px 6px rgb(0 0 0 / 23%);
+        box-shadow: var(--shadow-2);
 
         > li {
             padding: .5rem 1rem;
@@ -132,7 +132,7 @@ div:first-of-type {
             cursor: pointer;
 
             &:hover {
-                background-color: var(--c-surf-4);
+                background-color: var(--c-surf-3);
             }
         }
     }
