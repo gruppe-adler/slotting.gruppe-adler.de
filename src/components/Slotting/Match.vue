@@ -20,10 +20,7 @@
                 </li>
             </ul>
         </div>
-        <div style="grid-area: slots;">
-            <!-- TODO: Add Slots -->
-            {{ model }}
-        </div>
+        <Node :model="model" style="grid-area: slots; display: block;" />
     </section>
 </template>
 
@@ -31,8 +28,13 @@
 import { Match } from '@/models';
 import { Options, Vue } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
+import NodeVue from './Node.vue';
 
-@Options({})
+@Options({
+    components: {
+        Node: NodeVue
+    }
+})
 export default class MatchVue extends Vue {
     @Prop({ required: true, type: Object }) private model!: Match[];
     private moreShown = false;
@@ -110,6 +112,7 @@ div:first-of-type {
     justify-self: flex-end;
 
     > ul {
+        z-index: 2;
         transform-origin: top right;
         list-style-type: none;
         padding: .5rem 0;

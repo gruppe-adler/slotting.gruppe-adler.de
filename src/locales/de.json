@@ -9,5 +9,6 @@
   "slotlistHeader": "Slotliste (Geslottet {count} / {max})",
   "edit": "Bearbeiten",
   "share": "Teilen",
-  "delete": "Löschen"
+  "delete": "Löschen",
+  "slotInto": "Auf {slot} slotten"
 }
