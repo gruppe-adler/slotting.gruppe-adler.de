@@ -1,12 +1,8 @@
 <template>
     <li class="group" :style="sideColorCSS">
-        <div
-            class="group__symbol grad-tooltip"
-            role="image"
-            v-if="model.natosymbol || model.vehicletype"
-            :data-group-type="model.natosymbol"
-            :style="`--grad-tooltip: '${model.vehicletype}'`"
-        ></div>
+        <Tooltip :text="model.vehicletype" v-if="model.natosymbol || model.vehicletype" style="grid-column: 1">
+            <img :src="`/natosymbols/${model.natosymbol}.svg`" class="group__symbol">
+        </Tooltip>
         <span class="group__callsign" v-if="model.callsign">{{ model.callsign }}</span>
         <ul v-if="model.slot && model.slot.length > 0" data-group-type="slot">
             <Slot
@@ -15,6 +11,7 @@
                 :model="s"
                 :parentReservedFor="reservedFor"
                 :parentMinSlottedPlayerCount="minSlottedPlayerCount"
+                :matchID="matchID"
             />
         </ul>
         <template v-for="(field, i) in fields">
@@ -30,6 +27,7 @@
                     :parentReservedFor="reservedFor"
                     :parentMinSlottedPlayerCount="minSlottedPlayerCount"
                     :data-group-type="field"
+                    :matchID="matchID"
                 />
             </ul>
         </template>
@@ -51,6 +49,7 @@ export default class NodeVue extends Vue {
     @Prop({ required: true, type: Object }) private model!: Partial<Company & { company: Company[]; }>;
     @Prop({ type: String }) private parentReservedFor?: string;
     @Prop({ type: Number }) private parentMinSlottedPlayerCount?: number;
+    @Prop({ required: true, type: String }) private matchID!: string;
 
     private fields = ['company', 'platoon', 'squad', 'fireteam'];
 
@@ -116,6 +115,7 @@ ul {
 
     &[data-group-type="fireteam"] {
         background-color: var(--c-surf-2);
+        margin: 0 -0.75rem -0.75rem -0.75rem;
         border-end-end-radius: .15rem;
         border-end-start-radius: .15rem;
         justify-content: center;
@@ -168,23 +168,24 @@ ul {
 li[data-group-type="company"],
 li[data-group-type="platoon"],
 li[data-group-type="squad"] {
-    position: relative;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1.75rem 1fr 1.75rem;
     flex-direction: column;
     align-items: center;
     border: var(--c-surf-2) 1px solid;
-    padding-block-start: .75rem;
     border-radius: .25rem;
     box-shadow: var(--shadow-1);
+    padding: .75rem;
+
+    > *:not(.group__callsign) {
+        grid-column: 1 / 4;
+    }
 }
 
 li[data-group-type="company"],
 li[data-group-type="platoon"] {
     border-top: .2rem solid var(--side-color, #d18d1f);
     row-gap: .5rem;
-    padding-block-end: .75rem;
-    padding-inline-end: .75rem;
-    padding-inline-start: .75rem;
 
     .group__callsign {
         color: var(--side-color, #d18d1f);
@@ -200,13 +201,6 @@ li[data-group-type="squad"] {
 .group__symbol {
     block-size: 1.75rem;
     inline-size: 1.75rem;
-    position: absolute;
-    inset-block-start: 0.5rem;
-    inset-inline-start: 0.75rem;
-    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='xMidYMid' width='60' height='40' viewBox='0 0 60 40'%3E%3Cdefs%3E%3Cstyle%3E.cls-1{fill:%23000;fill-rule:evenodd}%3C/style%3E%3C/defs%3E%3Cpath d='M58.738 40l-.044.067-.102-.067H1.408l-.102.067L1.262 40H0V0h1.262l.044-.067.102.067h57.184l.102-.067.044.067H60v40h-1.262zM58 2.783L31.82 20 58 37.217V2.783zM55.551 38L30 21.197 4.449 38h51.102zM2 37.217L28.18 20 2 2.783v34.434zM4.449 2L30 18.803 55.551 2H4.449z' class='cls-1'/%3E%3C/svg%3E");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
 }
 
 .group__callsign {
@@ -215,6 +209,7 @@ li[data-group-type="squad"] {
     font-size: 0.9rem;
     line-height: 2rem;
     color: var(--c-text-1);
+    justify-self: center;
 }
 
 </style>

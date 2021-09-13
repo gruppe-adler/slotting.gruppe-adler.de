@@ -6,7 +6,11 @@ import store from './store';
 import fontAwesome from './plugins/fontAwesome';
 import i18n from './plugins/i18n';
 
+import TooltipVue from '@/components/Tooltip.vue';
+
 const app = createApp(App);
+
+app.component('Tooltip', TooltipVue);
 
 app.use(store);
 app.use(router);

@@ -53,6 +53,7 @@ export default class SlottingView extends Vue {
 
         getMatches(tid).then(matches => {
             this.matches = matches;
+            this.$store.dispatch('setMatches', matches);
             if (matches.length === 0) this.$router.push('/');
         }).catch(err => {
             this.error = err;

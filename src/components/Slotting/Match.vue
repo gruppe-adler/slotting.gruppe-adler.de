@@ -20,7 +20,7 @@
                 </li>
             </ul>
         </div>
-        <Node :model="model" style="grid-area: slots; display: flex; flex-direction: column; gap: 1rem;" />
+        <Node :model="model" style="grid-area: slots; display: flex; flex-direction: column; gap: 1rem;" :matchID="model.uuid" />
     </section>
 </template>
 
@@ -36,7 +36,7 @@ import NodeVue from './Node.vue';
     }
 })
 export default class MatchVue extends Vue {
-    @Prop({ required: true, type: Object }) private model!: Match[];
+    @Prop({ required: true, type: Object }) private model!: Match;
     private moreShown = false;
     private windowClick!: (event: MouseEvent) => void;
 
@@ -63,8 +63,9 @@ export default class MatchVue extends Vue {
         window.removeEventListener('click', this.windowClick, { capture: true });
     }
 
-    private statistics = { count: 13, max: 37 };
-    // TODO: Fill statistics
+    private get statistics () {
+        return this.$store.state.slotStatistics[this.model.uuid] ?? { count: 0, max: 0 };
+    }
 
     /**
      * Callback for edit button in more menu

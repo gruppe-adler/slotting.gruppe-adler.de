@@ -10,5 +10,8 @@
     "edit": "Edit",
     "share": "Share",
     "delete": "Delete",
-    "slotInto": "Slot into {slot}"
+    "slotInto": "Slot into {slot}",
+    "avatarOf": "Avatar von {username}",
+    "blockedMinSlottedPlayers": "{count}+ Players",
+    "blockedReservedFor": "Reserved for {name}"
 }
