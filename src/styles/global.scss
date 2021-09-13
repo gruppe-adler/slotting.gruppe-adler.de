@@ -65,7 +65,7 @@ input[type="checkbox"][role="switch"] {
         inline-size: $thumbSize;
         block-size: $thumbSize;
         background-color: var(--c-surf-1);
-        border-radius: $thumbSize * 2;
+        border-radius: 50%;
         transition: inherit;
         grid-area: track;
     }

@@ -1,10 +1,11 @@
 <template>
     <li
         role="button"
+        class="slot"
         :aria-label="$t('slotInto', { slot: model.description.length > 0 ? model.description : model.shortcode })"
     >
         <div></div>
-        <span class="grad-tooltip" :style="`--grad-tooltip: '${model.description}'`">{{ model.shortcode }}</span>
+        <span class="grad-tooltip" :style="`--grad-tooltip: '${model.description}'`" aria-hidden="true">{{ model.shortcode }}</span>
     </li>
 </template>
 
@@ -33,9 +34,13 @@ export default class SlotVue extends Vue {
 </script>
 
 <style lang="scss" scoped>
-$size: 2.25rem;
+.slot {
+    --slot-size: 2.25rem;
 
-li {
+    &:first-child {
+        --slot-size: 2.5rem;
+    }
+
     display: flex;
     flex-direction: column;
     gap: .25rem;
@@ -45,10 +50,10 @@ li {
     color: var(--c-text-2);
 
     > div {
-        block-size: $size;
-        inline-size: $size;
+        block-size: var(--slot-size);
+        inline-size: var(--slot-size);
         background-color: var(--c-surf-2);
-        border-radius: 1.5rem;
+        border-radius: 50%;
         box-shadow: inset var(--shadow-1);
         transition: box-shadow .2s ease-out;
         position: relative;
@@ -76,7 +81,7 @@ li {
         padding: .1em .2em;
         border-radius: .25rem;
         transition: background-color .2s ease-out;
-        inline-size: $size;
+        inline-size: var(--slot-size);
         box-sizing: border-box;
         text-align: center;
         font-size: .9rem;
@@ -88,7 +93,17 @@ li {
 }
 </style>
 <style lang="scss">
-li[data-group-type="fireteam"] li > div {
+$size: 2.25rem;
+
+li[data-group-type="fireteam"] .slot {
+    // make sure first slot in fireteams isn't bigger
+    &:first-child {
+        --slot-size: 2.25rem;
+    }
+
+    // make sure slot in fireteams have correct background
+    > div {
         background-color: var(--c-surf-1);
+    }
 }
 </style>

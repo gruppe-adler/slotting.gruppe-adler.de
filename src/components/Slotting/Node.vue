@@ -100,8 +100,9 @@ ul {
         padding-block-start: .5rem;
         padding-block-end: .5rem;
         justify-content: center;
+        align-items: flex-end;
 
-        // not allowed inside fireteams
+        // not allowed inside slots
         .group__callsign,
         .group__symbol,
         ul[data-group-type="company"],
