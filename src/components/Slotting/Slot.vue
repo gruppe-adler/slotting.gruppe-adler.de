@@ -13,15 +13,28 @@ import type { Slot } from '@/models';
 import { Options, Vue } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 
+// TODO: Property reservedFor
+// TODO: Property minSlottedPlayerCount
+
 @Options({})
 export default class SlotVue extends Vue {
     @Prop({ required: true, type: Object }) private model!: Slot;
     @Prop({ type: String }) private parentReservedFor?: string;
     @Prop({ type: Number }) private parentMinSlottedPlayerCount?: number;
+
+    private get reservedFor (): string|undefined {
+        return this.model['reserved-for'] ?? this.parentReservedFor;
+    }
+
+    private get minSlottedPlayerCount (): number|undefined {
+        return this.model['min-slotted-player-count'] ?? this.parentMinSlottedPlayerCount;
+    }
 }
 </script>
 
 <style lang="scss" scoped>
+$size: 2.25rem;
+
 li {
     display: flex;
     flex-direction: column;
@@ -30,18 +43,32 @@ li {
     cursor: pointer;
     inline-size: max-content;
     color: var(--c-text-2);
-    margin: .25rem;
 
     > div {
-        block-size: 2.5rem;
-        inline-size: 2.5rem;
+        block-size: $size;
+        inline-size: $size;
         background-color: var(--c-surf-2);
         border-radius: 1.5rem;
         box-shadow: inset var(--shadow-1);
         transition: box-shadow .2s ease-out;
+        position: relative;
+
+        &::before {
+            border-radius: inherit;
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-color: var(--c-surf-3);
+            opacity: 0;
+            transition: opacity .2s ease-out;
+        }
 
         &:hover {
-            box-shadow: var(--shadow-2);
+            box-shadow: inset var(--shadow-2);
+
+            &::before {
+                opacity: 1;
+            }
         }
     }
 
@@ -49,9 +76,10 @@ li {
         padding: .1em .2em;
         border-radius: .25rem;
         transition: background-color .2s ease-out;
-        inline-size: 2.5rem;
+        inline-size: $size;
         box-sizing: border-box;
         text-align: center;
+        font-size: .9rem;
 
         &:hover {
             background-color: var(--c-surf-3);

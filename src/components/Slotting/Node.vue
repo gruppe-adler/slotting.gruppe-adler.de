@@ -1,5 +1,5 @@
 <template>
-    <li class="group">
+    <li class="group" :style="sideColorCSS">
         <div
             class="group__symbol grad-tooltip"
             role="image"
@@ -42,8 +42,6 @@ import { Options, Vue } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import SlotVue from './Slot.vue';
 
-// TODO: proerty side
-
 @Options({
     components: {
         Slot: SlotVue
@@ -63,6 +61,28 @@ export default class NodeVue extends Vue {
     private get minSlottedPlayerCount (): number|undefined {
         return this.model['min-slotted-player-count'] ?? this.parentMinSlottedPlayerCount;
     }
+
+    private get sideColorCSS (): string|undefined {
+        let color: string|null = null;
+        switch (this.model.side) {
+        case 'blufor':
+            color = '#004c9a';
+            break;
+        case 'opfor':
+            color = '#800000';
+            break;
+        case 'independent':
+            color = '#6a6';
+            break;
+        case 'civilian':
+            color = '#8f1167';
+            break;
+        }
+
+        if (color === null) return undefined;
+
+        return `--side-color: ${color}`;
+    }
 }
 </script>
 
@@ -71,9 +91,15 @@ ul {
     padding: 0;
     margin: 0;
     list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
 
     &[data-group-type="slot"] {
-        display: flex;
+        gap: .375rem;
+        padding-inline: 1rem;
+        padding-block-start: .5rem;
+        padding-block-end: .5rem;
+        justify-content: center;
 
         // not allowed inside fireteams
         .group__callsign,
@@ -88,11 +114,10 @@ ul {
     }
 
     &[data-group-type="fireteam"] {
-        display: flex;
-        column-gap: 1.5rem;
         background-color: var(--c-surf-2);
-        border-end-end-radius: .4rem;
-        border-end-start-radius: .4rem;
+        border-end-end-radius: .15rem;
+        border-end-start-radius: .15rem;
+        justify-content: center;
 
         // not allowed inside fireteams
         .group__callsign,
@@ -106,9 +131,8 @@ ul {
     }
 
     &[data-group-type="squad"] {
-        display: flex;
-        flex-wrap: wrap;
         gap: .5rem;
+        justify-content: center;
 
         // not allowed inside squads
         ul[data-group-type="company"],
@@ -119,6 +143,9 @@ ul {
     }
 
     &[data-group-type="platoon"] {
+        flex-direction: column;
+        gap: 1rem;
+
         // not allowed inside platoons
         ul[data-group-type="company"],
         ul[data-group-type="platoon"] {
@@ -127,13 +154,16 @@ ul {
     }
 
     &[data-group-type="company"] {
+        flex-direction: column;
+        gap: 1rem;
+
         // not allowed inside companys
         ul[data-group-type="company"] {
             display: none;
         }
     }
-
 }
+
 li[data-group-type="company"],
 li[data-group-type="platoon"],
 li[data-group-type="squad"] {
@@ -142,17 +172,36 @@ li[data-group-type="squad"] {
     flex-direction: column;
     align-items: center;
     border: var(--c-surf-2) 1px solid;
-    padding-block-start: .5rem;
-    margin: .5rem;
-    border-radius: .5rem;
+    padding-block-start: .75rem;
+    border-radius: .25rem;
+    box-shadow: var(--shadow-1);
+}
+
+li[data-group-type="company"],
+li[data-group-type="platoon"] {
+    border-top: .2rem solid var(--side-color, #d18d1f);
+    row-gap: .5rem;
+    padding-block-end: .75rem;
+    padding-inline-end: .75rem;
+    padding-inline-start: .75rem;
+
+    .group__callsign {
+        color: var(--side-color, #d18d1f);
+    }
+}
+
+li[data-group-type="squad"] {
+    .group__callsign {
+        color: var(--c-text-1);
+    }
 }
 
 .group__symbol {
-    block-size: 2rem;
-    inline-size: 2rem;
+    block-size: 1.75rem;
+    inline-size: 1.75rem;
     position: absolute;
-    inset-block-start: .5rem;
-    inset-inline-start: .5rem;
+    inset-block-start: 0.5rem;
+    inset-inline-start: 0.75rem;
     background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='xMidYMid' width='60' height='40' viewBox='0 0 60 40'%3E%3Cdefs%3E%3Cstyle%3E.cls-1{fill:%23000;fill-rule:evenodd}%3C/style%3E%3C/defs%3E%3Cpath d='M58.738 40l-.044.067-.102-.067H1.408l-.102.067L1.262 40H0V0h1.262l.044-.067.102.067h57.184l.102-.067.044.067H60v40h-1.262zM58 2.783L31.82 20 58 37.217V2.783zM55.551 38L30 21.197 4.449 38h51.102zM2 37.217L28.18 20 2 2.783v34.434zM4.449 2L30 18.803 55.551 2H4.449z' class='cls-1'/%3E%3C/svg%3E");
     background-size: contain;
     background-repeat: no-repeat;

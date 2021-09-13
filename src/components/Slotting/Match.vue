@@ -20,7 +20,7 @@
                 </li>
             </ul>
         </div>
-        <Node :model="model" style="grid-area: slots; display: block;" />
+        <Node :model="model" style="grid-area: slots; display: flex; flex-direction: column; gap: 1rem;" />
     </section>
 </template>
 
@@ -92,7 +92,7 @@ export default class MatchVue extends Vue {
 <style lang="scss" scoped>
 section {
     display: grid;
-    margin: 0 .5rem .5rem .5rem;
+    margin: 0 .5rem 1.5rem .5rem;
     gap: .5rem;
     grid-template:
         "heading more" auto

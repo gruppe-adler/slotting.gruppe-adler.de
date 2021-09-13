@@ -11,7 +11,7 @@
     --c-surf-3: rgba(0, 0, 0, 0.1); // HOVER
 
     --shadow-1:  0 0 .125rem 0 rgb(0 0 0 / 20%);
-    --shadow-2:  0 0 .125rem 0 rgb(0 0 0 / 40%);
+    --shadow-2:  0 0 .25rem 0 rgb(0 0 0 / 40%);
 }
 
 // TODO: Uncomment and check colors
@@ -101,6 +101,7 @@ input[type="checkbox"][role="switch"] {
     &::before {
         display: block;
         content: var(--grad-tooltip, 'TOOLTIP');
+        pointer-events: none;
 
         color: white;
         white-space: nowrap;
@@ -113,9 +114,9 @@ input[type="checkbox"][role="switch"] {
         margin-left: auto;
         margin-right: auto;
         letter-spacing: 0.04em;
-        transform: translateY( calc(100% + .25em) ) scale(0);
+        transform: translateY( calc(-100% - .25em) ) scale(0);
         transition: transform .15s ease;
-        transform-origin: top center;
+        transform-origin: bottom center;
         z-index: 2;
         font-family: 'Source Sans Pro', sans-serif;
         
@@ -125,6 +126,6 @@ input[type="checkbox"][role="switch"] {
     }
 
     &:hover:before {
-        transform: translateY( calc(100% + .25em) ) scale(1);
+        transform: translateY( calc(-100% - .25em) ) scale(1);
     }
 }
