@@ -6,7 +6,7 @@
             <Avatar :user="model.user" class="slot__avatar" />
         </Tooltip>
         <Tooltip v-else-if="blockedText" :text="blockedText">
-            <div class="slot__avatar">
+            <div class="slot__avatar" style="font-size: 0.9em;">
                 <font-awesome-icon icon="lock"></font-awesome-icon>
             </div>
         </Tooltip>
