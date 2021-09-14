@@ -1,4 +1,5 @@
 import { Match } from '@/models';
+import { Settings } from '@/services/settings';
 
 export interface SlotStatistic {
     max: number,
@@ -8,9 +9,6 @@ export interface SlotStatistic {
 export default interface State {
     matches: Match[];
     statistics: { [id: string]: SlotStatistic };
-    settings: {
-        showGroupColor: boolean;
-        ownedDLCs: string[],
-    },
+    settings: Settings;
     currentGroup: string;
 }

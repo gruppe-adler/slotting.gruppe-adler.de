@@ -17,7 +17,7 @@
             :aria-label="$t('slotInto', { slot: model.description.length > 0 ? model.description : model.shortcode })"
         ></button>
         <Tooltip :text="model.description">
-            <span aria-hidden="true" class="slot__text">{{ model.shortcode }}</span>
+            <span aria-hidden="true" class="slot__text" :style="textStyle">{{ model.shortcode }}</span>
         </Tooltip>
     </li>
 </template>
@@ -67,6 +67,36 @@ export default class SlotVue extends Vue {
             }
         }
         return undefined;
+    }
+
+    // TODO: Hardcoding the values color values might aswell be the shittiest idea ever
+    private get groupColor (): string|undefined {
+        if (this.model.user === undefined) return;
+
+        if (this.model.user.groupTitleArray.length === 0) return;
+
+        const group = this.model.user.groupTitleArray[0];
+
+        switch (group) {
+        case 'Adler':
+            return '#D18D1f';
+        case 'Stammspieler':
+            return '#66AA66';
+        case 'Gastspieler':
+            return '#66AA66';
+        case 'Führung':
+            return '#8f1167';
+        case 'Anwärter':
+            return '#6CAACC';
+        }
+    }
+
+    private get textStyle (): string|undefined {
+        if (!this.$store.state.settings.showGroupColor) return;
+
+        if (this.groupColor === undefined) return;
+
+        return `--group-bg-color: ${this.groupColor}; --group-color: white;`;
     }
 }
 </script>
@@ -129,11 +159,13 @@ export default class SlotVue extends Vue {
         user-select: none;
         padding: .1em 0;
         border-radius: .25rem;
-        transition: background-color .2s ease-out;
+        transition: all .2s ease-out;
         inline-size: var(--slot-size);
         box-sizing: content-box;
         text-align: center;
         font-size: .9rem;
+        background-color: var(--group-bg-color, transparent);
+        color: var(--group-color, var(--c-text-2));
 
         &:hover {
             background-color: var(--c-surf-3);

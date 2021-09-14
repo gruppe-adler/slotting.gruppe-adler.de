@@ -1,21 +1,20 @@
 import { Match } from '@/models';
+import { loadSettings, Settings, saveSettings, addEventListener } from '@/services/settings';
 import { createStore } from 'vuex';
 import State, { SlotStatistic } from './State';
 
-export default createStore<State>({
+const STORE = createStore<State>({
     state: {
         matches: [],
         statistics: {},
-        settings: {
-            showGroupColor: false,
-            ownedDLCs: []
-        },
+        settings: loadSettings(),
         currentGroup: ''
     },
     mutations: {
         setMatches (state, matches: Match[]) { state.matches = matches; },
         setStatistics (state, { matchId, statistic }: { matchId: string, statistic: SlotStatistic }) { state.statistics[matchId] = statistic; },
-        setCurrentGroup (state, group: string) { state.currentGroup = group; }
+        setCurrentGroup (state, group: string) { state.currentGroup = group; },
+        setSettings (state, value: Partial<Settings>) { state.settings = { ...state.settings, ...value }; saveSettings(state.settings); }
     },
     actions: {
         async setMatches ({ commit }, matches: Match[]) {
@@ -26,9 +25,14 @@ export default createStore<State>({
             commit('setMatches', matches);
         }
     },
-    modules: {
-    }
+    modules: {}
 });
+
+addEventListener(({ detail: settings }) => {
+    STORE.commit('setSettings', settings);
+});
+
+export default STORE;
 
 const fields = ['fireteam', 'squad', 'platoon', 'company'] as const;
 

@@ -45,7 +45,6 @@ import { getMatches } from '@/services/slotting';
 export default class SlottingView extends Vue {
     private matches: Match[] = [];
     private error: Error|null = null;
-    private showGroupColor = false;
 
     public created (): void {
         const q = this.$route.query.tid ?? '';
@@ -71,6 +70,9 @@ export default class SlottingView extends Vue {
     private get isInIFrame (): boolean {
         return window !== window.parent;
     }
+
+    private get showGroupColor () { return this.$store.state.settings.showGroupColor; }
+    private set showGroupColor (value) { this.$store.commit('setSettings', { showGroupColor: value }); }
 }
 </script>
 
