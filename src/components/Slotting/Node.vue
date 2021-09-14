@@ -170,6 +170,7 @@ li[data-group-type="platoon"],
 li[data-group-type="squad"] {
     display: grid;
     grid-template-columns: 1.75rem 1fr 1.75rem;
+    column-gap:  .5rem;
     flex-direction: column;
     align-items: center;
     border: var(--c-surf-2) 1px solid;
