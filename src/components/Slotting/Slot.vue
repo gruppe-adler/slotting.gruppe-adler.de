@@ -1,8 +1,6 @@
 <template>
     <li
-        role="button"
         class="slot"
-        :aria-label="$t('slotInto', { slot: model.description.length > 0 ? model.description : model.shortcode })"
     >
         <Tooltip v-if="model.user" :text="model.user.username">
             <Avatar :user="model.user" class="slot__avatar" />
@@ -12,7 +10,12 @@
                 <font-awesome-icon icon="lock"></font-awesome-icon>
             </div>
         </Tooltip>
-        <div v-else class="slot__avatar"></div>
+        <button
+            v-else
+            class="slot__avatar"
+            style="cursor: pointer;"
+            :aria-label="$t('slotInto', { slot: model.description.length > 0 ? model.description : model.shortcode })"
+        ></button>
         <Tooltip :text="model.description">
             <span aria-hidden="true" class="slot__text">{{ model.shortcode }}</span>
         </Tooltip>
@@ -84,7 +87,6 @@ export default class SlotVue extends Vue {
     color: var(--c-text-2);
 
     &__avatar {
-        cursor: pointer;
         block-size: var(--slot-size);
         inline-size: var(--slot-size);
         background-color: var(--c-surf-2);
@@ -92,6 +94,7 @@ export default class SlotVue extends Vue {
         box-shadow: inset var(--shadow-1);
         transition: box-shadow .2s ease-out;
         position: relative;
+        border: none;
 
         @at-root {
             div#{&} {
