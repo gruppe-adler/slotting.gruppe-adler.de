@@ -6,8 +6,10 @@ export default createStore<State>({
     state: {
         matches: [],
         statistics: {},
-        showGroupColor: false,
-        ownedDLCs: [],
+        settings: {
+            showGroupColor: false,
+            ownedDLCs: []
+        },
         currentGroup: ''
     },
     mutations: {
