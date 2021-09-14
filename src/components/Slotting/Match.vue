@@ -64,7 +64,7 @@ export default class MatchVue extends Vue {
     }
 
     private get statistics () {
-        return this.$store.state.slotStatistics[this.model.uuid] ?? { count: 0, max: 0 };
+        return this.$store.state.statistics[this.model.uuid] ?? { count: 0, max: 0 };
     }
 
     /**

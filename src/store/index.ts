@@ -5,20 +5,20 @@ import State, { SlotStatistic } from './State';
 export default createStore<State>({
     state: {
         matches: [],
-        slotStatistics: {},
+        statistics: {},
         showGroupColor: false,
         ownedDLCs: [],
         currentGroup: ''
     },
     mutations: {
         setMatches (state, matches: Match[]) { state.matches = matches; },
-        setSlotStatistics (state, { matchId, statistic }: { matchId: string, statistic: SlotStatistic }) { state.slotStatistics[matchId] = statistic; },
+        setStatistics (state, { matchId, statistic }: { matchId: string, statistic: SlotStatistic }) { state.statistics[matchId] = statistic; },
         setCurrentGroup (state, group: string) { state.currentGroup = group; }
     },
     actions: {
         async setMatches ({ commit }, matches: Match[]) {
             for (const match of matches) {
-                commit('setSlotStatistics', { matchId: match.uuid, statistic: calcStatistics(match) });
+                commit('setStatistics', { matchId: match.uuid, statistic: calcStatistics(match) });
             }
 
             commit('setMatches', matches);

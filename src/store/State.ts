@@ -7,7 +7,7 @@ export interface SlotStatistic {
 
 export default interface State {
     matches: Match[];
-    slotStatistics: { [id: string]: SlotStatistic };
+    statistics: { [id: string]: SlotStatistic };
     showGroupColor: boolean;
     ownedDLCs: string[],
     currentGroup: string;
