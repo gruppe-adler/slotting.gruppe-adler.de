@@ -50,6 +50,7 @@ div {
 
     > span {
         color: white;
+        user-select: none;
     }
 }
 </style>
