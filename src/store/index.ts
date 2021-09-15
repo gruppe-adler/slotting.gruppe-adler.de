@@ -1,5 +1,6 @@
 import { Match } from '@/models';
 import { loadSettings, Settings, saveSettings, addEventListener } from '@/services/settings';
+import { getMatches } from '@/services/slotting';
 import { createStore } from 'vuex';
 import State, { SlotStatistic } from './State';
 
@@ -11,17 +12,18 @@ const STORE = createStore<State>({
         currentGroup: ''
     },
     mutations: {
-        setMatches (state, matches: Match[]) { state.matches = matches; },
-        setStatistics (state, { matchId, statistic }: { matchId: string, statistic: SlotStatistic }) { state.statistics[matchId] = statistic; },
+        setMatches (state, matches: Match[]) {
+            state.matches = matches;
+            for (const match of matches) {
+                state.statistics[match.uuid] = calcStatistics(match);
+            }
+        },
         setCurrentGroup (state, group: string) { state.currentGroup = group; },
         setSettings (state, value: Partial<Settings>) { state.settings = { ...state.settings, ...value }; saveSettings(state.settings); }
     },
     actions: {
-        async setMatches ({ commit }, matches: Match[]) {
-            for (const match of matches) {
-                commit('setStatistics', { matchId: match.uuid, statistic: calcStatistics(match) });
-            }
-
+        async loadMatches ({ commit }, tid: string) {
+            const matches = await getMatches(tid);
             commit('setMatches', matches);
         }
     },

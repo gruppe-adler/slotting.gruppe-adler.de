@@ -73,7 +73,7 @@ export default class SlotVue extends Vue {
     private get groupColor (): string|undefined {
         if (this.model.user === undefined) return;
 
-        if (this.model.user.groupTitleArray.length === 0) return;
+        if (this.model.user.groupTitleArray?.length === undefined || this.model.user.groupTitleArray.length === 0) return;
 
         const group = this.model.user.groupTitleArray[0];
 

@@ -7,7 +7,7 @@ export default interface User {
   'icon:text': string;
   'icon:bgColor': string;
   groupTitle: string;
-  groupTitleArray: string[];
+  groupTitleArray?: string[];
   administrator: boolean;
   groups: string[];
 }

@@ -31,10 +31,7 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import ForumButton from '@/components/ForumButton.vue';
-import { Match } from '@/models';
 import MatchVue from '@/components/Slotting/Match.vue';
-
-import { getMatches } from '@/services/slotting';
 
 @Options({
     components: {
@@ -43,20 +40,13 @@ import { getMatches } from '@/services/slotting';
     }
 })
 export default class SlottingView extends Vue {
-    private matches: Match[] = [];
     private error: Error|null = null;
 
     public created (): void {
         const q = this.$route.query.tid ?? '';
         const tid = (typeof q === 'object' ? q[0] : q) ?? '';
 
-        getMatches(tid).then(matches => {
-            this.matches = matches;
-            this.$store.dispatch('setMatches', matches);
-            if (matches.length === 0) this.$router.push('/');
-        }).catch(err => {
-            this.error = err;
-        });
+        this.$store.dispatch('loadMatches', tid).catch(err => { this.error = err; });
     }
 
     private openInNewTab () {
@@ -70,6 +60,9 @@ export default class SlottingView extends Vue {
     private get isInIFrame (): boolean {
         return window !== window.parent;
     }
+
+    private get matches () { return this.$store.state.matches; }
+    private set matches (value) { this.$store.commit('setMatches', value); }
 
     private get showGroupColor () { return this.$store.state.settings.showGroupColor; }
     private set showGroupColor (value) { this.$store.commit('setSettings', { showGroupColor: value }); }
