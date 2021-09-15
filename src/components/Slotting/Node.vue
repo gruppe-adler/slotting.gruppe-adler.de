@@ -96,17 +96,15 @@ export default class NodeVue extends Vue {
     &#{&}--slot {
         gap: .375rem;
         padding-inline: 1rem;
-        padding-block-start: .5rem;
-        padding-block-end: .5rem;
+        padding-block: .5rem;
         justify-content: center;
         align-items: flex-end;
     }
 
     &#{&}--fireteam {
         background-color: var(--c-surf-2);
-        margin-block-start: 0;
+        margin-block: 0 -0.75rem;
         margin-inline: -0.75rem;
-        margin-block-end: -0.75rem;
         border-end-end-radius: .15rem;
         border-end-start-radius: .15rem;
         justify-content: center;
@@ -115,14 +113,11 @@ export default class NodeVue extends Vue {
     &#{&}--squad {
         gap: .5rem;
         justify-content: center;
+        align-items: center;
     }
 
+    &#{&}--company,
     &#{&}--platoon {
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    &#{&}--company {
         flex-direction: column;
         gap: 1rem;
     }
