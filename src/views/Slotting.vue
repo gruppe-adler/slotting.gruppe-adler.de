@@ -3,9 +3,25 @@
         <!-- TODO: Error has to be pretty -->
         {{ error }}
     </main>
-    <main v-else-if="matches.length === 0">
-        <!-- TODO: Add loader -->
-        Loading...
+    <main
+        v-else-if="loading"
+        aria-busy="true"
+        style="padding: 2rem; display: flex; justify-content: center;"
+    >
+        <Loader />
+    </main>
+    <main
+        v-else-if="matches.length === 0"
+        style="padding: 2rem; display: flex; justify-content: center;"
+    >
+        <EmptyState
+            :icons="['sitemap', 'ban']"
+            :title="$t('noMatchFound.title')"
+            :description="$t('noMatchFound.description')"
+            :button="$t('createMatch')"
+            buttonIcon="plus"
+            @click="createMatch"
+        />
     </main>
     <main v-else>
         <label>
@@ -14,7 +30,7 @@
         </label>
         <Match v-for="m in matches" :model="m" :key="m.uuid" />
         <ForumButton
-            icon="sitemap"
+            icon="plus"
             :text="$t('createMatch')"
             @click="createMatch"
         />
@@ -31,22 +47,29 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import ForumButton from '@/components/ForumButton.vue';
+import LoaderVue from '@/components/Loader.vue';
+import EmptyStateVue from '@/components/EmptyState.vue';
 import MatchVue from '@/components/Slotting/Match.vue';
 
 @Options({
     components: {
         ForumButton: ForumButton,
-        Match: MatchVue
+        Match: MatchVue,
+        Loader: LoaderVue,
+        EmptyState: EmptyStateVue
     }
 })
 export default class SlottingView extends Vue {
     private error: Error|null = null;
+    private loading = true;
 
     public created (): void {
         const q = this.$route.query.tid ?? '';
         const tid = (typeof q === 'object' ? q[0] : q) ?? '';
 
-        this.$store.dispatch('loadMatches', tid).catch(err => { this.error = err; });
+        this.$store.dispatch('loadMatches', tid)
+            .catch(err => { this.error = err; })
+            .finally(() => { this.loading = false; });
     }
 
     private openInNewTab () {

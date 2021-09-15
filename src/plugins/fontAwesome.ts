@@ -1,5 +1,5 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faEllipsisV, faExternalLinkAlt, faPencilAlt, faShare, faSitemap, faTrashAlt, faLock } from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisV, faExternalLinkAlt, faPencilAlt, faShare, faSitemap, faTrashAlt, faLock, faBan, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import type { App } from '@vue/runtime-core';
 
@@ -10,6 +10,8 @@ library.add(faTrashAlt);
 library.add(faShare);
 library.add(faEllipsisV);
 library.add(faLock);
+library.add(faBan);
+library.add(faPlus);
 
 export default (app: App): void => {
     app.component('font-awesome-icon', FontAwesomeIcon);

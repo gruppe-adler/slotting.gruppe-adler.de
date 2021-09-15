@@ -5,7 +5,7 @@
   },
   "showGroupColor": "Gruppenfarbe anzeigen",
   "openInNewTab": "In neuem Tab öffnen",
-  "createMatch": "Match erstellen",
+  "createMatch": "Slotliste erstellen",
   "slotlistHeader": "Slotliste (Geslottet {count} / {max})",
   "edit": "Bearbeiten",
   "share": "Teilen",
@@ -13,5 +13,9 @@
   "slotInto": "Auf {slot} slotten",
   "avatarOf": "Avatar von {username}",
   "blockedMinSlottedPlayers": "{count}+ Spieler",
-  "blockedReservedFor": "Reserviert für {name}"
+  "blockedReservedFor": "Reserviert für {name}",
+  "noMatchFound": {
+    "title": "Keine Slotliste gefunden",
+    "description": "Möchtest du eine erstellen?"
+  }
 }

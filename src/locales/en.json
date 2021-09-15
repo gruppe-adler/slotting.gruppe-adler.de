@@ -5,7 +5,7 @@
     },
     "showGroupColor": "Show group colors",
     "openInNewTab": "Open in new tab",
-    "createMatch": "Create match",
+    "createMatch": "Create slotlist",
     "slotlistHeader": "Slotlist (Slotted {count} / {max})",
     "edit": "Edit",
     "share": "Share",
@@ -13,5 +13,9 @@
     "slotInto": "Slot into {slot}",
     "avatarOf": "Avatar von {username}",
     "blockedMinSlottedPlayers": "{count}+ Players",
-    "blockedReservedFor": "Reserved for {name}"
+    "blockedReservedFor": "Reserved for {name}",
+    "noMatchFound": {
+        "title": "No Slotlist found",
+        "description": "Would you like to create one?"
+    }
 }

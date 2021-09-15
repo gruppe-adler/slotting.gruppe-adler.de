@@ -1,5 +1,5 @@
 <template>
-    <button v-bind="$attrs">
+    <button v-bind="$attrs" :class="primary ? 'grad-forum-btn--primary' : ''">
         <font-awesome-icon
             v-if="icon.length > 0"
             :icon="icon"
@@ -20,6 +20,10 @@ export default {
             type: String,
             default: ''
         },
+        primary: {
+            type: Boolean,
+            default: false
+        },
         color: {
             type: String,
             default: '#D18D1F'
@@ -29,7 +33,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// TODO: Fix colors
+// TODO: Fix colors for dark theme
 button {
     color: #333;
     background-color: #fff;
@@ -51,6 +55,17 @@ button {
 
     span:not(:only-child) {
         margin-inline-start: .25em;
+    }
+
+    &.grad-forum-btn--primary {
+        background-color: #D18D1F;
+        border-color: darken(#D18D1F, 5%);
+        color: white;
+
+        &:hover {
+            background-color: darken(#D18D1F, 10%);
+            border-color: darken(#D18D1F, 15%);
+        }
     }
 }
 </style>
