@@ -19,10 +19,29 @@ function loadLocaleMessages (): LocaleMessages<VueMessageType> {
     return messages;
 }
 
-// TODO: Set locale according to browser language
+/**
+ * Get browser locale
+ * @returns Locale
+ */
+function getBrowserLocale (): string|undefined {
+    let browserLang: string|undefined = window.navigator.languages?.[0] ?? window.navigator.language;
 
-export default createI18n({
-    locale: 'de',
-    fallbackLocale: 'en',
-    messages: loadLocaleMessages()
-});
+    if (browserLang === undefined) return undefined;
+
+    if (browserLang.indexOf('-') !== -1) {
+        browserLang = browserLang.split('-')[0];
+    }
+
+    if (browserLang.indexOf('_') !== -1) {
+        browserLang = browserLang.split('_')[0];
+    }
+
+    return browserLang;
+}
+
+const messages = loadLocaleMessages();
+const browserLocale = getBrowserLocale();
+
+const locale = browserLocale && browserLocale in messages ? browserLocale : 'en';
+
+export default createI18n({ locale, fallbackLocale: 'en', messages });
