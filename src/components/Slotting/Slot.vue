@@ -28,9 +28,6 @@ import { Options, Vue } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import AvatarVue from '@/components/Avatar.vue';
 
-// TODO: Property reservedFor
-// TODO: Property minSlottedPlayerCount
-
 @Options({
     components: {
         Avatar: AvatarVue

@@ -9,6 +9,6 @@ import User from './User';
 // TODO: Maybe use enums?
 type NatoSymbol = string;
 type Side = string;
-type VehicleType = number;
+type VehicleType = string;
 
 export { Company, Platoon, Squad, FireTeam, Slot, Match, NatoSymbol, Side, VehicleType, User };
