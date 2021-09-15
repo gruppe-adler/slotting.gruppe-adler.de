@@ -176,7 +176,7 @@ export default class SlotVue extends Vue {
 <style lang="scss">
 $size: 2.25rem;
 
-li[data-group-type="fireteam"] .slot {
+.group.group--fireteam .slot {
     // make sure first slot in fireteams isn't bigger
     &:first-child {
         --slot-size: 2.25rem;
