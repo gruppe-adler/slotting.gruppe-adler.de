@@ -26,6 +26,7 @@
 
 <script lang="ts">
 import { Match } from '@/models';
+import { deleteMatch, getTopicId } from '@/services/slotting';
 import { Options, Vue } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import NodeVue from './Node.vue';
@@ -84,8 +85,8 @@ export default class MatchVue extends Vue {
     /**
      * Callback for delete button in more menu
      */
-    private deleteMatch () {
-        // TODO
+    private async deleteMatch () {
+        await deleteMatch(getTopicId(), this.model.uuid);
     }
 }
 </script>

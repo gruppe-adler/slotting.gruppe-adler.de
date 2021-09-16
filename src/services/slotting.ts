@@ -1,4 +1,5 @@
 import { Match } from '@/models';
+import router from '@/router';
 import { FORUM_URI } from '.';
 import { fetchJSON, ResponseError } from './utils';
 
@@ -32,3 +33,12 @@ function normalizeNode (node: Partial<Pick<Match, 'fireteam'|'squad'|'platoon'|'
     // @ts-ignore
     if (node.vehicletype === 0) delete node.vehicletype;
 }
+
+export const deleteMatch = async (tid: string, matchId: string): Promise<void> => {
+    await fetchJSON(`${FORUM_URI}/api/arma3-slotting/${tid}/match/${matchId}`, { method: 'DELETE' });
+};
+
+export const getTopicId = (): string => {
+    const q = router.currentRoute.value.query.tid ?? '';
+    return (typeof q === 'object' ? q[0] : q) ?? '';
+};
