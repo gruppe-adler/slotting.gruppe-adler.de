@@ -25,6 +25,10 @@ const STORE = createStore<State>({
         async loadMatches ({ commit }, tid: string) {
             const matches = await getMatches(tid);
             commit('setMatches', matches);
+        },
+        async loadMatch ({ commit }, tid: string) {
+            const matches = await getMatches(tid);
+            commit('setMatches', matches);
         }
     },
     modules: {}

@@ -17,5 +17,8 @@
   "noMatchFound": {
     "title": "Keine Slotliste gefunden",
     "description": "Möchtest du eine erstellen?"
-  }
+  },
+  "saveChanges": "Änderungen speichern",
+  "cancel": "Abbrechen",
+  "XMLEditor": "XML-Editor"
 }

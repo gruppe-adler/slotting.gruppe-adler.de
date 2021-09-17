@@ -17,5 +17,8 @@
     "noMatchFound": {
         "title": "No Slotlist found",
         "description": "Would you like to create one?"
-    }
+    },
+    "saveChanges": "Save Changes",
+    "cancel": "Abort",
+    "XMLEditor": "XML-Editor"
 }

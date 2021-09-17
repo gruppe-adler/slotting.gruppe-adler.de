@@ -50,7 +50,7 @@ import ForumButton from '@/components/ForumButton.vue';
 import LoaderVue from '@/components/Loader.vue';
 import EmptyStateVue from '@/components/EmptyState.vue';
 import MatchVue from '@/components/Slotting/Match.vue';
-import { getTopicId } from '@/services/slotting';
+import { getTopicID } from '@/services/slotting';
 
 @Options({
     components: {
@@ -65,7 +65,7 @@ export default class SlottingView extends Vue {
     private loading = true;
 
     public created (): void {
-        this.$store.dispatch('loadMatches', getTopicId())
+        this.$store.dispatch('loadMatches', getTopicID())
             .catch(err => { this.error = err; })
             .finally(() => { this.loading = false; });
     }

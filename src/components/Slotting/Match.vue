@@ -26,7 +26,7 @@
 
 <script lang="ts">
 import { Match } from '@/models';
-import { deleteMatch, getTopicId } from '@/services/slotting';
+import { deleteMatch, getTopicID } from '@/services/slotting';
 import { Options, Vue } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import NodeVue from './Node.vue';
@@ -72,6 +72,7 @@ export default class MatchVue extends Vue {
      * Callback for edit button in more menu
      */
     private editMatch () {
+        this.$router.push({ path: '/slotting/edit', query: { tid: getTopicID(), mid: this.model.uuid } });
         // TODO
     }
 
@@ -86,7 +87,7 @@ export default class MatchVue extends Vue {
      * Callback for delete button in more menu
      */
     private async deleteMatch () {
-        await deleteMatch(getTopicId(), this.model.uuid);
+        await deleteMatch(getTopicID(), this.model.uuid);
     }
 }
 </script>

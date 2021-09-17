@@ -35,10 +35,16 @@ function normalizeNode (node: Partial<Pick<Match, 'fireteam'|'squad'|'platoon'|'
 }
 
 export const deleteMatch = async (tid: string, matchId: string): Promise<void> => {
+    // TODO: error handling, confirmation
     await fetchJSON(`${FORUM_URI}/api/arma3-slotting/${tid}/match/${matchId}`, { method: 'DELETE' });
 };
 
-export const getTopicId = (): string => {
+export const getTopicID = (): string => {
     const q = router.currentRoute.value.query.tid ?? '';
+    return (typeof q === 'object' ? q[0] : q) ?? '';
+};
+
+export const getMatchID = (): string => {
+    const q = router.currentRoute.value.query.mid ?? '';
     return (typeof q === 'object' ? q[0] : q) ?? '';
 };
