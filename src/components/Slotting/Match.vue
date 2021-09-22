@@ -1,25 +1,28 @@
 <template>
     <section>
-        <span role="heading" aria-level="2">{{ $t('slotlistHeader', statistics) }}</span>
-        <div ref="more">
-            <button :aria-expanded="moreShown" @click="moreShown = !moreShown">
-                <font-awesome-icon icon="ellipsis-v"></font-awesome-icon>
-            </button>
-            <ul role="region" :style="moreShown ? '' : 'transform: scale(0);'" @click="moreShown = false;">
-                <li @click="editMatch" role="button">
-                    <font-awesome-icon size="sm" icon="pencil-alt"></font-awesome-icon>
-                    <span>{{ $t('edit') }}</span>
-                </li>
-                <li  @click="shareMatch" role="button">
-                    <font-awesome-icon size="sm" icon="share"></font-awesome-icon>
-                    <span>{{ $t('share') }}</span>
-                </li>
-                <li  @click="deleteMatch" role="button">
-                    <font-awesome-icon size="sm" icon="trash-alt"></font-awesome-icon>
-                    <span>{{ $t('delete') }}</span>
-                </li>
-            </ul>
-        </div>
+        <template v-if="!editMode">
+            <span role="heading" aria-level="2" >{{ $t('slotlistHeader', statistics) }}</span>
+            <div ref="more">
+                <button :aria-expanded="moreShown" @click="moreShown = !moreShown">
+                    <font-awesome-icon icon="ellipsis-v"></font-awesome-icon>
+                </button>
+                <ul role="region" :style="moreShown ? '' : 'transform: scale(0);'" @click="moreShown = false;">
+                    <li @click="editMatch" role="button">
+                        <font-awesome-icon size="sm" icon="pencil-alt"></font-awesome-icon>
+                        <span>{{ $t('edit') }}</span>
+                    </li>
+                    <li  @click="shareMatch" role="button">
+                        <font-awesome-icon size="sm" icon="share"></font-awesome-icon>
+                        <span>{{ $t('share') }}</span>
+                    </li>
+                    <li  @click="deleteMatch" role="button">
+                        <font-awesome-icon size="sm" icon="trash-alt"></font-awesome-icon>
+                        <span>{{ $t('delete') }}</span>
+                    </li>
+                </ul>
+            </div>
+        </template>
+
         <Node :model="model" style="grid-area: slots; display: flex; flex-direction: column; gap: 1rem;" :matchID="model.uuid" />
     </section>
 </template>
@@ -38,6 +41,7 @@ import NodeVue from './Node.vue';
 })
 export default class MatchVue extends Vue {
     @Prop({ required: true, type: Object }) private model!: Match;
+    @Prop() private editMode = false;
     private moreShown = false;
     private windowClick!: (event: MouseEvent) => void;
 

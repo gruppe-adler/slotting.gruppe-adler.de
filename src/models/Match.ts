@@ -7,5 +7,5 @@ export default interface Match {
     squad: Squad[];
     platoon: Platoon[];
     company: Company[];
-    slottedPlayerCount: number;
+    slottedPlayerCount?: number;
 }

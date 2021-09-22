@@ -15,7 +15,7 @@
             :primary="true"
         />
         <textarea v-if="showXMLEditor" v-model="xml"></textarea>
-        <Match v-else-if="match !== undefined" :model="match" />
+        <Match v-else :model="match" :editMode="true" />
         <aside></aside>
     </main>
 </template>
@@ -24,10 +24,10 @@
 import { getMatchID, getTopicID } from '@/services/slotting';
 import { Options, Vue } from 'vue-class-component';
 import { Watch } from 'vue-property-decorator';
-import { Match } from '@/models';
 import MatchVue from '@/components/Slotting/Match.vue';
 import ForumButton from '@/components/ForumButton.vue';
-import { jsonToXML } from '@/services/utils/edit';
+import { jsonToXML, parseXML } from '@/services/utils/edit';
+import { Match } from '@/models';
 
 @Options({
     components: {
@@ -38,7 +38,7 @@ import { jsonToXML } from '@/services/utils/edit';
 export default class EditView extends Vue {
     private showXMLEditor = false;
     private xml = '';
-    private match!: Match;
+    private _match: Match|null = null;
 
     public created (): void {
         const matchID = getMatchID();
@@ -46,17 +46,30 @@ export default class EditView extends Vue {
 
         if (topicID === '') this.$router.push('/');
         if (matchID === '') this.$router.push({ path: '/slotting', query: { tid: topicID } });
-        this.$store.dispatch('loadMatches', topicID).then(() => {
+        this.$store.dispatch('loadMatches', getTopicID());
+    }
+
+    private get match () {
+        if (this._match === null) {
             const matches = this.$store.state.matches;
             const matchTmp = matches.find(match => match.uuid === getMatchID());
-            if (matchTmp !== undefined) this.match = matchTmp;
-        });
+            if (matchTmp !== undefined) {
+                this._match = this.parseMatchForXml(matchTmp);
+            }
+        }
+        return this._match;
+    }
+
+    private set match (value: Match|null) {
+        this._match = value;
     }
 
     @Watch('showXMLEditor')
     private processXML (value: boolean) {
         if (value) {
-            this.xml = jsonToXML(this.parseMatchForXml({ ...this.match }), 'match');
+            this.xml = jsonToXML(this.parseMatchForXml(this._match), 'match');
+        } else {
+            this.match = parseXML(this.xml) as unknown as Match;
         }
     }
 
@@ -115,7 +128,6 @@ label {
     }
 }
 textarea{
-    height: 100%;
-    width: 100%;
+    height: 750px;
 }
 </style>

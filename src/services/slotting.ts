@@ -1,4 +1,4 @@
-import { Match } from '@/models';
+import { Match, User } from '@/models';
 import router from '@/router';
 import { FORUM_URI } from '.';
 import { fetchJSON, ResponseError } from './utils';
@@ -34,6 +34,11 @@ function normalizeNode (node: Partial<Pick<Match, 'fireteam'|'squad'|'platoon'|'
     if (node.vehicletype === 0) delete node.vehicletype;
 }
 
+export const createMatch = async (): Promise<string> => {
+    // TODO: error handling, confirmation
+    return await fetchJSON(`${FORUM_URI}/api/arma3-slotting/${getTopicID()}/match`, { method: 'POST', body: '<match></match>' });
+};
+
 export const deleteMatch = async (tid: string, matchId: string): Promise<void> => {
     // TODO: error handling, confirmation
     await fetchJSON(`${FORUM_URI}/api/arma3-slotting/${tid}/match/${matchId}`, { method: 'DELETE' });
@@ -47,4 +52,10 @@ export const getTopicID = (): string => {
 export const getMatchID = (): string => {
     const q = router.currentRoute.value.query.mid ?? '';
     return (typeof q === 'object' ? q[0] : q) ?? '';
+};
+
+export const getOwnUserId = async (): Promise<number> => {
+    // TODO: error handling, user might not be logged in
+    const result = await fetchJSON<User>(`${FORUM_URI}/api/me`);
+    return result.uid;
 };

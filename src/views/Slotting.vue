@@ -50,7 +50,7 @@ import ForumButton from '@/components/ForumButton.vue';
 import LoaderVue from '@/components/Loader.vue';
 import EmptyStateVue from '@/components/EmptyState.vue';
 import MatchVue from '@/components/Slotting/Match.vue';
-import { getTopicID } from '@/services/slotting';
+import { createMatch, getTopicID } from '@/services/slotting';
 
 @Options({
     components: {
@@ -75,7 +75,7 @@ export default class SlottingView extends Vue {
     }
 
     private createMatch () {
-        // TODO
+        createMatch();
     }
 
     private get isInIFrame (): boolean {
