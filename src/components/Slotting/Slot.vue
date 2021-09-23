@@ -6,7 +6,7 @@
             <Avatar :user="model.user" class="slot__avatar" />
         </Tooltip>
         <Tooltip v-else-if="blockedText" :text="blockedText">
-            <div class="slot__avatar" style="font-size: 0.9em;">
+            <div class="slot__avatar" style="font-size: 0.9em;" :style="reservedColor">
                 <font-awesome-icon icon="lock"></font-awesome-icon>
             </div>
         </Tooltip>
@@ -27,6 +27,16 @@ import type { Slot } from '@/models';
 import { Options, Vue } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import AvatarVue from '@/components/Avatar.vue';
+
+function getHue (str: string) {
+    var hash = 0;
+    if (str.length === 0) return hash;
+    for (var i = 0; i < str.length; i++) {
+        hash = str.charCodeAt(i) + ((hash << 5) - hash);
+        hash = hash & hash;
+    }
+    return hash % 360;
+}
 
 @Options({
     components: {
@@ -95,6 +105,14 @@ export default class SlotVue extends Vue {
 
         return `--group-bg-color: ${this.groupColor}; --group-color: white;`;
     }
+
+    private get reservedColor (): string|undefined {
+        if (this.reservedFor === undefined) return;
+
+        const hue = getHue(this.reservedFor);
+
+        return `--reserved-color: hsl(${hue}, 60%, 35%);`;
+    }
 }
 </script>
 
@@ -128,7 +146,7 @@ export default class SlotVue extends Vue {
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                color: var(--c-text-3);
+                color: var(--reserved-color, var(--c-text-3));
             }
         }
 

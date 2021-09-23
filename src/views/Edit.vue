@@ -1,5 +1,16 @@
 <template>
-    <main>
+    <main v-if="error">
+        <!-- TODO: Error has to be pretty -->
+        {{ error }}
+    </main>
+    <main
+        v-else-if="loading"
+        aria-busy="true"
+        style="padding: 2rem; display: flex; justify-content: center;"
+    >
+        <Loader />
+    </main>
+    <main v-else>
         <label>
             <input type="checkbox" role="switch" v-model="showXMLEditor" />
             <span>{{ $t('XMLEditor') }}</span>
@@ -36,38 +47,30 @@ import { Match } from '@/models';
     }
 })
 export default class EditView extends Vue {
+    private error: Error|null = null;
+    private loading = true;
+    private match: Match|null = null;
     private showXMLEditor = false;
     private xml = '';
-    private _match: Match|null = null;
 
     public created (): void {
-        const matchID = getMatchID();
-        const topicID = getTopicID();
+        this.$store.dispatch('loadMatches', getTopicID())
+            .catch(err => { this.error = err; })
+            .then(() => {
+                const match = this.$store.state.matches?.find(m => m.uuid === getMatchID()) ?? null;
+                if (match === null) return;
 
-        if (topicID === '') this.$router.push('/');
-        if (matchID === '') this.$router.push({ path: '/slotting', query: { tid: topicID } });
-        this.$store.dispatch('loadMatches', getTopicID());
-    }
-
-    private get match () {
-        if (this._match === null) {
-            const matches = this.$store.state.matches;
-            const matchTmp = matches.find(match => match.uuid === getMatchID());
-            if (matchTmp !== undefined) {
-                this._match = this.parseMatchForXml(matchTmp);
-            }
-        }
-        return this._match;
-    }
-
-    private set match (value: Match|null) {
-        this._match = value;
+                this.match = JSON.parse(JSON.stringify(match));
+            })
+            .finally(() => { this.loading = false; });
     }
 
     @Watch('showXMLEditor')
     private processXML (value: boolean) {
+        if (this.match === null) return;
+
         if (value) {
-            this.xml = jsonToXML(this.parseMatchForXml(this._match), 'match');
+            this.xml = jsonToXML(this.match, 'match');
         } else {
             this.match = parseXML(this.xml) as unknown as Match;
         }
@@ -75,26 +78,6 @@ export default class EditView extends Vue {
 
     private cancelEdit () {
         this.$router.push({ path: '/slotting', query: { tid: getTopicID() } });
-    }
-
-    private parseMatchForXml (rawMatch: any): any {
-        function recurse (match: any): any {
-            ['company', 'platoon', 'squad', 'fireteam', 'slot'].forEach(currentFilter => {
-                if (match[currentFilter] && match[currentFilter].length > 0) {
-                    match[currentFilter].forEach((current: any) => {
-                        if (current.user) {
-                            delete current.user;
-                        }
-                        delete current.slottedPlayerCount;
-                        recurse(current);
-                    });
-                }
-            });
-
-            return match;
-        }
-        delete rawMatch.slottedPlayerCount;
-        return recurse(rawMatch);
     }
 }
 </script>
