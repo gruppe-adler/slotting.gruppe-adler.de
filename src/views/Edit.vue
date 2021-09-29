@@ -39,11 +39,13 @@ import MatchVue from '@/components/Slotting/Match.vue';
 import ForumButton from '@/components/ForumButton.vue';
 import { jsonToXML, parseXML } from '@/services/utils/edit';
 import { Match } from '@/models';
+import LoaderVue from '@/components/Loader.vue';
 
 @Options({
     components: {
         Match: MatchVue,
-        ForumButton: ForumButton
+        ForumButton: ForumButton,
+        Loader: LoaderVue
     }
 })
 export default class EditView extends Vue {
@@ -111,6 +113,6 @@ label {
     }
 }
 textarea{
-    height: 750px;
+    min-height: 70em;
 }
 </style>
