@@ -6,7 +6,7 @@
             <Avatar :user="model.user" class="slot__avatar" />
         </Tooltip>
         <Tooltip v-else-if="blockedText" :text="blockedText">
-            <div class="slot__avatar" style="font-size: 0.9em;" :style="reservedColor">
+            <div class="slot__avatar" style="font-size: 0.9em;">
                 <font-awesome-icon icon="lock"></font-awesome-icon>
             </div>
         </Tooltip>
@@ -104,14 +104,6 @@ export default class SlotVue extends Vue {
         if (this.groupColor === undefined) return;
 
         return `--group-bg-color: ${this.groupColor}; --group-color: white;`;
-    }
-
-    private get reservedColor (): string|undefined {
-        if (this.reservedFor === undefined) return;
-
-        const hue = getHue(this.reservedFor);
-
-        return `--reserved-color: hsl(${hue}, 60%, 35%);`;
     }
 }
 </script>
