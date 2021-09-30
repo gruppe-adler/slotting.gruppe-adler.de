@@ -56,13 +56,16 @@ export default class EditView extends Vue {
     private xml = '';
 
     public created (): void {
-        this.$store.dispatch('loadMatches', getTopicID())
+        const matchUUID = getMatchID();
+        const tid = getTopicID();
+
+        this.$store.dispatch('loadMatch', { tid, matchUUID })
             .catch(err => { this.error = err; })
             .then(() => {
-                const match = this.$store.state.matches?.find(m => m.uuid === getMatchID()) ?? null;
-                if (match === null) return;
+                const match = this.$store.state.matches[matchUUID];
+                if (match === undefined) return;
 
-                this.match = JSON.parse(JSON.stringify(match));
+                this.match = match.clone();
             })
             .finally(() => { this.loading = false; });
     }
@@ -72,9 +75,9 @@ export default class EditView extends Vue {
         if (this.match === null) return;
 
         if (value) {
-            this.xml = jsonToXML(this.match, 'match');
+            this.xml = this.match.toXML();
         } else {
-            this.match = parseXML(this.xml) as unknown as Match;
+            this.match = Match.fromXML(this.xml);
         }
     }
 

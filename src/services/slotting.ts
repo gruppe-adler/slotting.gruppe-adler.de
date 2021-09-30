@@ -1,38 +1,29 @@
-import { Match, User } from '@/models';
+import { IMatch, Match, User } from '@/models';
 import router from '@/router';
 import { FORUM_URI } from '.';
 import { fetchJSON, ResponseError } from './utils';
 
-export const getMatches = async (tid: string): Promise<Match[]> => {
+export const fetchMatches = async (tid: string): Promise<Match[]> => {
     try {
-        const matches: Match[] = await fetchJSON(`${FORUM_URI}/api/arma3-slotting/${tid}?withusers=1`);
+        const data: IMatch[] = await fetchJSON(`${FORUM_URI}/api/arma3-slotting/${tid}?withusers=1`);
 
-        matches.map(normalizeNode);
-        return matches;
+        return data.map(m => new Match(m));
     } catch (err) {
         if (err instanceof ResponseError && err.response.status === 404) return [];
         throw err;
     }
 };
 
-// The current backend uses '0' as a default value for the reserved-for and vehicletype
-// properties. We do not want that, becase it breaks stuff so normalizeNode takes care
-// of that shit
-const fields = ['fireteam', 'squad', 'platoon', 'company', 'slot'] as const;
-function normalizeNode (node: Partial<Pick<Match, 'fireteam'|'squad'|'platoon'|'company'|'slot'>>) {
-    for (const field of fields) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        (node[field] ?? []).forEach(normalizeNode);
-    }
+export const fetchMatch = async (tid: string, matchUUID: string): Promise<Match|null> => {
+    try {
+        const data: IMatch = await fetchJSON(`${FORUM_URI}/api/arma3-slotting/${tid}/match/${matchUUID}?withusers=1`);
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    if (node['reserved-for'] === 0) delete node['reserved-for'];
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    if (node.vehicletype === 0) delete node.vehicletype;
-}
+        return new Match(data);
+    } catch (err) {
+        if (err instanceof ResponseError && err.response.status === 404) return null;
+        throw err;
+    }
+};
 
 export const createMatch = async (): Promise<string> => {
     // TODO: error handling, confirmation

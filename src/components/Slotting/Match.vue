@@ -1,7 +1,7 @@
 <template>
     <section>
         <template v-if="!editMode">
-            <span role="heading" aria-level="2" >{{ $t('slotlistHeader', statistics) }}</span>
+            <span role="heading" aria-level="2" >{{ $t('slotlistHeader', model.statistics) }}</span>
             <div ref="more">
                 <button :aria-expanded="moreShown" @click="moreShown = !moreShown">
                     <font-awesome-icon icon="ellipsis-v"></font-awesome-icon>
@@ -66,10 +66,6 @@ export default class MatchVue extends Vue {
 
     public unmounted (): void {
         window.removeEventListener('click', this.windowClick, { capture: true });
-    }
-
-    private get statistics () {
-        return this.$store.state.statistics[this.model.uuid] ?? { count: 0, max: 0 };
     }
 
     /**

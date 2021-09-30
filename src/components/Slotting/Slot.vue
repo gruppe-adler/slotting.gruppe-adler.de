@@ -67,7 +67,7 @@ export default class SlotVue extends Vue {
         }
 
         if (this.minSlottedPlayerCount !== undefined) {
-            const { count } = this.$store.state.statistics[this.matchID];
+            const count = this.$store.state.matches[this.matchID]?.statistics.count ?? Infinity;
 
             if (this.minSlottedPlayerCount > count) {
                 return this.$t('blockedMinSlottedPlayers', { count: this.minSlottedPlayerCount });
