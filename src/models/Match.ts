@@ -44,6 +44,8 @@ export class Match {
     public updateSlotUser (slotUUID: string, user?: User): void {
         const slot = this._slots.get(slotUUID);
 
+        console.log(slotUUID, user?.uid);
+
         if (slot === undefined) throw new Error('Couldn\'t find slot.');
 
         slot.user = user;
