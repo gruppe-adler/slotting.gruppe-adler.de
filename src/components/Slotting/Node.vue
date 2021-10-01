@@ -127,6 +127,7 @@ export default class NodeVue extends Vue {
     &__symbol {
         block-size: 1.75rem;
         inline-size: 1.75rem;
+        cursor: pointer;
     }
 
     &__callsign {
