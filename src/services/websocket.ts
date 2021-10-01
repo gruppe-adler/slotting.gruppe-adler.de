@@ -1,6 +1,10 @@
+// TODO: Remove after update to socket.io-client v4
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { User } from '@/models';
 import State from '@/store/State';
-import { io, Socket } from 'socket.io-client';
+// import { io, Socket } from 'socket.io-client';
+// @ts-ignore
+import io from 'socket.io-client';
 import { Store } from 'vuex';
 import { FORUM_URI } from '.';
 
@@ -13,7 +17,8 @@ interface SlottingWSEventMap {
 
 class WebSocketService {
     private store: Store<State>;
-    private socket: Socket<SlottingWSEventMap>;
+    private socket: any;
+    // private socket: Socket<SlottingWSEventMap>;
 
     constructor (store: Store<State>) {
         this.store = store;
@@ -26,11 +31,13 @@ class WebSocketService {
             // TODO
         });
 
+        // @ts-ignore
         this.socket.on('event:match-changed', async ({ tid, matchid }) => {
             // TODO: Check if match is in current tid
             this.store.dispatch('loadMatch', { tid, matchUUID: matchid });
         });
 
+        // @ts-ignore
         this.socket.on('event:user-slotted', async ({ matchid, slot, user }) => {
             this.store.dispatch('slotUser', {
                 matchUUID: matchid,
@@ -39,6 +46,7 @@ class WebSocketService {
             });
         });
 
+        // @ts-ignore
         this.socket.on('event:user-unslotted', async ({ matchid, slot }) => {
             this.store.dispatch('slotUser', {
                 matchUUID: matchid,
