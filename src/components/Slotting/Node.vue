@@ -1,7 +1,8 @@
 <template>
     <li :style="sideColorCSS">
         <Tooltip :text="model.vehicletype" v-if="model.natosymbol || model.vehicletype" style="grid-column: 1">
-            <img :src="`/natosymbols/${model.natosymbol}.svg`" class="group__symbol">
+            <div class="group__symbolContainer><img :src="`/natosymbols/${model.natosymbol}.svg`" class="group__symbol">
+            </div>
         </Tooltip>
         <span class="group__callsign" v-if="model.callsign">{{ model.callsign }}</span>
         <ul v-if="model.slot && model.slot.length > 0" class="group-wrapper group-wrapper--slot">
@@ -129,6 +130,15 @@ export default class NodeVue extends Vue {
         inline-size: 1.75rem;
         cursor: pointer;
     }
+
+    &__symbolContainer {
+        padding: 2px 4px 0px 4px;
+        border-radius: 100px;
+    };
+
+    &__symbolContainer:hover {
+        background: rgba(0,0,0,0.2);
+    };
 
     &__callsign {
         font-weight: bold;
