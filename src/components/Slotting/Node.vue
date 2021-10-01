@@ -130,7 +130,7 @@ export default class NodeVue extends Vue {
         opacity: 0.7;
     }
 
-    &__symbol: hover {
+    &__symbol:hover {
         opacity: 1;
     }
 
