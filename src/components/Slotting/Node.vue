@@ -1,6 +1,6 @@
 <template>
     <li :style="sideColorCSS">
-        <Tooltip :text="model.vehicletype" v-if="model.natosymbol || model.vehicletype" style="grid-column: 1"><img :src="`/natosymbols/${model.natosymbol}.svg`" class="group__symbol">
+        <Tooltip :text="model.vehicletype" v-if="model.natosymbol || model.vehicletype" style="grid-column: 1"><div class="group__symbolContainer"><img :src="`/natosymbols/${model.natosymbol}.svg`" class="group__symbol"></div>
         </Tooltip>
         <span class="group__callsign" v-if="model.callsign">{{ model.callsign }}</span>
         <ul v-if="model.slot && model.slot.length > 0" class="group-wrapper group-wrapper--slot">
