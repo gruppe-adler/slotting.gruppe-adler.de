@@ -31,7 +31,7 @@ const STORE = createStore<State>({
                 if (slot.user === undefined) continue;
 
                 if (equalUsers(slot.user, user)) {
-                    slot.user = undefined;
+                    match.updateSlotUser(slot.uuid);
                 }
             }
         },

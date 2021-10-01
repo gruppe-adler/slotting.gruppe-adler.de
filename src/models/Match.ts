@@ -47,6 +47,14 @@ export class Match {
 
         if (slot === undefined) throw new Error('Couldn\'t find slot.');
 
+        if (slot.user === undefined && user === undefined) return;
+
+        if (user === undefined && slot.user !== undefined) {
+            this._slotCountTaken--;
+        } else if (slot.user === undefined && user !== undefined) {
+            this._slotCountTaken++;
+        }
+
         slot.user = user;
     }
 
