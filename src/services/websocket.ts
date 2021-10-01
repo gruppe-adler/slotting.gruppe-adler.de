@@ -27,6 +27,7 @@ class WebSocketService {
         });
 
         this.socket.on('event:match-changed', async ({ tid, matchid }) => {
+            // TODO: Check if match is in current tid
             this.store.dispatch('loadMatch', { tid, matchUUID: matchid });
         });
 
