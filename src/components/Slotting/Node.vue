@@ -130,10 +130,6 @@ export default class NodeVue extends Vue {
         opacity: 0.7;
     }
 
-    &__symbol:hover {
-        opacity: 1;
-    }
-
     &__symbolContainer {
         padding: 4px 8px 0 8px;
         border-radius: 100px;
