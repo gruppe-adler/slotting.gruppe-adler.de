@@ -132,6 +132,7 @@ export default class SlotVue extends Vue {
         transition: box-shadow .2s ease-out;
         position: relative;
         border: none;
+        cursor: pointer;
 
         @at-root {
             div#{&} {
@@ -173,6 +174,7 @@ export default class SlotVue extends Vue {
         font-size: .9rem;
         background-color: var(--group-bg-color, transparent);
         color: var(--group-color, var(--c-text-2));
+        cursor: pointer;
 
         &:hover {
             background-color: var(--c-surf-3);
