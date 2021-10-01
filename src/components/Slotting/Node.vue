@@ -135,7 +135,7 @@ export default class NodeVue extends Vue {
     };
 
     &__symbolContainer:hover {
-        background: rgba(0,0,0,0.2);
+        background: rgba(0,0,0,0.1);
     };
 
     &__callsign {
