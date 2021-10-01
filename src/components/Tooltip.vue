@@ -56,12 +56,11 @@ export default class TooltipVue extends Vue {
         text-transform: none;
         color: white;
         white-space: nowrap;
-        background-color: rgba(black, 0.85);
+        background-color: rgba(black, 0);
         border-radius: .25rem;
         position: absolute;
         letter-spacing: 0.04em;
         z-index: 2;
-        filter: blur(4px);
         padding: .25rem .5rem;
         line-height: 0.9rem;
         font-size: 0.9rem;
@@ -74,6 +73,7 @@ export default class TooltipVue extends Vue {
 
     &:hover #{&}__text {
         transform: scale(1);
+        background-color: rgba(black, 0.85);
     }
 }
 </style>
