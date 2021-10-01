@@ -25,6 +25,8 @@ const STORE = createStore<State>({
 
             if (user === undefined) return;
 
+            // TODO: Slotted count does not update :(
+
             // remove user from slot he is currently on
             for (const [, slot] of match.allSlots) {
                 if (slot.uuid === options.slotUUID) continue;
