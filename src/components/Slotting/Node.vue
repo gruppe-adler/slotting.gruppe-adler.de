@@ -127,10 +127,15 @@ export default class NodeVue extends Vue {
         block-size: 1.75rem;
         inline-size: 1.75rem;
         cursor: pointer;
+        opacity: 0.7;
+    }
+
+    &__symbol: hover {
+        opacity: 1;
     }
 
     &__symbolContainer {
-        padding: 2px 4px 0px 4px;
+        padding: 4px 8px 0 8px;
         border-radius: 100px;
     };
 
