@@ -1,6 +1,7 @@
 import { Match, User } from '@/models';
 import { loadSettings, Settings, saveSettings, addEventListener } from '@/services/settings';
 import { fetchMatches, fetchMatch } from '@/services/slotting';
+import { equalUsers } from '@/services/utils/user';
 import WebSocketService from '@/services/websocket';
 import { createStore } from 'vuex';
 import State from './State';
@@ -19,7 +20,20 @@ const STORE = createStore<State>({
             const match = state.matches[options.matchUUID];
             if (match === undefined) return;
 
-            match.updateSlotUser(options.slotUUID, options.user);
+            const user = options.user;
+            match.updateSlotUser(options.slotUUID, user);
+
+            if (user === undefined) return;
+
+            // remove user from slot he is currently on
+            for (const [, slot] of match.allSlots) {
+                if (slot.uuid === options.slotUUID) continue;
+                if (slot.user === undefined) continue;
+
+                if (equalUsers(slot.user, user)) {
+                    slot.user = undefined;
+                }
+            }
         },
         setCurrentGroup (state, group: string) { state.currentGroup = group; },
         setSettings (state, value: Partial<Settings>) { state.settings = { ...state.settings, ...value }; saveSettings(state.settings); }

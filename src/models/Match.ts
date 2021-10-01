@@ -35,6 +35,7 @@ export class Match {
     }
 
     public get uuid (): string { return this._data.uuid; }
+    public get allSlots (): Map<string, Slot> { return this._slots; }
     public get slot (): Slot[] { return this._data.slot ?? []; }
     public get fireteam (): FireTeam[] { return this._data.fireteam ?? []; }
     public get squad (): Squad[] { return this._data.squad ?? []; }
@@ -43,8 +44,6 @@ export class Match {
 
     public updateSlotUser (slotUUID: string, user?: User): void {
         const slot = this._slots.get(slotUUID);
-
-        console.log(slotUUID, user?.uid);
 
         if (slot === undefined) throw new Error('Couldn\'t find slot.');
 
