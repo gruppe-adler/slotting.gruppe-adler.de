@@ -1,9 +1,12 @@
 <template>
     <li :style="sideColorCSS">
-        <Tooltip :text="model.vehicletype" v-if="model.natosymbol || model.vehicletype" style="grid-column: 1"><div class="group__symbolContainer"><img :src="`/natosymbols/${model.natosymbol}.svg`" class="group__symbol"></div>
+        <Tooltip :text="model.vehicletype" v-if="model.natosymbol || model.vehicletype" style="grid-column: 1">
+            <div class="group__symbolContainer">
+                <img :src="`/natosymbols/${model.natosymbol}.svg`" class="group__symbol">
+            </div>
         </Tooltip>
         <span class="group__callsign" v-if="model.callsign">{{ model.callsign }}</span>
-        <ul v-if="model.slot && model.slot.length > 0" class="group-wrapper group-wrapper--slot">
+        <ul v-if="editMode && field || model.slot && model.slot.length > 0" class="group-wrapper group-wrapper--slot">
             <Slot
                 v-for="(s, i) in model.slot"
                 :key="i"
@@ -12,6 +15,11 @@
                 :parentMinSlottedPlayerCount="minSlottedPlayerCount"
                 :matchID="matchID"
             />
+            <li v-if="editMode">
+                <button style="width: 2.25rem; height: 2.25rem; border-radius: 1000px; border: none; cursor: pointer;">
+                    <font-awesome-icon icon="plus"></font-awesome-icon>
+                </button>
+            </li>
         </ul>
         <template v-for="(field, i) in fields">
             <ul
@@ -27,6 +35,7 @@
                     :parentMinSlottedPlayerCount="minSlottedPlayerCount"
                     :class="`group group--${field}`"
                     :matchID="matchID"
+                    :editMode="editMode"
                 />
             </ul>
         </template>
@@ -49,8 +58,10 @@ export default class NodeVue extends Vue {
     @Prop({ type: String }) private parentReservedFor?: string;
     @Prop({ type: Number }) private parentMinSlottedPlayerCount?: number;
     @Prop({ required: true, type: String }) private matchID!: string;
+    @Prop({ default: false, type: Boolean }) private editMode!: boolean;
 
     private fields = ['company', 'platoon', 'squad', 'fireteam'];
+    private natoSymbols = ['zeus', 'air', 'armor', 'art', 'hq', 'inf', 'maint', 'mech_inf', 'med', 'mortar', 'motor_inf', 'plane', 'recon', 'service', 'support', 'uav'];
 
     private get reservedFor (): string|undefined {
         return this.model['reserved-for'] ?? this.parentReservedFor;
@@ -94,8 +105,6 @@ export default class NodeVue extends Vue {
 
     &#{&}--slot {
         gap: .375rem;
-        padding-inline: 1rem;
-        padding-block: .5rem;
         justify-content: center;
         align-items: flex-end;
     }
@@ -107,6 +116,9 @@ export default class NodeVue extends Vue {
         border-end-end-radius: .15rem;
         border-end-start-radius: .15rem;
         justify-content: center;
+        padding-inline: 1rem;
+        padding-block: 0.5rem;
+        gap: 1rem;
     }
 
     &#{&}--squad {
@@ -159,6 +171,7 @@ export default class NodeVue extends Vue {
         display: grid;
         grid-template-columns: 1.75rem 1fr 1.75rem;
         column-gap:  .5rem;
+        row-gap:  .5rem;
         flex-direction: column;
         align-items: center;
         border: var(--c-surf-2) 1px solid;

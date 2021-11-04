@@ -26,7 +26,7 @@
             :primary="true"
         />
         <textarea v-if="showXMLEditor" v-model="xml"></textarea>
-        <Match v-else :model="match" :editMode="true" />
+        <Node v-else :model="match" :editMode="true" style="display: flex; flex-direction: column; gap: 1rem;" :matchID="match.uuid" ref="slots" />
         <aside></aside>
     </main>
 </template>
@@ -35,15 +35,16 @@
 import { getMatchID, getTopicID } from '@/services/slotting';
 import { Options, Vue } from 'vue-class-component';
 import { Watch } from 'vue-property-decorator';
-import MatchVue from '@/components/Slotting/Match.vue';
+import NodeVue from '@/components/Slotting/Node.vue';
 import ForumButton from '@/components/ForumButton.vue';
 import { jsonToXML, parseXML } from '@/services/utils/edit';
 import { Match } from '@/models';
 import LoaderVue from '@/components/Loader.vue';
+import Sortable from 'sortablejs';
 
 @Options({
     components: {
-        Match: MatchVue,
+        Node: NodeVue,
         ForumButton: ForumButton,
         Loader: LoaderVue
     }
@@ -83,6 +84,26 @@ export default class EditView extends Vue {
 
     private cancelEdit () {
         this.$router.push({ path: '/slotting', query: { tid: getTopicID() } });
+    }
+
+    public updated () {
+        if (this.match === null) return;
+
+        const slotsContainer = this.$refs.slots as NodeVue;
+
+        for (const field of ['squad', 'fireteam', 'platoon', 'company', 'slot']) {
+            const groupWrappers = slotsContainer.$el.querySelectorAll(`.group-wrapper.group-wrapper--${field}`);
+            for (const wrapper of groupWrappers) {
+                // eslint-disable-next-line no-new
+                new Sortable(wrapper, { group: field, animation: 150 });
+            }
+        }
+
+        // const groupWrappers = slotsContainer.$el.querySelectorAll('.group-wrapper');
+        // for (const wrapper of groupWrappers) {
+        //     // eslint-disable-next-line no-new
+        //     new Sortable(wrapper, { group: 'shared', animation: 150 });
+        // }
     }
 }
 </script>
