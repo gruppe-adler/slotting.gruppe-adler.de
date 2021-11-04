@@ -1,7 +1,7 @@
 <template>
     <li :style="sideColorCSS">
         <Tooltip :text="model.vehicletype" v-if="model.natosymbol || model.vehicletype" style="grid-column: 1">
-            <NatoSymbolSelector @symbolChange="applySymbolChange($event)">
+            <NatoSymbolSelector @symbolChange="applySymbolChange($event)" :editMode="editMode">
                 <div class="group__symbolContainer">
                     <img :src="`/natosymbols/${model.natosymbol}.svg`" class="group__symbol">
                 </div>
@@ -100,6 +100,7 @@ export default class NodeVue extends Vue {
     }
 
     private applySymbolChange (natoSymbol: string) {
+        if (!this.editMode) return;
         this.model.natosymbol = natoSymbol;
     }
 }

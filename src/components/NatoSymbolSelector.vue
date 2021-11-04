@@ -1,7 +1,7 @@
 <template>
     <div class="grad-symbol-selector" @click="shown = !shown">
         <slot />
-        <ul class="grad-symbol-selector__list" v-if="shown">
+        <ul class="grad-symbol-selector__list" v-if="shown && editMode">
             <li v-for="(natoSymbol, i) in natoSymbols" :key="i" class="grad-symbol-selector__symbolContainer" @click="emitSymbolChange(natoSymbol)">
                 <img :src="`/natosymbols/${natoSymbol}.svg`" class="grad-symbol-selector__symbol" >
             </li>
@@ -15,7 +15,7 @@ import { Options, Vue } from 'vue-class-component';
 
 @Options({})
 export default class NatoSymbolSelectorVue extends Vue {
-    @Prop({ default: '' }) private text!: string;
+    @Prop({ default: false, type: Boolean }) private editMode!: boolean;
     private shown = false;
     private natoSymbols = ['zeus', 'air', 'armor', 'art', 'hq', 'inf', 'maint', 'mech_inf', 'med', 'mortar', 'motor_inf', 'plane', 'recon', 'service', 'support', 'uav'];
 
