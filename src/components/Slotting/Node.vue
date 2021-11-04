@@ -1,9 +1,11 @@
 <template>
     <li :style="sideColorCSS">
         <Tooltip :text="model.vehicletype" v-if="model.natosymbol || model.vehicletype" style="grid-column: 1">
-            <div class="group__symbolContainer">
-                <img :src="`/natosymbols/${model.natosymbol}.svg`" class="group__symbol">
-            </div>
+            <NatoSymbolSelector @symbolChange="applySymbolChange($event)">
+                <div class="group__symbolContainer">
+                    <img :src="`/natosymbols/${model.natosymbol}.svg`" class="group__symbol">
+                </div>
+            </NatoSymbolSelector>
         </Tooltip>
         <span class="group__callsign" v-if="model.callsign">{{ model.callsign }}</span>
         <ul v-if="editMode && field || model.slot && model.slot.length > 0" class="group-wrapper group-wrapper--slot">
@@ -16,7 +18,7 @@
                 :matchID="matchID"
             />
             <li v-if="editMode">
-                <button style="width: 2.25rem; height: 2.25rem; border-radius: 1000px; border: none; cursor: pointer;">
+                <button style="width: 2.25rem; height: 2.25rem; border-radius: 1000px; border: none; cursor: pointer;" @click="addSlot()">
                     <font-awesome-icon icon="plus"></font-awesome-icon>
                 </button>
             </li>
@@ -61,7 +63,6 @@ export default class NodeVue extends Vue {
     @Prop({ default: false, type: Boolean }) private editMode!: boolean;
 
     private fields = ['company', 'platoon', 'squad', 'fireteam'];
-    private natoSymbols = ['zeus', 'air', 'armor', 'art', 'hq', 'inf', 'maint', 'mech_inf', 'med', 'mortar', 'motor_inf', 'plane', 'recon', 'service', 'support', 'uav'];
 
     private get reservedFor (): string|undefined {
         return this.model['reserved-for'] ?? this.parentReservedFor;
@@ -91,6 +92,15 @@ export default class NodeVue extends Vue {
         if (color === null) return undefined;
 
         return `--side-color: ${color}`;
+    }
+
+    private addSlot () {
+        if (this.model === undefined || this.model?.slot === undefined) return;
+        this.model.slot.push({ description: 'Rifleman', shortcode: 'R', uuid: '1337' });
+    }
+
+    private applySymbolChange (natoSymbol: string) {
+        this.model.natosymbol = natoSymbol;
     }
 }
 </script>

@@ -37,7 +37,6 @@ import { Options, Vue } from 'vue-class-component';
 import { Watch } from 'vue-property-decorator';
 import NodeVue from '@/components/Slotting/Node.vue';
 import ForumButton from '@/components/ForumButton.vue';
-import { jsonToXML, parseXML } from '@/services/utils/edit';
 import { Match } from '@/models';
 import LoaderVue from '@/components/Loader.vue';
 import Sortable from 'sortablejs';
@@ -87,7 +86,7 @@ export default class EditView extends Vue {
     }
 
     public updated () {
-        if (this.match === null) return;
+        if (this.match === null || this.$refs.slots === null) return;
 
         const slotsContainer = this.$refs.slots as NodeVue;
 
@@ -98,12 +97,6 @@ export default class EditView extends Vue {
                 new Sortable(wrapper, { group: field, animation: 150 });
             }
         }
-
-        // const groupWrappers = slotsContainer.$el.querySelectorAll('.group-wrapper');
-        // for (const wrapper of groupWrappers) {
-        //     // eslint-disable-next-line no-new
-        //     new Sortable(wrapper, { group: 'shared', animation: 150 });
-        // }
     }
 }
 </script>
