@@ -1,6 +1,8 @@
 <template>
-    <div class="grad-symbol-selector" @click="shown = !shown">
-        <slot />
+    <div class="grad-symbol-selector" @mouseenter="shown = true" @mouseleave="shown = false;">
+        <div class="grad-symbol-selector__activeSymbolContainer">
+            <img :src="`/natosymbols/${model.natosymbol}.svg`" class="grad-symbol-selector__activeSymbol">
+        </div>
         <ul class="grad-symbol-selector__list" v-if="shown && editMode">
             <li v-for="(natoSymbol, i) in natoSymbols" :key="i" class="grad-symbol-selector__symbolContainer" @click="emitSymbolChange(natoSymbol)">
                 <img :src="`/natosymbols/${natoSymbol}.svg`" class="grad-symbol-selector__symbol" >
@@ -12,10 +14,12 @@
 <script lang="ts">
 import { Prop } from 'vue-property-decorator';
 import { Options, Vue } from 'vue-class-component';
+import { Company } from '@/models';
 
 @Options({})
 export default class NatoSymbolSelectorVue extends Vue {
     @Prop({ default: false, type: Boolean }) private editMode!: boolean;
+    @Prop({ required: true, type: Object }) private model!: Partial<Company & { company: Company[]; }>;
     private shown = false;
     private natoSymbols = ['zeus', 'air', 'armor', 'art', 'hq', 'inf', 'maint', 'mech_inf', 'med', 'mortar', 'motor_inf', 'plane', 'recon', 'service', 'support', 'uav'];
 
@@ -53,20 +57,17 @@ export default class NatoSymbolSelectorVue extends Vue {
 <style lang="scss" scoped>
 .grad-symbol-selector {
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
+    cursor: pointer;
     &__list {
         list-style-type: none;
         border-radius: .25rem;
         position: absolute;
-        z-index: 2;
+        z-index: 3;
         padding: .25rem .5rem;
         transition: transform .15s ease-out;
         transform-origin: bottom center;
         transform: scale(0.9);
-        top: -1.65rem;
+        top: -1rem;
         background: white;
         border: 1px solid black
     }
@@ -90,5 +91,25 @@ export default class NatoSymbolSelectorVue extends Vue {
     &__symbolContainer:hover {
         background: rgba(0,0,0,0.1);
     };
+
+    &__activeSymbolContainer {
+        padding: 4px 8px 0 8px;
+        border-radius: 100px;
+    };
+
+    &__activeSymbolContainer:hover {
+        background: rgba(0,0,0,0.1);
+    };
+
+    &__activeSymbol {
+        block-size: 1.75rem;
+        inline-size: 1.75rem;
+        cursor: pointer;
+        opacity: 0.7;
+    }
+
+    &__activeSymbol:hover {
+        opacity: 1;
+    }
 }
 </style>

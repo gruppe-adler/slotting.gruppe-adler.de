@@ -1,24 +1,24 @@
 <template>
     <li :style="sideColorCSS">
-        <Tooltip :text="model.vehicletype" v-if="model.natosymbol || model.vehicletype" style="grid-column: 1">
-            <NatoSymbolSelector @symbolChange="applySymbolChange($event)" :editMode="editMode">
+        <NodeEdit :model="model" :editMode="editMode">
+            <Tooltip :text="model.vehicletype" v-if="(model.natosymbol || model.vehicletype)" style="grid-column: 1">
                 <div class="group__symbolContainer">
                     <img :src="`/natosymbols/${model.natosymbol}.svg`" class="group__symbol">
                 </div>
-            </NatoSymbolSelector>
-        </Tooltip>
-        <span class="group__callsign" v-if="model.callsign">{{ model.callsign }}</span>
+            </Tooltip>
+            <span class="group__callsign" v-if="model.callsign">{{ model.callsign }}</span>
+        </NodeEdit>
         <ul v-if="editMode && field || model.slot && model.slot.length > 0" class="group-wrapper group-wrapper--slot">
-            <Slot
-                v-for="(s, i) in model.slot"
-                :key="i"
-                :model="s"
-                :parentReservedFor="reservedFor"
-                :parentMinSlottedPlayerCount="minSlottedPlayerCount"
-                :matchID="matchID"
-            />
+                <Slot
+                    v-for="(s, i) in model.slot"
+                    :key="i"
+                    :model="s"
+                    :parentReservedFor="reservedFor"
+                    :parentMinSlottedPlayerCount="minSlottedPlayerCount"
+                    :matchID="matchID"
+                />
             <li v-if="editMode">
-                <button style="width: 2.25rem; height: 2.25rem; border-radius: 1000px; border: none; cursor: pointer;" @click="addSlot()">
+                <button  class="group-wrapper__addslot" @click="addSlot()">
                     <font-awesome-icon icon="plus"></font-awesome-icon>
                 </button>
             </li>
@@ -98,11 +98,6 @@ export default class NodeVue extends Vue {
         if (this.model === undefined || this.model?.slot === undefined) return;
         this.model.slot.push({ description: 'Rifleman', shortcode: 'R', uuid: '1337' });
     }
-
-    private applySymbolChange (natoSymbol: string) {
-        if (!this.editMode) return;
-        this.model.natosymbol = natoSymbol;
-    }
 }
 </script>
 
@@ -143,6 +138,18 @@ export default class NodeVue extends Vue {
         flex-direction: column;
         gap: 1rem;
     }
+
+    &__addslot {
+        width: 2.25rem;
+        height: 2.25rem;
+        border-radius: 1000px;
+        border: none;
+        opacity: 0;
+        cursor: pointer;
+        &:hover {
+            opacity: 1;
+        }
+    }
 }
 
 .group {
@@ -180,7 +187,7 @@ export default class NodeVue extends Vue {
     &#{&}--platoon,
     &#{&}--squad {
         display: grid;
-        grid-template-columns: 1.75rem 1fr 1.75rem;
+        // grid-template-columns: 1.75rem 1fr 1.75rem;
         column-gap:  .5rem;
         row-gap:  .5rem;
         flex-direction: column;
@@ -197,13 +204,21 @@ export default class NodeVue extends Vue {
 
     // platoons and companies have a colored top
     // border & callsign to indicate the side
-    &#{&}--company,
     &#{&}--platoon {
         border-block-start: .2rem solid var(--side-color, #d18d1f);
         row-gap: .5rem;
 
         > .group__callsign {
             color: var(--side-color, #d18d1f);
+        }
+    }
+
+    &#{&}--company {
+        border-block-start: .2rem solid var(--side-color, #8f1167);
+        row-gap: .5rem;
+
+        > .group__callsign {
+            color: var(--side-color, #8f1167);
         }
     }
 
