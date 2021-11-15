@@ -90,7 +90,7 @@ export class Match {
     }
 
     // The current backend uses '0' as a default value for the reserved-for and vehicletype
-    // properties. We do not want that, becase it breaks stuff so normalizeNode takes care
+    // properties. We do not want that, because it breaks stuff so normalizeNode takes care
     // of that shit
     private static normalizeNode (node: Partial<Pick<IMatch, 'fireteam'|'squad'|'platoon'|'company'|'slot'>>) {
         for (const field of ['fireteam', 'squad', 'platoon', 'company', 'slot'] as const) {

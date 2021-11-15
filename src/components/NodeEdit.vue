@@ -1,28 +1,26 @@
 <template>
     <div class="grad-node-edit">
         <slot />
-        <div class="grad-node-edit__container" v-if="editMode" @click="prevent($event)">
+        <div class="grad-node-edit__container" v-if="editMode">
             <NatoSymbolSelector @symbolChange="applySymbolChange($event)" :editMode="editMode" :model="model" />
             <div>
-                <label for="callsign">Callsign</label><br />
-                <input type="text" name="callsign" :value="model.callsign">
+                <label class="floating-label" for="callsign">Callsign</label>
+                <input class="floating-label-field floating-label-field--s3" type="text" name="callsign" :value="model.callsign">
             </div>
             <div>
-                <label for="frequency">Frequency</label><br />
-                <input type="text" name="frequency">
+                <label class="floating-label" for="frequency">Frequency</label>
+                <input class="floating-label-field" type="text" name="frequency">
             </div>
             <div>
-                <label for="vehicle">Vehicle</label><br />
-                <input type="text" name="vehicle" :value="model.vehicletype">
+                <label class="floating-label" for="vehicle">Vehicle</label>
+                <input class="floating-label-field" type="text" name="vehicle" :value="model.vehicletype">
             </div>
-            <div>
-                <button>
-                    <font-awesome-icon icon="trash-alt"></font-awesome-icon>
-                </button><br />
-                <button>
-                    <font-awesome-icon icon="copy"></font-awesome-icon>
-                </button>
-            </div>
+            <button>
+                <font-awesome-icon icon="trash-alt"></font-awesome-icon>
+            </button>
+            <button>
+                <font-awesome-icon icon="copy"></font-awesome-icon>
+            </button>
         </div>
     </div>
 </template>
@@ -66,11 +64,6 @@ export default class NodeEditVue extends Vue {
         if (!this.editMode) return;
         this.model.natosymbol = natoSymbol;
     }
-
-    private prevent (event: MouseEvent) {
-        event.stopImmediatePropagation();
-        event.stopPropagation();
-    }
 }
 </script>
 
@@ -87,7 +80,7 @@ export default class NodeEditVue extends Vue {
         visibility: hidden;
         cursor: initial;
         display: grid;
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: auto repeat(5, 1fr);
         column-gap: .5rem;
         position: absolute;
         z-index: 2;
@@ -99,6 +92,7 @@ export default class NodeEditVue extends Vue {
         top: 2.25rem;
         background: #fff;
     }
+
     &:hover > &__container,
     &:focus > &__container,
     &:focus-within > &__container {

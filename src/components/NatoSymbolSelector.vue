@@ -112,6 +112,7 @@ export default class NatoSymbolSelectorVue extends Vue {
     &__activeSymbol:hover {
         opacity: 1;
     }
+
     &:hover > &__list,
     &:focus > &__list,
     &:focus-within > &__list {
