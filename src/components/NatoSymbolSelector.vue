@@ -1,9 +1,9 @@
 <template>
-    <div class="grad-symbol-selector" @mouseenter="shown = true" @mouseleave="shown = false;">
+    <div class="grad-symbol-selector">
         <div class="grad-symbol-selector__activeSymbolContainer">
             <img :src="`/natosymbols/${model.natosymbol}.svg`" class="grad-symbol-selector__activeSymbol">
         </div>
-        <ul class="grad-symbol-selector__list" v-if="shown && editMode">
+        <ul class="grad-symbol-selector__list" v-if="editMode">
             <li v-for="(natoSymbol, i) in natoSymbols" :key="i" class="grad-symbol-selector__symbolContainer" @click="emitSymbolChange(natoSymbol)">
                 <img :src="`/natosymbols/${natoSymbol}.svg`" class="grad-symbol-selector__symbol" >
             </li>
@@ -59,6 +59,7 @@ export default class NatoSymbolSelectorVue extends Vue {
     position: relative;
     cursor: pointer;
     &__list {
+        visibility: hidden;
         list-style-type: none;
         border-radius: .25rem;
         position: absolute;
@@ -110,6 +111,11 @@ export default class NatoSymbolSelectorVue extends Vue {
 
     &__activeSymbol:hover {
         opacity: 1;
+    }
+    &:hover > &__list,
+    &:focus > &__list,
+    &:focus-within > &__list {
+        visibility: visible;
     }
 }
 </style>

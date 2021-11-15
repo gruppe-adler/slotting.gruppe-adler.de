@@ -1,11 +1,11 @@
 <template>
-    <div class="grad-node-edit" @click="shown = !shown">
+    <div class="grad-node-edit">
         <slot />
-        <div class="grad-node-edit__container" v-if="shown" @click="prevent($event)">
+        <div class="grad-node-edit__container" v-if="editMode" @click="prevent($event)">
             <NatoSymbolSelector @symbolChange="applySymbolChange($event)" :editMode="editMode" :model="model" />
             <div>
                 <label for="callsign">Callsign</label><br />
-                <input type="text" name="callsign">
+                <input type="text" name="callsign" :value="model.callsign">
             </div>
             <div>
                 <label for="frequency">Frequency</label><br />
@@ -13,7 +13,7 @@
             </div>
             <div>
                 <label for="vehicle">Vehicle</label><br />
-                <input type="text" name="vehicle">
+                <input type="text" name="vehicle" :value="model.vehicletype">
             </div>
             <div>
                 <button>
@@ -36,7 +36,6 @@ import { Company } from '@/models';
 export default class NodeEditVue extends Vue {
     @Prop({ default: false, type: Boolean }) private editMode!: boolean;
     @Prop({ required: true, type: Object }) private model!: Partial<Company & { company: Company[]; }>;
-    private shown = false;
 
     public mounted (): void {
         // TODO: Clipping is only calculated on first render. Window resize is not considered
@@ -85,6 +84,7 @@ export default class NodeEditVue extends Vue {
     position: relative;
     cursor: pointer;
     &__container {
+        visibility: hidden;
         cursor: initial;
         display: grid;
         grid-template-columns: repeat(5, 1fr);
@@ -94,11 +94,15 @@ export default class NodeEditVue extends Vue {
         padding: .5rem .5rem;
         transition: transform .15s ease-out;
         transform-origin: bottom center;
-        transform: scale(0.9);
         border: 1px solid black;
         width: fit-content;
         top: 2.25rem;
         background: #fff;
+    }
+    &:hover > &__container,
+    &:focus > &__container,
+    &:focus-within > &__container {
+        visibility: visible;
     }
 }
 </style>

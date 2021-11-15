@@ -52,6 +52,7 @@ export default class TooltipVue extends Vue {
     align-items: center;
 
     &__text {
+        visibility: hidden;
         font-family: 'Source Sans Pro', sans-serif;
         text-transform: none;
         color: rgba(255,255,255,0);
@@ -77,6 +78,11 @@ export default class TooltipVue extends Vue {
         transform: scale(1);
         font-weight: 500;
         background-color: rgba(black, 0.85);
+    }
+    &:hover > &__text,
+    &:focus > &__text,
+    &:focus-within > &__text {
+        visibility: visible;
     }
 }
 </style>
