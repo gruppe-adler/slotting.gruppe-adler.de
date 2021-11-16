@@ -69,6 +69,7 @@ export default class NatoSymbolSelectorVue extends Vue {
         transform-origin: bottom center;
         transform: scale(0.9);
         top: -1rem;
+        left: -.5rem;
         background: white;
         border: 1px solid black
     }

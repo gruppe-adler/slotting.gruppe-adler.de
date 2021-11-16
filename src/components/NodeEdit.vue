@@ -80,7 +80,7 @@ export default class NodeEditVue extends Vue {
         visibility: hidden;
         cursor: initial;
         display: grid;
-        grid-template-columns: auto repeat(5, 1fr);
+        grid-template-columns: auto repeat(3, 1fr) 3rem 3rem;
         column-gap: .5rem;
         position: absolute;
         z-index: 2;

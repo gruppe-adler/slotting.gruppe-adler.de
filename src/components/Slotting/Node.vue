@@ -144,11 +144,15 @@ export default class NodeVue extends Vue {
         height: 2.25rem;
         border-radius: 1000px;
         border: none;
-        opacity: 0;
+        visibility: hidden;
         cursor: pointer;
-        &:hover {
-            opacity: 1;
-        }
+        transition: transform .15s ease-out;
+    }
+
+    &:hover > li > &__addslot,
+    &:focus > li > &__addslot,
+    &:focus-within > li > &__addslot {
+        visibility: visible;
     }
 }
 
