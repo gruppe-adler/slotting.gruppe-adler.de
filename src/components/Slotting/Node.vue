@@ -184,6 +184,7 @@ export default class NodeVue extends Vue {
         line-height: 2rem;
         color: var(--c-text-1);
         justify-self: center;
+        align-self: center;
     }
 
     // general layout of companies, platoons and squads
