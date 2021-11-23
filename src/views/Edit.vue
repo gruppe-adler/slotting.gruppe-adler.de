@@ -98,6 +98,14 @@ export default class EditView extends Vue {
             }
         }
     }
+
+    private deleteNode (data:any) {
+        console.log(data);
+    }
+
+    private cloneNode (data:any) {
+        console.log(data);
+    }
 }
 </script>
 

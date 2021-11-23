@@ -1,6 +1,6 @@
 <template>
     <li :style="sideColorCSS">
-        <NodeEdit :model="model" :editMode="editMode">
+        <NodeEdit :model="model" :editMode="editMode" v-if="model.uuid === undefined" @delete="$emit('delete')" @clone="$emit('clone')">
             <Tooltip :text="model.vehicletype" v-if="(model.natosymbol || model.vehicletype)" style="grid-column: 1">
                 <div class="group__symbolContainer">
                     <img :src="`/natosymbols/${model.natosymbol}.svg`" class="group__symbol">
@@ -38,6 +38,8 @@
                     :class="`group group--${field}`"
                     :matchID="matchID"
                     :editMode="editMode"
+                    @delete="deleteChild(i, field)"
+                    @clone="cloneChild(node, i, field)"
                 />
             </ul>
         </template>
@@ -45,14 +47,23 @@
 </template>
 
 <script lang="ts">
-import { Company } from '@/models';
+import { Company, Platoon, Squad, FireTeam } from '@/models';
 import { Options, Vue } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
+import NodeEditVue from '../NodeEdit.vue';
 import SlotVue from './Slot.vue';
+
+interface FieldMap {
+    company: Company;
+    platoon: Platoon;
+    squad: Squad;
+    fireteam: FireTeam;
+}
 
 @Options({
     components: {
-        Slot: SlotVue
+        Slot: SlotVue,
+        NodeEdit: NodeEditVue
     }
 })
 export default class NodeVue extends Vue {
@@ -97,6 +108,14 @@ export default class NodeVue extends Vue {
     private addSlot () {
         if (this.model === undefined || this.model?.slot === undefined) return;
         this.model.slot.push({ description: 'Rifleman', shortcode: 'R', uuid: '1337' });
+    }
+
+    private deleteChild (i: number, field: 'company'|'platoon'|'squad'|'fireteam') {
+        return this.model[field]?.splice(i, 1);
+    }
+
+    private cloneChild<T extends keyof FieldMap> (node: FieldMap[T], i: number, field: T) {
+        return this.model[field]?.splice(i, 0, node);
     }
 }
 </script>
@@ -144,15 +163,15 @@ export default class NodeVue extends Vue {
         height: 2.25rem;
         border-radius: 1000px;
         border: none;
-        visibility: hidden;
+        opacity: 0;
         cursor: pointer;
-        transition: transform .15s ease-out;
+        transition: opacity .15s ease-out;
     }
 
     &:hover > li > &__addslot,
     &:focus > li > &__addslot,
     &:focus-within > li > &__addslot {
-        visibility: visible;
+        opacity: 1;
     }
 }
 

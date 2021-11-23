@@ -8,13 +8,11 @@ import i18n from './plugins/i18n';
 
 import TooltipVue from '@/components/Tooltip.vue';
 import NatoSymbolSelectorVue from '@/components/NatoSymbolSelector.vue';
-import NodeEditVue from '@/components/NodeEdit.vue';
 
 const app = createApp(App);
 
 app.component('Tooltip', TooltipVue);
 app.component('NatoSymbolSelector', NatoSymbolSelectorVue);
-app.component('NodeEdit', NodeEditVue);
 
 app.use(store);
 app.use(router);

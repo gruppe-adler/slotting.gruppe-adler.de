@@ -20,12 +20,11 @@ import { Company } from '@/models';
 export default class NatoSymbolSelectorVue extends Vue {
     @Prop({ default: false, type: Boolean }) private editMode!: boolean;
     @Prop({ required: true, type: Object }) private model!: Partial<Company & { company: Company[]; }>;
-    private shown = false;
     private natoSymbols = ['zeus', 'air', 'armor', 'art', 'hq', 'inf', 'maint', 'mech_inf', 'med', 'mortar', 'motor_inf', 'plane', 'recon', 'service', 'support', 'uav'];
 
     public mounted (): void {
         // TODO: Clipping is only calculated on first render. Window resize is not considered
-        const select = this.$refs.natoSymbolSelectorVue as HTMLSpanElement;
+        const select = this.$refs.natoSymbolSelector as HTMLSpanElement;
         if (!select) return;
 
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -41,7 +40,7 @@ export default class NatoSymbolSelectorVue extends Vue {
             return;
         }
 
-        if (right > document.body.scrollWidth - 8) {
+        if (right > window.innerWidth - 8) {
             select.style.top = 'initial';
             select.style.right = 'calc(100% + .25rem)';
             select.style.transformOrigin = 'center right';
@@ -59,19 +58,22 @@ export default class NatoSymbolSelectorVue extends Vue {
     position: relative;
     cursor: pointer;
     &__list {
-        visibility: hidden;
         list-style-type: none;
         border-radius: .25rem;
         position: absolute;
         z-index: 3;
         padding: .25rem .5rem;
-        transition: transform .15s ease-out;
+        opacity: 0;
+        transition: opacity .15s ease-out;
         transform-origin: bottom center;
         transform: scale(0.9);
-        top: -1rem;
-        left: -.5rem;
+        left: -.9rem;
         background: white;
-        border: 1px solid black
+        border: 1px solid black;
+        max-height: 20rem;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        top: 1.1rem;
     }
 
     &__symbol {
@@ -86,7 +88,7 @@ export default class NatoSymbolSelectorVue extends Vue {
     }
 
     &__symbolContainer {
-        padding: 4px 8px 0 8px;
+        padding: 4px 0 0 8px;
         border-radius: 100px;
     };
 
@@ -117,7 +119,7 @@ export default class NatoSymbolSelectorVue extends Vue {
     &:hover > &__list,
     &:focus > &__list,
     &:focus-within > &__list {
-        visibility: visible;
+        opacity: 1;
     }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div class="grad-tooltip" @mouseenter="shown = true;" @mouseleave="shown = false;">
+    <div class="grad-tooltip">
         <slot />
         <span v-if="text.length > 0" ref="tooltip" class="grad-tooltip__text" role="tooltip" v-html="text"></span>
     </div>
@@ -35,7 +35,7 @@ export default class TooltipVue extends Vue {
             return;
         }
 
-        if (right > document.body.scrollWidth - 8) {
+        if (right > window.innerWidth - 8) {
             tooltip.style.top = 'initial';
             tooltip.style.right = 'calc(100% + .25rem)';
             tooltip.style.transformOrigin = 'center right';
