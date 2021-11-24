@@ -47,9 +47,10 @@
 </template>
 
 <script lang="ts">
-import { Company, Platoon, Squad, FireTeam } from '@/models';
+import { Company, Platoon, Squad, FireTeam, IMatch, Slot } from '@/models';
 import { Options, Vue } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
+import { v4 as uuidv4 } from 'uuid';
 import NodeEditVue from '../NodeEdit.vue';
 import SlotVue from './Slot.vue';
 
@@ -115,7 +116,26 @@ export default class NodeVue extends Vue {
     }
 
     private cloneChild<T extends keyof FieldMap> (node: FieldMap[T], i: number, field: T) {
-        return this.model[field]?.splice(i, 0, node);
+        const nodeClone = JSON.parse(JSON.stringify(node));
+        this.traverseSlots(nodeClone, (s: Slot) => {
+            delete s.user;
+            s.uuid = uuidv4();
+        });
+        return this.model[field]?.splice(i, 0, nodeClone);
+    }
+
+    private traverseSlots (ctx: Partial<Pick<IMatch, 'fireteam'|'squad'|'platoon'|'company'|'slot'>>, callback: (s: Slot) => unknown) {
+        for (const field of ['fireteam', 'squad', 'platoon', 'company'] as const) {
+            if (ctx[field] === undefined) continue;
+
+            // We literally checked this in the line above
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            ctx[field]!.forEach(e => this.traverseSlots(e, callback));
+        }
+
+        if (!ctx.slot) return;
+
+        ctx.slot.forEach(callback);
     }
 }
 </script>

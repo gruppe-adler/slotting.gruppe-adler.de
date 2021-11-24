@@ -38,10 +38,12 @@
 import { Prop } from 'vue-property-decorator';
 import { Options, Vue } from 'vue-class-component';
 import { Company, Match } from '@/models';
-import { getMatchID } from '@/services/slotting';
+import NatoSymbolSelectorVue from './NatoSymbolSelector.vue';
 
 @Options({
-    components: { }
+    components: {
+        NatoSymbolSelector: NatoSymbolSelectorVue
+    }
 })
 export default class NodeEditVue extends Vue {
     @Prop({ default: false, type: Boolean }) private editMode!: boolean;
