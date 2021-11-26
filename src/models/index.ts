@@ -1,10 +1,11 @@
-import Company from './Company';
-import FireTeam from './FireTeam';
-import Platoon from './Platoon';
-import Slot from './Slot';
-import Squad from './Squad';
-import { IMatch, Match } from './Match';
-import User from './User';
+import type Company from './Company';
+import type FireTeam from './FireTeam';
+import type Platoon from './Platoon';
+import type Slot from './Slot';
+import type Squad from './Squad';
+import type { IMatch } from './Match';
+import { Match } from './Match';
+import type User from './User';
 
 // TODO: Maybe use enums?
 type NatoSymbol = string;

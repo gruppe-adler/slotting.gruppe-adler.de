@@ -1,6 +1,5 @@
 // TODO: Remove after update to socket.io-client v4
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { User } from '@/models';
 import State from '@/store/State';
 // import { io, Socket } from 'socket.io-client';
 // @ts-ignore
@@ -9,14 +8,15 @@ import { Store } from 'vuex';
 import { FORUM_URI } from '.';
 
 // Pulled from https://github.com/gruppe-adler/nodebb-plugin-arma3-slotting
-interface SlottingWSEventMap {
-    'event:match-changed': (data: { tid: number, matchid: string }) => unknown;
-    'event:user-slotted': (data: { tid: number, matchid: string, slot: string, user: User }) => unknown;
-    'event:user-unslotted': (data: { tid: number, matchid: string, slot: string }) => unknown;
-}
+// interface SlottingWSEventMap {
+//     'event:match-changed': (data: { tid: number, matchid: string }) => unknown;
+//     'event:user-slotted': (data: { tid: number, matchid: string, slot: string, user: User }) => unknown;
+//     'event:user-unslotted': (data: { tid: number, matchid: string, slot: string }) => unknown;
+// }
 
 class WebSocketService {
     private store: Store<State>;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     private socket: any;
     // private socket: Socket<SlottingWSEventMap>;
 

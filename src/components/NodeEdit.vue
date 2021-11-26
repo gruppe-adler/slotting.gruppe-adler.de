@@ -37,7 +37,7 @@
 <script lang="ts">
 import { Prop } from 'vue-property-decorator';
 import { Options, Vue } from 'vue-class-component';
-import { Company, Match } from '@/models';
+import { Company } from '@/models';
 import NatoSymbolSelectorVue from './NatoSymbolSelector.vue';
 
 @Options({

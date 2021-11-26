@@ -41,6 +41,7 @@ const ALLOWED_FIELDS = new Map<string, string[]>([
     ['slot', ['description', 'shortcode', 'uuid', 'reserved-for', 'min-slotted-player-count']]
 ]);
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function jsonToXML (obj: { [x: string]: any; }, tag: string, spaces = 0): string {
     const allowedFields = ALLOWED_FIELDS.get(tag) ?? [];
 

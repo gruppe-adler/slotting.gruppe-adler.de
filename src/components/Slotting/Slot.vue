@@ -28,16 +28,6 @@ import { Options, Vue } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import AvatarVue from '@/components/Avatar.vue';
 
-function getHue (str: string) {
-    var hash = 0;
-    if (str.length === 0) return hash;
-    for (var i = 0; i < str.length; i++) {
-        hash = str.charCodeAt(i) + ((hash << 5) - hash);
-        hash = hash & hash;
-    }
-    return hash % 360;
-}
-
 @Options({
     components: {
         Avatar: AvatarVue

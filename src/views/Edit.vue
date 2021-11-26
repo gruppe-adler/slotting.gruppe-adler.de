@@ -85,7 +85,7 @@ export default class EditView extends Vue {
         this.$router.push({ path: '/slotting', query: { tid: getTopicID() } });
     }
 
-    public updated () {
+    public updated (): void {
         if (this.match === null || this.$refs.slots === null) return;
 
         const slotsContainer = this.$refs.slots as NodeVue;
@@ -97,14 +97,6 @@ export default class EditView extends Vue {
                 new Sortable(wrapper, { group: field, animation: 150 });
             }
         }
-    }
-
-    private deleteNode (data:any) {
-        console.log(data);
-    }
-
-    private cloneNode (data:any) {
-        console.log(data);
     }
 }
 </script>

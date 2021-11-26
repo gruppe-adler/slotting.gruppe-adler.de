@@ -5,6 +5,8 @@
 </template>
 
 <style lang="scss" scoped>
+@use "sass:math";
+
 $offset: 187;
 $duration: 1.4s;
 $timeout: .5s;
@@ -40,7 +42,7 @@ circle {
         stroke-dashoffset: $offset;
     }
     50% {
-        stroke-dashoffset: $offset/4;
+        stroke-dashoffset: math.div($offset, 4);
         transform: rotate(135deg);
     }
     100% {
