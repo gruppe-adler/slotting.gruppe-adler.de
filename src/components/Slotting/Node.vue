@@ -5,6 +5,7 @@
                 <img :src="`/natosymbols/${model.natosymbol}.svg`" class="group__symbol">
             </Tooltip>
             <span class="group__callsign" v-if="model.callsign">{{ model.callsign }}</span>
+            <span v-if="model.frequency !== undefined" style="font-size: .75rem; display: flex; align-items: center; justify-content: center;">{{ model.frequency }}<br>MHz</span>
         </NodeEdit>
         <ul v-if="editMode && field || model.slot && model.slot.length > 0" class="group-wrapper group-wrapper--slot">
                 <Slot

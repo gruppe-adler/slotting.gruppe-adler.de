@@ -5,6 +5,7 @@ export default interface Squad extends FireTeam {
     natosymbol: NatoSymbol;
     side: Side;
     vehicletype: VehicleType;
+    frequency?: number;
     fireteam: FireTeam[];
     slot: Slot[];
 }
