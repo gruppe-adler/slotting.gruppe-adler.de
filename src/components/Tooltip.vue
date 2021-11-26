@@ -76,7 +76,6 @@ export default class TooltipVue extends Vue {
     &:hover #{&}__text {
         color: rgba(255,255,255,1);
         transform: scale(1);
-        font-weight: 500;
         background-color: rgba(black, 0.85);
     }
     &:hover > &__text,

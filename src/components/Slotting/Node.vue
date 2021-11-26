@@ -2,9 +2,7 @@
     <li :style="sideColorCSS">
         <NodeEdit :model="model" :editMode="editMode" v-if="model.uuid === undefined" @delete="$emit('delete')" @clone="$emit('clone')">
             <Tooltip :text="model.vehicletype" v-if="(model.natosymbol || model.vehicletype)" style="grid-column: 1">
-                <div class="group__symbolContainer">
-                    <img :src="`/natosymbols/${model.natosymbol}.svg`" class="group__symbol">
-                </div>
+                <img :src="`/natosymbols/${model.natosymbol}.svg`" class="group__symbol">
             </Tooltip>
             <span class="group__callsign" v-if="model.callsign">{{ model.callsign }}</span>
         </NodeEdit>
@@ -199,22 +197,8 @@ export default class NodeVue extends Vue {
     &__symbol {
         block-size: 1.75rem;
         inline-size: 1.75rem;
-        cursor: pointer;
         opacity: 0.7;
     }
-
-    &__symbol:hover {
-        opacity: 1;
-    }
-
-    &__symbolContainer {
-        padding: 4px 8px 0 8px;
-        border-radius: 100px;
-    };
-
-    &__symbolContainer:hover {
-        background: rgba(0,0,0,0.1);
-    };
 
     &__callsign {
         font-weight: bold;
