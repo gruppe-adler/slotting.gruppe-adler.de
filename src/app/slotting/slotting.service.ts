@@ -3,6 +3,10 @@ import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import * as io from 'socket.io-client';
 
+interface User {
+  uid: string
+}
+
 @Injectable()
 export class SlottingService implements OnDestroy {
   public matches: any[];
@@ -239,15 +243,25 @@ export class SlottingService implements OnDestroy {
     }
   }
 
+  private async getFromApi(uri: string): Promise<any> {
+    return (await this.http.get(environment.api.forumUrl + '/api' + uri, {withCredentials: true}).toPromise());
+  }
+
   public async getOwnUserId(): Promise<string> {
     try {
       const result = await this.http.get(environment.api.forumUrl + '/api/me', {withCredentials: true}).toPromise();
       if (result['uid']) {
         return result['uid'];
       }
+      if (typeof result === 'string') { // expecting another api uri where the actual user data sits behind
+        const user = await this.getFromApi(result) as User;
+
+        return user.uid;
+      }
+      console.warn('unexpected return value from user API : ', result);
       return '';
     } catch (e) {
-      console.log(e);
+      console.error(e);
       return '';
     }
   }
